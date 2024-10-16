@@ -25,9 +25,16 @@ def fetch_anime_page(page_number):
 
     if response.status_code == 200:
         anime_data = response.json()
-        
+        anime_data = anime_data['data']
 
-        return anime_data['data']  # Returns anime data for the current page
+        # Filter out entries that don't have a valid title
+        anime_data = [x for x in anime_data if x.get('title')]
+
+        # Normalize titles by stripping whitespace and converting to lowercase for consistent sorting
+        anime_data = sorted(anime_data, key=lambda x: x['title'].strip().lower())
+
+
+        return anime_data  # Returns anime data for the current page
     else:
         return None
 
