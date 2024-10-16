@@ -44,34 +44,23 @@ def index():
 # page to search for all anime using filters
 @app.route('/all', methods=['GET', 'POST'])
 def all():
-    anime_name = None
-    anime_results = None
-    sort_by = 'all'  # Default value if no sorting is applied
+    allanime_results = []  # Initialize an empty list to hold anime data
 
-    if request.method == 'POST':
-        anime_name = request.form['anime_name']  # Get the anime name from the form
-        sort_by = request.form.get('sort_by', 'all')  # Get the sorting option, default to 'all'
 
-        # API URL for anime search by name
-        api_url_anime = f"https://api.jikan.moe/v4/anime?q={anime_name}"
-        # mit diesem command kann man schauen was es alles für kathegorien gibt für den anime x: https://api.jikan.moe/v4/anime?q=naruto
-        
-        # Make the GET request to fetch the anime data
-        response = requests.get(api_url_anime)
+    # API URL for all anime
+    api_url_allanime = f"https://api.jikan.moe/v4/anime"
+    
+    # Make the GET request to fetch the anime data
+    response = requests.get(api_url_allanime)
+    if response.status_code == 200:
+        allanime_data = response.json()
+        allanime_results = allanime_data['data']  # Contains all anime results
+        print(allanime_data)
 
-        if response.status_code == 200:
-            anime_data = response.json()
-            anime_results = anime_data['data']  # Contains all anime results
 
-            # Apply sorting based on 'sort_by'
-            if sort_by == 'series':
-                anime_results = [anime for anime in anime_results if anime['type'] == 'TV']
-            elif sort_by == 'movies':
-                anime_results = [anime for anime in anime_results if anime['type'] == 'Movie']
-        else:
-            anime_results = []  # Set to an empty list if the request fails
+    # Pass the results to the template
+    return render_template("all.html", allanime_results=allanime_results)
 
-    return render_template("all.html", anime_name=anime_name, anime_results=anime_results)
 
 
 # with each individual anime you hae the possibility to click 2 different buttons:
