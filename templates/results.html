@@ -14,6 +14,11 @@
             <option>Genre</option>
         </select>
     </form>
+    {% for anime in anime_results %}
+        <div>
+            <h3>{{anime['title']}}</h3>
+        </div>
+    {% endfor %}
 
 
 </body>
