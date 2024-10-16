@@ -8,19 +8,22 @@
     <form method="POST" action="/">
         <input type="text" name="searchbar" placeholder="anime name here">
         <button type="submit">Search</button>
-        <br>
-        <br>
+        <br><br>
+        <!-- Button for viewing all anime -->
+        <button type="submit" name="view_all" value="true">View All</button>
+        <br><br>
         <select>
             <option>Genre</option>
         </select>
     </form>
-    {% for anime in anime_results %}
-        <div>
-            <h3>{{anime['title']}}</h3>
-        </div>
-    {% endfor %}
 
-
+    {% if anime_results %}
+        <ul>
+            {% for anime in anime_results %}
+                <li>{{ anime['title'] }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </body>
 
 </html>

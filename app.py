@@ -24,17 +24,23 @@ def search():
             return "Error fetching data from API", 500
 
     # falls nichts in die searchbar submittt wurde...
-    else:  
-        api_all = f"https://api.jikan.moe/v4/anime"
-        response_all = requests.get(api_all)
+    else: 
+        anime_all = request.form.get('view_all')
+        if anime_all:
+            api_all = f"https://api.jikan.moe/v4/anime"
+            response_all = requests.get(api_all)
 
-        if response_all.status_code == 200:
-            anime_data = response_all.json()  # Parse JSON response
-            anime_results = anime_data['data']  # enthält alle anime überhaupt
-            print(anime_results[2]['title'])
-            return render_template('results.html', anime_results=anime_results)
-        else:
-            return "Error fetching data from API", 500
+            if response_all.status_code == 200:
+                anime_data = response_all.json()  # Parse JSON response
+                anime_results = anime_data['data']  # enthält alle anime überhaupt
+                print(anime_results[2]['title'])
+                return render_template('results.html', anime_results=anime_results)
+            else:
+                return "Error fetching data from API", 500
+
+    # Default rendering if no form action is performed
+    return render_template('results.html', anime_results=anime_results)
+
             
 
 if __name__ == '__main__':
