@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime List</title>
+</head>
+<body>
+    <h1>Anime List - Page {{ current_page }}</h1>
+    <div>
+        <ul>
+            {% for anime in anime_data %}
+                <li>
+                    <h2>{{ anime['title'] }}</h2>
+                    <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}" width="150">
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <!-- Pagination buttons -->
+        {% if current_page > 1 %}
+            <a href="/?page={{ current_page - 1 }}">Previous</a>
+        {% endif %}
+        <a href="/?page={{ current_page + 1 }}">Next</a>
+    </div>
+</body>
+</html>
