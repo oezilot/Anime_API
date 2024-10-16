@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime-List</title>
+</head>
+
+<body>
+    <h1>Anime-List</h1>
+    <h2>Search Anime by Name:</h2>
+    
+    <!-- Ensure that the form uses the correct action and method -->
+    <form method="POST" action="/">
+        <input name="anime_name" type="text" value="{{anime_name if anime_name else ''}}" placeholder="Naruto, ..." required>
+        <button type="submit">Search</button>
+    </form>
+    <br>
+    <form class="filter-buttons">
+        <button>View All</button>
+        <button>Series</button>
+        <button>Movies</button>
+
+        <label for="genre"></label>
+        <select>
+            <option value="">Genre</option> <!-- Default option with empty value -->
+            <option >Fantasy</option>
+            <option >Drama</option>
+        </select>
+
+    </form>
+    <br>
+
+    <!-- Check if anime_results is available before looping -->
+    {% if anime_results %}
+        {% for anime in anime_results %}
+            <div class="anime-card">
+                Title: {{ anime['title'] }} 
+                <br>
+                <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}">
+            </div> 
+            <br>
+        {% endfor %}
+    {% else %}
+        <p>No results found or no search has been made yet.</p>
+    {% endif %}
+</body>
+
+</html>

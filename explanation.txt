@@ -1,0 +1,18 @@
+View Documentation:
+- https://docs.api.jikan.moe/#tag/anime/operation/getAnimeSearch 
+
+Here i explain how i work with the API:
+
+With links like these you can access data from the browser
+Anime:
+- https://api.jikan.moe/v4/anime/{id}
+Characters:
+- https://api.jikan.moe/v4/anime/{id}/characters
+Episodes:
+- https://api.jikan.moe/v4/anime/{id}/episodes
+...and many more
+
+--> you need to provide the id for the anime name. for example naruto has the id 23
+
+If i want only some information from one of the datasets edit the request like this:
+- 
