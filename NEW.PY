@@ -7,12 +7,18 @@ def submit():
     if request.method == 'POST':
         if request.form['filters'] == 'filter1':
             # Get the value from the input field
-            anime_name = request.form.get('anime_search', '')
+            anime_name = request.form.get('search_value', '')
             return f"You searched for: {anime_name}"
+        
+        # falls der view_all button gedrückt wurde dann kommen alle animes! (in seperaten schriten)
         elif request.form['filters'] == 'filter2':
             return "Button 2 was clicked!"
+        
+        
         elif request.form['filters'] == 'filter3':
             return "Button 3 was clicked!"
+        
+        
         else:
             return "Unknown button"
     
