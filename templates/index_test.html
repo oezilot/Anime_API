@@ -24,12 +24,14 @@
         <button type="submit" name="sort_by" value="movies">Movies</button>
 
         <!-- Optional: Dropdown for Genre Selection -->
-        <label for="genre"></label>
+        <label for="genre">Select Genre:</label>
         <select name="genre">
-            <option value="">Genre</option> <!-- Default option with empty value -->
-            <option>Fantasy</option>
-            <option>Drama</option>
+            <option value="">All</option> <!-- Default option with empty value -->
+            {% for genre in genres %}
+                <option value="{{ genre }}">{{ genre }}</option>
+            {% endfor %}
         </select>
+
     </form>
     <br>
 
