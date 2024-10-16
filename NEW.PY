@@ -20,7 +20,7 @@ app = Flask(__name__)
 
 # allgemeine funktion um eine page mit pagenumber page zu fetchen
 def fetch_anime_page(page_number):
-    api_url = f"https://api.jikan.moe/v4/anime?page={page_number}"
+    api_url = f"https://api.jikan.moe/v4/anime?page={page_number}&sort=asc"
     response = requests.get(api_url)
 
     if response.status_code == 200:
