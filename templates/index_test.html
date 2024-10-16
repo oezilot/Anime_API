@@ -15,20 +15,21 @@
     <form method="POST" action="/">
         <input name="anime_name" type="text" value="{{anime_name if anime_name else ''}}" placeholder="Naruto, ..." required>
         <button type="submit">Search</button>
-    </form>
-    <br>
-    <form class="filter-buttons">
-        <button>View All</button>
-        <button>Series</button>
-        <button>Movies</button>
+        <br>
+        <br>
 
+        <!-- Sorting Buttons -->
+        <button type="submit" name="sort_by" value="all">View All</button>
+        <button type="submit" name="sort_by" value="series">Series</button>
+        <button type="submit" name="sort_by" value="movies">Movies</button>
+
+        <!-- Optional: Dropdown for Genre Selection -->
         <label for="genre"></label>
-        <select>
+        <select name="genre">
             <option value="">Genre</option> <!-- Default option with empty value -->
-            <option >Fantasy</option>
-            <option >Drama</option>
+            <option>Fantasy</option>
+            <option>Drama</option>
         </select>
-
     </form>
     <br>
 
@@ -39,7 +40,15 @@
                 Title: {{ anime['title'] }} 
                 <br>
                 <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}">
-            </div> 
+                <br>
+                Type: {{ anime['type']}}
+                <br>
+                Year: {{ anime['year']}}
+                <br>
+                <!-- genres is a list of genres so i have to loop over it to display all genres for each anime -->
+                {% for genre in anime['genres'] %}
+                    Genre: {{ genre['name'] }}{% if not loop.last %}, {% endif %}
+                {% endfor %}            </div> 
             <br>
         {% endfor %}
     {% else %}
