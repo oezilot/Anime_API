@@ -74,7 +74,15 @@ def all():
     return render_template("all.html", anime_name=anime_name, anime_results=anime_results)
 
 
+# with each individual anime you hae the possibility to click 2 different buttons:
+# - view anime details
+# - view character list
 
+# page route for each individual anime
+# functions: anime auf watchliste hinzufügen/entfernen, steckbrief
+
+# page route for characters of each individual anime
+# actions: view all characters and their steckbrief
 
 
 if __name__ == '__main__':
