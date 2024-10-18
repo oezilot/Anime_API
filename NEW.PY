@@ -19,9 +19,14 @@ app = Flask(__name__)
 # display the first page of all all animes url
 
 # allgemeine funktion um eine page mit pagenumber page zu fetchen
-def fetch_anime_page(page_number):
-    api_url = f"https://api.jikan.moe/v4/anime?page={page_number}&sort=asc"
+def fetch_anime_page(page_number, anime_type):
+    api_url = f"https://api.jikan.moe/v4/anime?page={page_number}"
+
+    if anime_type:
+        api_url = f"https://api.jikan.moe/v4/anime?page={page_number}&type={anime_type}"
+
     response = requests.get(api_url)
+
 
     if response.status_code == 200:
         anime_data = response.json()
@@ -43,12 +48,16 @@ def fetch_anime_page(page_number):
 def display_anime():
     # Get the page number from the form, default to 1 if not provided
     page_number = int(request.args.get('page', 1))
+    anime_type = None
+
+    if request.method == "POST":
+        anime_type = request.form.get('anime_type')
     
     # Fetch the anime data for the given page number
-    anime_data = fetch_anime_page(page_number)
+    anime_data = fetch_anime_page(page_number, anime_type)
 
     # Render the results template, passing the anime data and current page
-    return render_template('NEW.html', anime_data=anime_data, current_page=page_number)
+    return render_template('NEW.html', anime_data=anime_data, current_page=page_number, anime_type=anime_type)
 
 
 

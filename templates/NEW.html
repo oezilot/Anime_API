@@ -7,11 +7,21 @@
 </head>
 <body>
     <h1>Anime List - Page {{ current_page }}</h1>
+    <form method="POST" action="/">
+        <label>Type</label>
+        <select name="anime_type">
+            <option value="" selected>All</option>
+            <option value="tv" {% if selected %} anime_type=value {% endif %}>TV</option>
+            <option value="movie">Movie</option>
+        </select>
+        <input type="submit">
+    </form>
     <div>
         <ul>
             {% for anime in anime_data %}
                 <li>
                     <h2>{{ anime['title'] }}</h2>
+                    <p>Type: {{ anime['type'] }}</p>
                     <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}" width="150">
                 </li>
             {% endfor %}

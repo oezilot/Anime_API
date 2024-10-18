@@ -27,7 +27,6 @@ def fetch_all(page_number, anime_type=None):
 # print(fetch_all(1))
 
 
-
 # route to display all anime on the page 1
 @app.route('/', methods=['GET', 'POST'])
 def all_anime():
