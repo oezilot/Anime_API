@@ -27,13 +27,13 @@
             {% endfor %}
         </ul>
     </div>
-
+    <!--hier werden die url's zurückgegeben mit gewissen parametern-->
     <div>
-        <!-- Pagination buttons -->
         {% if current_page > 1 %}
-            <a href="/?page={{ current_page - 1 }}">Previous</a>
+            <a href="/?page={{ current_page - 1 }}&type={{ selected_type }}">Previous</a>
         {% endif %}
-        <a href="/?page={{ current_page + 1 }}">Next</a>
+        <a href="/?page={{ current_page + 1 }}&type={{ selected_type }}">Next</a>
     </div>
+
 </body>
 </html>
