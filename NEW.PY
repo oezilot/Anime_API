@@ -61,7 +61,7 @@ def pageDec():
 @app.route('/addParam', methods=['POST'])
 def addParam():
     key = "type" ##request.form.get('key')
-    value = "tv"#request.form.get('key')
+    value = request.form.get('key')
     params = session.get('params', {})
     params[key] = value
     session['params'] = params
