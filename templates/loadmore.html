@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime List</title>
-</head>
+<html>
+<head></head>
+
 <body>
     <h1>All Anime in Pages</h1>
-    <p>Choose Your Parameters (Filters)</p>
+    <p>Choose Your Paramters(=Filters)</p>
     
-    <!-- Form to select the anime type, using GET method -->
-    <form method="GET" action="/">
+    <form method="POST" action="/">
         <label>Type:</label>
         <br>
         <select name="type">
@@ -24,36 +20,42 @@
         </select>
         <br>
         <button type="submit">Apply Filter</button>
-    </form>
 
-    <h2>Page {{ page_number }}</h2>
-
-    <!-- Display anime data from the selected page and filter -->
+    <h2>Page {{page_number}} </h2>
+    <!--display all anime from a single page x here-->
+    <!--for each anime only its title, genre, picture, year, type are displayed-->
     <div>
         {% for anime in data %}
-            <p>Title: {{ anime['title'] }}</p>
-            <p>Type: {{ anime['type'] }}</p>
-            <p>Genre:
-                {% for genre in anime['genres'] %}
-                    {{ genre['name'] }}{% if not loop.last %}, {% endif %}
-                {% endfor %}
-            </p>
-            <p>Year: {{ anime['aired']['prop']['from']['year'] }}</p>
-            <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}" width="150">
-            <br><br>
+            Title: {{ anime['title'] }}
+            <br>
+            Type: {{ anime['type'] }}
+            <br>
+            Genre: 
+            {% for genre in anime['genres'] %}
+                {{ genre['name'] }},
+            {% endfor %}
+            <br>
+            Year: {{ anime['aired']['prop']['from']['year'] }}
+            <br>
+            <img src="{{ anime['images']['jpg']['image_url'] }}">
+            <br>
+            <br>
         {% endfor %}
+        <br>
     </div>
-
-    <!-- Pagination buttons with query parameters for page and type -->
-    <form method="GET" action="/">
-        <!-- Maintain the selected type and page when navigating -->
-        <input type="hidden" name="type" value="{{ selected_type }}">
-        
+    <form method="POST" action="/?page={{ page_number }}">
+        <!--das was beim action steht wird zum python geschickt und das was beim render_template steht wird zum html geschickt!-->
         {% if page_number > 1 %}
-        <button name="page" value="{{ page_number - 1 }}">Previous</button>
+        <button name="navigation" value="previous">
+            Previous
+        </button>
         {% endif %}
-        
-        <button name="page" value="{{ page_number + 1 }}">Next</button>
+        {% if page_number < 1101 %}
+        <button name="navigation" value="next">
+            Next
+        </button>
+        {% endif %}
     </form>
 </body>
+
 </html>

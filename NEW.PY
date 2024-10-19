@@ -1,11 +1,3 @@
-# probleme: 
-# - wenn ein parameter gewählt wird dann wird es wieder refreshed bei jedem pagewechsel
-# - momentaner api in der url anzeigen (allg. dynamischer url je nach parameter)
-# - sortieren
-
-
-
-
 # api-url für alle animes: https://api.jikan.moe/v4/anime
 ''' alle verschiedenen urls die ich brauche:
 - alle animes: https://api.jikan.moe/v4/anime?sort=asc
@@ -31,7 +23,7 @@ def fetch_anime_page(page_number, anime_type):
     api_url = f"https://api.jikan.moe/v4/anime?page={page_number}"
 
     if anime_type:
-        api_url += f"&type={anime_type}"
+        api_url = f"https://api.jikan.moe/v4/anime?page={page_number}&type={anime_type}"
 
     response = requests.get(api_url)
 
