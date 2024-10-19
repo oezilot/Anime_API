@@ -6,20 +6,6 @@ app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'default_fallback_key')  # Ensure you set SECRET_KEY in your environment variables
 
 
-class AnimeType:
-    TV = "tv"
-    MOVIE = "movie"
-    OVA = "ova"
-    SPECIAL = "special"
-    ONA = "ona"
-    MUSIC = "music"
-    CM = "cm"
-    PV = "pv"
-    TV_SPECIAL = "tv_special"
-
-page_number = 1
-params = {}
-
 def queryUrlBuilder(pageNumber, params_):
     queryUrl = f"https://api.jikan.moe/v4/anime?page={pageNumber}"
     for key in params_:
@@ -65,12 +51,17 @@ def addParam():
     params = session.get('params', {})
     params[key] = value
     session['params'] = params
+    return redirect('/resetPage')
+
+@app.route('/resetPage')
+def resetPage():
+    session['page_number'] = 1
     return redirect('/')
 
 @app.route('/')
 def display():
     data = fetchData()
-    return render_template('NEW.html', data=data, page_number=page_number, params = params)
+    return render_template('NEW.html', data=data, page_number=session['page_number'], params = session['params'])
 
 if __name__ == '__main__':
     app.run(debug=True)

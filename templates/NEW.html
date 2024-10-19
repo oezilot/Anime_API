@@ -12,9 +12,11 @@
     <form method="POST" action="/addParam">
         <label>Type</label>
         <select name="key">
-            <option value="" {% if anime_type == None %} selected {% endif %}>All</option>
-            <option value="tv" {% if anime_type == 'tv' %} selected {% endif %}>TV</option>
-            <option value="movie" {% if anime_type == 'movie' %} selected {% endif %}>Movie</option>
+            <option value="">All</option>
+            <option value="tv">TV</option>
+            <option value="movie">Movie</option>
+            <option value="ova">OVA</option>
+            <option value="music">Music</option>
         </select>
         <input type="submit" value="Apply Filter">
     </form>
