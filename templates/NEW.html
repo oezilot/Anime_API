@@ -6,12 +6,12 @@
     <title>Anime List</title>
 </head>
 <body>
-    <h1>Anime List - Page {{ page_number }}</h1>
+    <h1>Anime List - Page {{ session.get("page_number") }}</h1>
 
     <!-- Form for filtering anime by type -->
-    <form method="POST" action="/?type={{ anime_type }}">
+    <form method="POST" action="/addParam">
         <label>Type</label>
-        <select name="anime_type">
+        <select name="key">
             <option value="" {% if anime_type == None %} selected {% endif %}>All</option>
             <option value="tv" {% if anime_type == 'tv' %} selected {% endif %}>TV</option>
             <option value="movie" {% if anime_type == 'movie' %} selected {% endif %}>Movie</option>
@@ -22,7 +22,7 @@
     <!-- Display anime data -->
     <div>
         <ul>
-            {% for anime in anime_data %}
+            {% for anime in data %}
                 <li>
                     <h2>{{ anime['title'] }}</h2>
                     <p>Type: {{ anime['type'] }}</p>
@@ -33,14 +33,11 @@
     </div>
 
     <!-- Pagination buttons with POST form -->
-    <form method="POST" action="/?page={{ page_number }}&type={{ anime_type }}">
-        <!-- Previous and Next buttons with type filtering -->
-        {% if page_number > 1 %}
-            <button name="navigation_buttons" value="previous">Previous</button>
-        {% endif %}
-        {% if page_number < 1101 %}
-            <button name="navigation_buttons" value="next">Next</button>
-        {% endif %}
+    <form method="POST" action="/inc">
+        <button name="navigation_buttons" value="next">Next</button>
+    </form>
+    <form method="POST" action="/dec">
+        <button name="navigation_buttons" value="previous">Previous</button>
     </form>
 </body>
 </html>

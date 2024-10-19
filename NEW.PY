@@ -1,56 +1,76 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, session
 import requests
+import os
 
 app = Flask(__name__)
+app.secret_key = os.environ.get('SECRET_KEY', 'default_fallback_key')  # Ensure you set SECRET_KEY in your environment variables
 
-# Function to fetch anime data for a specific page and type filter
-def fetch_anime_page(page_number, anime_type):
-    # Base API URL for fetching anime data
-    api_url = f"https://api.jikan.moe/v4/anime?page={page_number}"
 
-    # Append type filter to the URL if one is selected
-    if anime_type:
-        api_url += f"&type={anime_type}"
+class AnimeType:
+    TV = "tv"
+    MOVIE = "movie"
+    OVA = "ova"
+    SPECIAL = "special"
+    ONA = "ona"
+    MUSIC = "music"
+    CM = "cm"
+    PV = "pv"
+    TV_SPECIAL = "tv_special"
 
-    # Fetch the data from the API
-    response = requests.get(api_url)
+page_number = 1
+params = {}
 
-    # Check if the request was successful
+def queryUrlBuilder(pageNumber, params_):
+    queryUrl = f"https://api.jikan.moe/v4/anime?page={pageNumber}"
+    for key in params_:
+        queryUrl += f"&{key}={params_[key]}"
+    return queryUrl
+
+def fetchData():
+    page_number = session.get('page_number', 1)
+    params = session.get('params', {})
+    # TODO Validate parameters before using them
+    print("************************************")
+    print("************************************")
+    print(queryUrlBuilder(page_number, params))
+    print("************************************")
+    print("************************************")
+
+    response = requests.get(queryUrlBuilder(page_number, params))
     if response.status_code == 200:
-        anime_data = response.json()
-        return anime_data['data']  # Return the anime data
+        data = response.json()
+        return data['data']
     else:
         return None
 
-# Route to display anime list with pagination and filtering (via POST)
-@app.route('/', methods=['GET', 'POST'])
-def display_anime():
-    # Default page number is 1
-    page_number = int(request.args.get('page', 1))
+@app.route('/inc', methods=['POST'])
+def pageInc():
+    page_number = session.get('page_number', 1)
+    page_number += 1
+    session['page_number'] = page_number
+    return redirect('/')
 
-    # Default anime type filter
-    anime_type = request.args.get('type', None)
+@app.route('/dec', methods=['POST'])
+def pageDec():
+    page_number = session.get('page_number', 1)
+    if page_number > 1:
+        page_number -= 1
+    session['page_number'] = page_number
+    return redirect('/')
 
-    # If the form is submitted (POST), update page number and filter
-    if request.method == "POST":
-        anime_type = request.form.get('anime_type')  # Get selected anime type
-        navigation_action = request.form.get('navigation_buttons')  # Get which button was clicked (Next/Previous)
+@app.route('/addParam', methods=['POST'])
+def addParam():
+    key = "type" ##request.form.get('key')
+    value = "tv"#request.form.get('key')
+    params = session.get('params', {})
+    params[key] = value
+    session['params'] = params
+    return redirect('/')
 
-        # Adjust the page number based on the button clicked
-        if navigation_action == 'previous':
-            page_number = page_number - 1
-        elif navigation_action == 'next':
-            page_number = page_number + 1
-
-        # Redirect to the same page with updated page number and type
-        return redirect(url_for('display_anime', page=page_number, type=anime_type))
-
-    # Fetch anime data for the current page and filter
-    anime_data = fetch_anime_page(page_number, anime_type)
-
-    # Render the template with anime data, current page, and selected filter
-    return render_template('NEW.html', anime_data=anime_data, page_number=page_number, anime_type=anime_type)
-
+@app.route('/')
+def display():
+    data = fetchData()
+    return render_template('NEW.html', data=data, page_number=page_number, params = params)
 
 if __name__ == '__main__':
     app.run(debug=True)
