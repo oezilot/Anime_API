@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .anime-item {
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .pagination button {
+            padding: 10px 15px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Anime Search</h1>
+    
+    <!-- Dropdown for anime type -->
+    <form method="GET" action="/">
+        <label for="anime_type">Filter by type:</label>
+        <select name="anime_type" id="anime_type">
+            <option value="">All</option>
+            <option value="tv" {% if anime_type == 'tv' %}selected{% endif %}>TV</option>
+            <option value="movie" {% if anime_type == 'movie' %}selected{% endif %}>Movie</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <!-- Anime results -->
+    <div class="anime-grid">
+        {% for anime in anime_list %}
+        <div class="anime-item">
+            <img src="{{ anime.images.jpg.image_url }}" alt="{{ anime.title }}">
+            <h3>{{ anime.title }}</h3>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination buttons -->
+    <div class="pagination">
+        {% if pagination.current_page > 1 %}
+            <a href="/?page={{ pagination.current_page - 1 }}&anime_type={{ anime_type }}">
+                <button>Previous</button>
+            </a>
+        {% endif %}
+        
+        <span>Page {{ pagination.current_page }} of {{ pagination.last_visible_page }}</span>
+        
+        {% if pagination.current_page < pagination.last_visible_page %}
+            <a href="/?page={{ pagination.current_page + 1 }}&anime_type={{ anime_type }}">
+                <button>Next</button>
+            </a>
+        {% endif %}
+    </div>
+</body>
+</html>

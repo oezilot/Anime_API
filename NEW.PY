@@ -43,7 +43,7 @@ def display_anime():
             page_number = page_number + 1
 
         # Redirect to the same page with updated page number and type
-        return redirect(url_for('display_anime', page=page_number, anime_type=anime_type))  # Fixed the key here
+        return redirect(url_for('display_anime', page=page_number, type=anime_type))
 
     # Fetch anime data for the current page and filter
     anime_data = fetch_anime_page(page_number, anime_type)
