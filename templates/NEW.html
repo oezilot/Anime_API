@@ -6,7 +6,7 @@
     <title>Anime List</title>
 </head>
 <body>
-    <h1>Anime List - Page {{ current_page }}</h1>
+    <h1>Anime List - Page {{ page_number }}</h1>
     <form method="POST" action="/">
         <label>Type</label>
         <select name="anime_type">
@@ -28,12 +28,18 @@
         </ul>
     </div>
 
-    <div>
-        <!-- Pagination buttons -->
-        {% if current_page > 1 %}
-            <a href="/?page={{ current_page - 1 }}">Previous</a>
+    <form method="POST" action="/?page={{ page_number }}">
+        <!--das was beim action steht wird zum python geschickt und das was beim render_template steht wird zum html geschickt!-->
+        {% if page_number > 1 %}
+        <button name="navigation_buttons" value="previous">
+            Previous
+        </button>
         {% endif %}
-        <a href="/?page={{ current_page + 1 }}">Next</a>
-    </div>
+        {% if page_number < 1101 %}
+        <button name="navigation_buttons" value="next">
+            Next
+        </button>
+        {% endif %}
+    </form>
 </body>
 </html>
