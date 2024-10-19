@@ -35,9 +35,9 @@ def fetch_anime_page(page_number, anime_type):
 def display_anime():
 
     # page herausfinden auf der man sich gerade befindet, per default ist es 1
-    page_number = int(request.args.get('page', 1))
+    page_number = int(request.args.get('page', 1)) # 'page' bezieht sich auf den url page={...}
     # per default ist der anime_type nicht spezifiziert
-    anime_type = None
+    anime_type = request.args.get('type', None)
 
     # falls der anime-type-paramter geändert worden ist wird dieser angenommen
     if request.method == "POST":
