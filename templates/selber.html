@@ -10,7 +10,7 @@
         </form>
     </div>
 
-    <form method="POST" action="/addParam" name="parameter">
+    <form method="POST" action="/parameters" name="parameter">
         <label>Type</label>
         <select name="parameter1">
             <option value="">All</option>
@@ -19,13 +19,15 @@
             <option value="ova">OVA</option>
             <option value="music">Music</option>
         </select>
-        <input type="submit" value="Apply Filter">
 
-        <label>Genre</label>
+        <label>Status</label>
         <select name="parameter2">
-            <option value="">Romance</option>
-            <option value="tv">Action</option>
+            <option value="">All</option>
+            <option value="airing">Airing</option>
+            <option value="completed">Completed</option>
+            <option value="upcoming">Upcoming</option>
         </select>
+
         <input type="submit" value="Apply Filter">
     </form>
 

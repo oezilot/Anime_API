@@ -59,8 +59,8 @@ def dec():
 def parameters():
 
     # für jeden verschiedenen parameter die ins form gesendeten daten nehmen (type, genre, etc.)
-    parameter1 = request.form.get('type')  # "type" steht für den namen des selectors in der form
-    parameter2 = request.form.get('status')  
+    parameter1 = request.form.get('parameter1')  # "type" steht für den namen des selectors in der form
+    parameter2 = request.form.get('parameter2')  
     
     # Get the existing parameters in the session, or initialize an empty dictionary
     params = session.get('params', {})
