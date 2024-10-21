@@ -32,8 +32,10 @@ def fetchData():
     # daten in einer vaiable speichern 
     if response.status_code == 200:
         data = response.json()
-        return data['data']
+        print(data)  # Print the full response to debug
+        return data.get('data', [])  # Use .get() to safely access 'data'
     else:
+        print(f"Error fetching data: {response.status_code}")
         return None
 
 # ??? why a seperate route for that ???
