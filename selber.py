@@ -1,50 +1,17 @@
-'''
-Why do i need sessions?
-- if i need the same data stored in a variable for multiple requests throughout different routes etc. i can store that information in a session(ex.: login data, ...)
-- for global variables i can use g or sessions
 
-mein plan:
-
-ein dictionary definieren mit 2 informationen über den state
-- pagenumber
-- parameters from the filter
---> based on these infos the url is created!
-
-urlBuilder(page_number, params)
-    url = anime_url
-    return url
-
-
-fetchAnimeData():
-    fetch data depending on the api_url
-    data = ...
-    return data
-
-
-app.route
-displayData():
-    which data will be displayed?
-    renturn render_template(html)
-
-
-def forward
-
-def backwards
-'''
-
-from flask import Flask, render_template, request, url_for, redirect, session, g
+from flask import Flask, render_template, request, url_for, redirect, session
 import requests
 import os
 
 app = Flask(__name__)
 app.secret_key = '7ed2323092b13f8347245ecf314617c8a925236bd5c8f56f63c9ca8c479b2204'
 
-# this is for the test to see if it works!
-params = {
-    "title":"ranma",
-    "type":"tv"
-}
-page = 3
+# this is for the test to see if it works! ()
+# params = {
+#     "title":"ranma",
+#     "type":"tv"
+# }
+# page = 3
 
 # url-builder function
 def urlBuilder(page, params):
@@ -55,25 +22,73 @@ def urlBuilder(page, params):
 # print(urlBuilder(3, params))
 
 def fetchData():
-    # daten fetchen mit dem url des api
+    # params und page in einer session speichern!
+    page = session.get('page', 1)
+    params = session.get('params', {})
+
+    # daten fetchen mit dem url des api, jetzt setz man hier die werte für die page und params ein!
     response = requests.get(urlBuilder(page, params))
 
     # daten in einer vaiable speichern 
-    g.data = response.json()
-
     if response.status_code == 200:
         data = response.json()
         return data['data']
     else:
         return None
 
+# ??? why a seperate route for that ???
+@app.route('/inc', methods=['POST'])
+def inc():
+    page = session.get('page', 1)
+    page = page + 1
+    session['page'] = page
+    # hätte man das vereinfacht auch so darstellen können?
+    # session['page'] = session.get('page') + 1
+    # yes! und ob man das kann
+    return redirect('/')
+
+@app.route('/dec', methods=['POST'])
+def dec():
+    page = session.get('page', 1)  # Get the current page or default to 1
+    if page > 1:
+        session['page'] = page - 1
+    return redirect('/')
+
+# change parameters, which filters were clicked?
+@app.route('/parameters', methods=['POST'])
+def parameters():
+
+    # für jeden verschiedenen parameter die ins form gesendeten daten nehmen (type, genre, etc.)
+    parameter1 = request.form.get('type')  # "type" steht für den namen des selectors in der form
+    parameter2 = request.form.get('status')  
+    
+    # Get the existing parameters in the session, or initialize an empty dictionary
+    params = session.get('params', {})
+    
+    # Update the session params with the new values
+    params['type'] = parameter1  # Add/update the 'type' parameter
+    params['genre'] = parameter2  # Add/update the 'status' parameter
+
+    # Save the updated params back into the session
+    session['params'] = params
+
+    return redirect('/resetPage')
+
+@app.route('/resetPage')
+def resetPage():
+    session['page'] = 1
+    return redirect('/')
+
+# ??? why is the session information not stored in the session ???
 @app.route('/')
 def display():
     data = fetchData()
-    return render_template('selber.html', data=data, page=page)
 
+    # egentlich müsste das nicht nötig sein! ich mache es nur bis das problem aufgehoebn ist!
+    page = session.get('page', 1)
+    params = session.get('params', {})
 
-
+    return render_template('selber.html', data=data, page=page, params=params)
 
 
 if __name__ == '__main__':

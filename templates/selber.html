@@ -1,5 +1,34 @@
 <!DOCTYPE html>
 <body>
+    <!--navigation buttons-->
+    <div>
+        <form method="POST" action="/dec">
+            <button>previous</button>
+        </form>
+        <form method="POST" action="/inc">
+            <button>next</button>
+        </form>
+    </div>
+
+    <form method="POST" action="/addParam" name="parameter">
+        <label>Type</label>
+        <select name="parameter1">
+            <option value="">All</option>
+            <option value="tv">TV</option>
+            <option value="movie">Movie</option>
+            <option value="ova">OVA</option>
+            <option value="music">Music</option>
+        </select>
+        <input type="submit" value="Apply Filter">
+
+        <label>Genre</label>
+        <select name="parameter2">
+            <option value="">Romance</option>
+            <option value="tv">Action</option>
+        </select>
+        <input type="submit" value="Apply Filter">
+    </form>
+
     <h1>Animelist, Page {{ page }}</h1>
     {% for i in data %}
     <div>
