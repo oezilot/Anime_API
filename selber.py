@@ -90,6 +90,8 @@ def parameters():
     parameter1 = request.form.get('parameter1')  # "type" steht für den namen des selectors in der form
     parameter2 = request.form.get('parameter2')  
     parameter3 = request.form.get('parameter3')
+    parameter_title = request.form('parameter_title')
+    parameter_genre = request.form('parameter_genre')
     
     # Get the existing parameters in the session, or initialize an empty dictionary
     params = session.get('params', {})
@@ -98,6 +100,8 @@ def parameters():
     params['type'] = parameter1  # Add/update the 'type' parameter
     params['status'] = parameter2  # Add/update the 'status' parameter
     params['rating'] = parameter3
+    params['q'] = parameter_title
+    params['genres'] = paramter_genre
 
     # Save the updated params back into the session
     session['params'] = params
