@@ -1,32 +1,17 @@
-# diese FIlter brauche ich für die Anime-Suche:
-# type, genre, title(sucheingabe), stauts, rating, (oderby/sort alphabetically)
-
-# erweiterungen: beim reload wird session geleert!
-# fragen: muss man den parameter für die suchanfrage zuerst stellen, bevor man andere parameter dazunimmt? --> Antwort = NEIN die reihenfolge kommt nicht darauf an ! (gottseidank omg!)
-
 from flask import Flask, render_template, request, url_for, redirect, session
 import requests
-import os
 
 app = Flask(__name__)
-# falls es errors gibt dann mal den key hier ändern weil es sein kann dass es limite gibt für jeden app-key
 app.secret_key = '7ed2323092b13f8347245ecf314617c8a925236bd5c8f56f63c9ca8c479b2204'
 
-# this is for the test to see if it works! ()
-# params = {
-#     "title":"ranma",
-#     "type":"tv"
-# }
-# page = 3
 
-# url-builder function
 def urlBuilder(page, params):
     queryUrl = f"https://api.jikan.moe/v4/anime?page={page}"
     for param in params:
-        queryUrl = queryUrl + f"&{param}={params[param]}"
+        queryUrl += f"&{param}={params[param]}"
+    print(f"Final API URL: {queryUrl}")  # Debug print to check the URL
     return queryUrl
-    print(queryUrl)
-# print(urlBuilder(3, params))
+
 
 def fetchData():
     page = session.get('page', 1)
@@ -35,94 +20,90 @@ def fetchData():
     # API Request
     response = requests.get(urlBuilder(page, params))
 
-    # this prints out the response headers to look for issues
+    # Print response headers and status code for debugging
     print("Response Headers:", response.headers, flush=True)
+    print(f"Status Code: {response.status_code}", flush=True)
 
     if response.status_code == 200:
-        data = response.json()
-        data = data.get('data', [])
-        return data  # Successful request
+        try:
+            data = response.json()
+            # print(data)  # Print the full response for debugging
 
-    elif response.status_code == 429:
-        retry_after = response.headers.get('Retry-After', 'unknown')
-        print(f"Rate limit exceeded. Retry after {retry_after} seconds.")
-        time.sleep(int(retry_after))  # Wait before retrying
+            # Check if the data list is empty
+            if not data['data']:
+                return {"message": "No posts with your filters exist", "data": []}
+            
+            return {"message": "", "data": data.get('data', [])}  # Return message and data
 
-    elif response.status_code == 400:
-        print("Bad request. Please check your query.")
-
-    elif response.status_code == 404:
-        print("Resource not found. Double-check the URL or resource.")
-
-    elif response.status_code == 500:
-        print("Internal Server Error. Try again later or report the issue.")
-
-    elif response.status_code == 503:
-        print("Service is down for maintenance. Please try again later.")
+        except Exception as e:
+            print(f"Error parsing JSON: {e}")
+            return {"message": "Error fetching data", "data": []}
     else:
-        print(f"Unhandled error: {response.status_code}")
+        print(f"API error: {response.status_code}")
+        return {"message": "Error fetching data", "data": []}
 
 
-# ??? why a seperate route for that ???
 @app.route('/inc', methods=['POST'])
 def inc():
     page = session.get('page', 1)
-    page = page + 1
-    session['page'] = page
-    # hätte man das vereinfacht auch so darstellen können?
-    # session['page'] = session.get('page') + 1
-    # yes! und ob man das kann
+    session['page'] = page + 1
     return redirect('/')
+
 
 @app.route('/dec', methods=['POST'])
 def dec():
-    page = session.get('page', 1)  # Get the current page or default to 1
+    page = session.get('page', 1)
     if page > 1:
         session['page'] = page - 1
     return redirect('/')
 
-# change parameters, which filters were clicked?
+
 @app.route('/parameters', methods=['POST'])
 def parameters():
-
-
-    # informationen aus dem form holen die man ausgewählt hat
-    parameter1 = request.form.get('parameter1')  # "type" steht für den namen des selectors in der form
-    parameter2 = request.form.get('parameter2')  
+    # Get the parameters from the form
+    parameter1 = request.form.get('parameter1')
+    parameter2 = request.form.get('parameter2')
     parameter3 = request.form.get('parameter3')
-    parameter_title = request.form('parameter_title')
-    parameter_genre = request.form('parameter_genre')
-    
-    # Get the existing parameters in the session, or initialize an empty dictionary
+    parameter_title = request.form.get('parameter_title')
+    parameter_genre = request.form.get('parameter_genre')
+
+    # Debugging: Print the values received from the form
+    print("Title:", parameter_title)
+    print("Genre:", parameter_genre)
+
+    # Get the existing parameters in the session
     params = session.get('params', {})
-    
-    # die neuen parameter aus der form der session hinzufügen
-    params['type'] = parameter1  # Add/update the 'type' parameter
-    params['status'] = parameter2  # Add/update the 'status' parameter
+
+    # Add/update the parameters in the session
+    params['type'] = parameter1
+    params['status'] = parameter2
     params['rating'] = parameter3
     params['q'] = parameter_title
-    params['genres'] = paramter_genre
+    params['genres'] = parameter_genre
 
     # Save the updated params back into the session
     session['params'] = params
+    print("Session params:", session['params'])  # Debug print for session data
 
     return redirect('/resetPage')
+
 
 @app.route('/resetPage')
 def resetPage():
     session['page'] = 1
     return redirect('/')
 
-# ??? why is the session information not stored in the session ???
+
 @app.route('/')
 def display():
-    data = fetchData()
+    result = fetchData()
+    data = result["data"]
+    message = result["message"]
 
-    # egentlich müsste das nicht nötig sein! ich mache es nur bis das problem aufgehoebn ist!
     page = session.get('page', 1)
     params = session.get('params', {})
 
-    return render_template('selber.html', data=data, page=page, params=params)
+    return render_template('selber.html', data=data, page=page, params=params, message=message)
 
 
 if __name__ == '__main__':

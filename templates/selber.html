@@ -1,5 +1,3 @@
-<!--ergänzungen: mehrere enums für einen parameter wählen-->
-
 <!DOCTYPE html>
 <body>
     <h1>Animelist, Page {{ page }}</h1>
@@ -7,11 +5,10 @@
     <br>
     <!--verschiedene parameters (=filters)-->
 
-    <!--einfache parameter mit enums (=irekt fetchbar ohne umwege!)-->
+    <!--einfache parameter mit enums (=direkt fetchbar ohne umwege!)-->
     <form method="POST" action="/parameters" name="parameter">
 
         <label>Anime Title</label>
-        <!--frage: was mussich hier als value hineinschreiben?-->
         <input type="text" name="parameter_title" value="" placeholder="Naruto, etc.">
 
         <br><br>
@@ -33,7 +30,7 @@
         <br><br>
 
         <label>Status</label>
-        <select name="parameter3">
+        <select name="parameter2">
             <option value="">All</option>
             <option value="airing">Airing</option>
             <option value="complete">Complete</option>
@@ -79,7 +76,6 @@
     <hr>
     <br>
 
-
     <!--navigation buttons-->
     <div style="display:flex;">
         <form method="POST" action="/dec">
@@ -91,6 +87,9 @@
     </div>
 
     <!--display anime data; title, type, status...-->
+    {% if message %}
+    <p>{{ message }}</p>
+    {% else %}
     {% for i in data %}
     <div>
         <p>
@@ -98,8 +97,9 @@
             <br>
             Type: {{ i['type'] }}
             <br>
-            Type: {{ i['status'] }}
+            Status: {{ i['status'] }}
         </p>
     </div>
     {% endfor %}
+    {% endif %}
 </body>
