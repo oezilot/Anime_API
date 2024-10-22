@@ -2,20 +2,19 @@
 
 <!DOCTYPE html>
 <body>
-    <!--navigation buttons-->
-    <div>
-        <form method="POST" action="/dec">
-            <button>previous</button>
-        </form>
-        <form method="POST" action="/inc">
-            <button>next</button>
-        </form>
-    </div>
-
+    <h1>Animelist, Page {{ page }}</h1>
+    <hr>
+    <br>
     <!--verschiedene parameters (=filters)-->
 
     <!--einfache parameter mit enums (=irekt fetchbar ohne umwege!)-->
     <form method="POST" action="/parameters" name="parameter">
+
+        <label>Anime Title</label>
+        <!--frage: was mussich hier als value hineinschreiben?-->
+        <input type="text" name="parameter_title" value="" placeholder="Naruto, etc.">
+
+        <br><br>
 
         <label>Type</label>
         <select name="parameter1">
@@ -31,6 +30,8 @@
             <option value="tv_special">TV Special</option>
         </select>
 
+        <br><br>
+
         <label>Status</label>
         <select name="parameter3">
             <option value="">All</option>
@@ -38,6 +39,8 @@
             <option value="complete">Complete</option>
             <option value="upcoming">Upcoming</option>
         </select>
+
+        <br><br>
 
         <label>Rating</label>
         <select name="parameter3">
@@ -49,6 +52,8 @@
             <option value="r">R+ - Mild Nudity</option>
             <option value="rx">Rx - Hentai</option>
         </select>
+
+        <br><br>
 
         <label>Genre</label>
         <select name="parameter_genre">
@@ -65,12 +70,27 @@
             <option value="56">Educational</option>
         </select>
 
+        <br><br>
         <input type="submit" value="Apply Filter">
 
     </form>
 
+    <br>
+    <hr>
+    <br>
+
+
+    <!--navigation buttons-->
+    <div style="display:flex;">
+        <form method="POST" action="/dec">
+            <button>previous</button>
+        </form>
+        <form method="POST" action="/inc">
+            <button>next</button>
+        </form>
+    </div>
+
     <!--display anime data; title, type, status...-->
-    <h1>Animelist, Page {{ page }}</h1>
     {% for i in data %}
     <div>
         <p>

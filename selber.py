@@ -2,6 +2,7 @@
 # type, genre, title(sucheingabe), stauts, rating, (oderby/sort alphabetically)
 
 # erweiterungen: beim reload wird session geleert!
+# fragen: muss man den parameter für die suchanfrage zuerst stellen, bevor man andere parameter dazunimmt? --> Antwort = NEIN die reihenfolge kommt nicht darauf an ! (gottseidank omg!)
 
 from flask import Flask, render_template, request, url_for, redirect, session
 import requests
