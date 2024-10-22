@@ -13,6 +13,8 @@ app.secret_key = '7ed2323092b13f8347245ecf314617c8a925236bd5c8f56f63c9ca8c479b22
 # }
 # page = 3
 
+print("zoe")
+
 # url-builder function
 def urlBuilder(page, params):
     queryUrl = f"https://api.jikan.moe/v4/anime?page={page}"
@@ -22,21 +24,40 @@ def urlBuilder(page, params):
 # print(urlBuilder(3, params))
 
 def fetchData():
-    # params und page in einer session speichern!
     page = session.get('page', 1)
     params = session.get('params', {})
 
-    # daten fetchen mit dem url des api, jetzt setz man hier die werte für die page und params ein!
+    # API Request
     response = requests.get(urlBuilder(page, params))
 
-    # daten in einer vaiable speichern 
+    # this prints out the response headers to look for issues
+    print("Response Headers:", response.headers, flush=True)
+
     if response.status_code == 200:
         data = response.json()
-        print(data)  # Print the full response to debug
-        return data.get('data', [])  # Use .get() to safely access 'data'
+        return data['data']  # Successful request
+
+    elif response.status_code == 429:
+        retry_after = response.headers.get('Retry-After', 'unknown')
+        print(f"Rate limit exceeded. Retry after {retry_after} seconds.")
+        time.sleep(int(retry_after))  # Wait before retrying
+
+    elif response.status_code == 400:
+        print("Bad request. Please check your query.")
+
+    elif response.status_code == 404:
+        print("Resource not found. Double-check the URL or resource.")
+
+    elif response.status_code == 500:
+        print("Internal Server Error. Try again later or report the issue.")
+
+    elif response.status_code == 503:
+        print("Service is down for maintenance. Please try again later.")
     else:
-        print(f"Error fetching data: {response.status_code}")
-        return None
+        print(f"Unhandled error: {response.status_code}")
+
+
+
 
 # ??? why a seperate route for that ???
 @app.route('/inc', methods=['POST'])
