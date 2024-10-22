@@ -1,3 +1,5 @@
+<!--ergänzungen: mehrere enums für einen parameter wählen-->
+
 <!DOCTYPE html>
 <body>
     <!--navigation buttons-->
@@ -10,31 +12,74 @@
         </form>
     </div>
 
+    <!--verschiedene parameters (=filters)-->
+
+    <!--einfache parameter mit enums (=irekt fetchbar ohne umwege!)-->
     <form method="POST" action="/parameters" name="parameter">
+
         <label>Type</label>
         <select name="parameter1">
             <option value="">All</option>
             <option value="tv">TV</option>
             <option value="movie">Movie</option>
             <option value="ova">OVA</option>
+            <option value="special">Special</option>
             <option value="music">Music</option>
+            <option value="ona">ONA</option>
+            <option value="cm">CM</option>
+            <option value="pv">PV</option>
+            <option value="tv_special">TV Special</option>
         </select>
 
         <label>Status</label>
-        <select name="parameter2">
+        <select name="parameter3">
             <option value="">All</option>
             <option value="airing">Airing</option>
-            <option value="completed">Completed</option>
+            <option value="complete">Complete</option>
             <option value="upcoming">Upcoming</option>
         </select>
 
+        <label>Rating</label>
+        <select name="parameter3">
+            <option value="">For Everyone</option>
+            <option value="g">G - All Ages</option>
+            <option value="pg">PG - Children</option>
+            <option value="pg13">PG13 - Teens 13+</option>
+            <option value="r17">R17 - 17+ (Violoence & Profanity)</option>
+            <option value="r">R+ - Mild Nudity</option>
+            <option value="rx">Rx - Hentai</option>
+        </select>
+
+        <label>Genre</label>
+        <select name="parameter_genre">
+            <option value="">All</option>
+            <option value="1">Action</option>
+            <option value="8">Drama</option>
+            <option value="4">Comedy</option>
+            <option value="28">Boys Love</option>
+            <option value="26">Girls Love</option>
+            <option value="10">Fantasy</option>
+            <option value="14">Horror</option>
+            <option value="24">Sci-Fi</option>
+            <option value="22">Romance</option>
+            <option value="56">Educational</option>
+        </select>
+
         <input type="submit" value="Apply Filter">
+
     </form>
 
+    <!--display anime data; title, type, status...-->
     <h1>Animelist, Page {{ page }}</h1>
     {% for i in data %}
     <div>
-        <p>Title: {{ i['title'] }}</p>
+        <p>
+            Title: {{ i['title'] }}
+            <br>
+            Type: {{ i['type'] }}
+            <br>
+            Type: {{ i['status'] }}
+        </p>
     </div>
     {% endfor %}
 </body>

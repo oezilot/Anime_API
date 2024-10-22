@@ -1,9 +1,14 @@
+# diese FIlter brauche ich für die Anime-Suche:
+# type, genre, title(sucheingabe), stauts, rating, (oderby/sort alphabetically)
+
+# erweiterungen: beim reload wird session geleert!
 
 from flask import Flask, render_template, request, url_for, redirect, session
 import requests
 import os
 
 app = Flask(__name__)
+# falls es errors gibt dann mal den key hier ändern weil es sein kann dass es limite gibt für jeden app-key
 app.secret_key = '7ed2323092b13f8347245ecf314617c8a925236bd5c8f56f63c9ca8c479b2204'
 
 # this is for the test to see if it works! ()
@@ -13,14 +18,13 @@ app.secret_key = '7ed2323092b13f8347245ecf314617c8a925236bd5c8f56f63c9ca8c479b22
 # }
 # page = 3
 
-print("zoe")
-
 # url-builder function
 def urlBuilder(page, params):
     queryUrl = f"https://api.jikan.moe/v4/anime?page={page}"
     for param in params:
         queryUrl = queryUrl + f"&{param}={params[param]}"
     return queryUrl
+    print(queryUrl)
 # print(urlBuilder(3, params))
 
 def fetchData():
@@ -35,7 +39,8 @@ def fetchData():
 
     if response.status_code == 200:
         data = response.json()
-        return data['data']  # Successful request
+        data = data.get('data', [])
+        return data  # Successful request
 
     elif response.status_code == 429:
         retry_after = response.headers.get('Retry-After', 'unknown')
@@ -55,8 +60,6 @@ def fetchData():
         print("Service is down for maintenance. Please try again later.")
     else:
         print(f"Unhandled error: {response.status_code}")
-
-
 
 
 # ??? why a seperate route for that ???
@@ -81,16 +84,19 @@ def dec():
 @app.route('/parameters', methods=['POST'])
 def parameters():
 
-    # für jeden verschiedenen parameter die ins form gesendeten daten nehmen (type, genre, etc.)
+
+    # informationen aus dem form holen die man ausgewählt hat
     parameter1 = request.form.get('parameter1')  # "type" steht für den namen des selectors in der form
     parameter2 = request.form.get('parameter2')  
+    parameter3 = request.form.get('parameter3')
     
     # Get the existing parameters in the session, or initialize an empty dictionary
     params = session.get('params', {})
     
-    # Update the session params with the new values
+    # die neuen parameter aus der form der session hinzufügen
     params['type'] = parameter1  # Add/update the 'type' parameter
-    params['genre'] = parameter2  # Add/update the 'status' parameter
+    params['status'] = parameter2  # Add/update the 'status' parameter
+    params['rating'] = parameter3
 
     # Save the updated params back into the session
     session['params'] = params
