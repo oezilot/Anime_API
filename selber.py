@@ -100,6 +100,11 @@ def display():
     data = result["data"]
     message = result["message"]
 
+    #session.clear() # falls ich die session leeren möchte (mit dm musste ich genre= gerauslöschen!!!)
+
+    print("Session Data:", session, flush=True)
+
+
     page = session.get('page', 1)
     params = session.get('params', {})
 
