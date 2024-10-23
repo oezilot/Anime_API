@@ -78,13 +78,19 @@
 
     <!--navigation buttons (page-pagination)-->
     <div style="display:flex;">
+        {% if pagination['current_page'] > 1 %}
         <form method="POST" action="/dec">
             <button>previous</button>
         </form>
+        {% endif %}
+
         Page {{ page }} of {{ pagination['last_visible_page'] }}
+
+        {% if pagination['has_next_page'] %}
         <form method="POST" action="/inc">
             <button>next</button>
         </form>
+        {% endif %}
     </div>
 
     <!--display anime data; title, type, status...-->
