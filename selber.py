@@ -1,12 +1,10 @@
 '''
 todo's
 
-- show page number between the button (page ... of max.pages)
-- keep the calues displayed on the filterbuttons when selected a value
+- keep the values displayed on the filterbuttons when selected a value
 - css styling with tailwind
 - display image, title, year, studio of each anime  in data
 - do tests?
-- page pagination von der pagination directory direkt holen!
 - den ganzen code nochmals neu schreiben?!
 - wie genau funkitioniert das mit der message und allgemein das mit den messages?
 
