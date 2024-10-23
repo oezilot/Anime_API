@@ -4,7 +4,7 @@ import requests
 app = Flask(__name__)
 app.secret_key = '7ed2323092b13f8347245ecf314617c8a925236bd5c8f56f63c9ca8c479b2204'
 
-
+# mit dieser API-URL werden dann die Daten gefetched
 def urlBuilder(page, params):
     queryUrl = f"https://api.jikan.moe/v4/anime?page={page}"
     for param in params:
@@ -12,12 +12,12 @@ def urlBuilder(page, params):
     print(f"Final API URL: {queryUrl}")  # Debug print to check the URL
     return queryUrl
 
-
+# Daten fetchen mit dem URL aus dem urlBuilder
 def fetchData():
     page = session.get('page', 1)
     params = session.get('params', {})
 
-    # API Request
+    # die antwort des API Request
     response = requests.get(urlBuilder(page, params))
 
     # Print response headers and status code for debugging
