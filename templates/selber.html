@@ -81,7 +81,7 @@
         <form method="POST" action="/dec">
             <button>previous</button>
         </form>
-        Page {{ page }} of {% if pagination and 'last_visible_page' in pagination %}{{ pagination['last_visible_page'] }}{% else %}Unknown{% endif %}
+        Page {{ page }} of {{ pagination['last_visible_page'] }}
         <form method="POST" action="/inc">
             <button>next</button>
         </form>
