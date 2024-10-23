@@ -1,3 +1,17 @@
+'''
+todo's
+
+- show page number between the button (page ... of max.pages)
+- keep the calues displayed on the filterbuttons when selected a value
+- css styling with tailwind
+- display image, title, year, studio of each anime  in data
+- do tests?
+- page pagination von der pagination directory direkt holen!
+- den ganzen code nochmals neu schreiben?!
+- wie genau funkitioniert das mit der message und allgemein das mit den messages?
+
+'''
+
 from flask import Flask, render_template, request, url_for, redirect, session
 import requests
 
@@ -17,7 +31,6 @@ def fetchData():
     page = session.get('page', 1)
     params = session.get('params', {})
 
-    # die antwort des API Request
     response = requests.get(urlBuilder(page, params))
 
     # Print response headers and status code for debugging
@@ -27,21 +40,20 @@ def fetchData():
     if response.status_code == 200:
         try:
             data = response.json()
-            # print(data)  # Print the full response for debugging
-
             # Check if the data list is empty
             if not data['data']:
-                return {"message": "No posts with your filters exist", "data": []}
+                return {"message": "No posts with your filters exist", "data": [], "pagination": {}}
             
-            return {"message": "", "data": data.get('data', [])}  # Return message and data
+            pagination = data.get('pagination', {})  # Corrected to fetch pagination data
+
+            return {"message": "", "data": data.get('data', []), "pagination": pagination}  # Return message, data, and pagination
 
         except Exception as e:
             print(f"Error parsing JSON: {e}")
-            return {"message": "Error fetching data", "data": []}
+            return {"message": "Error fetching data", "data": [], "pagination": {}}
     else:
         print(f"API error: {response.status_code}")
-        return {"message": "Error fetching data", "data": []}
-
+        return {"message": "Error fetching data", "data": [], "pagination": {}}
 
 @app.route('/inc', methods=['POST'])
 def inc():
@@ -98,6 +110,7 @@ def resetPage():
 def display():
     result = fetchData()
     data = result["data"]
+    pagination = result["pagination"]
     message = result["message"]
 
     #session.clear() # falls ich die session leeren möchte (mit dm musste ich genre= gerauslöschen!!!)
@@ -108,7 +121,7 @@ def display():
     page = session.get('page', 1)
     params = session.get('params', {})
 
-    return render_template('selber.html', data=data, page=page, params=params, message=message)
+    return render_template('selber.html', data=data, page=page, params=params, message=message, pagination=pagination)
 
 
 if __name__ == '__main__':

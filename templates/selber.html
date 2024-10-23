@@ -76,11 +76,12 @@
     <hr>
     <br>
 
-    <!--navigation buttons-->
+    <!--navigation buttons (page-pagination)-->
     <div style="display:flex;">
         <form method="POST" action="/dec">
             <button>previous</button>
         </form>
+        Page {{ page }} of {% if pagination and 'last_visible_page' in pagination %}{{ pagination['last_visible_page'] }}{% else %}Unknown{% endif %}
         <form method="POST" action="/inc">
             <button>next</button>
         </form>
