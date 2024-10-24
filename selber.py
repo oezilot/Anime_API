@@ -9,6 +9,8 @@ todo's
 - wie genau funkitioniert das mit der message und allgemein das mit den messages?
 - ich glaube ich weiss nun was der fehler war: man sollte die daten nie direkt fetchen sondern immer eine alternative bereitsstellen denn sonst gibt es errors
 - liste mit erweiterungen schreiben die man noch hinzufügen könnte zur application
+- bug-sicher machen und klären ob das mit dem .get ein problem echt ist!
+- neue application schreiben als mischung aus dieser und der von gpt
 
 '''
 

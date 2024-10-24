@@ -110,6 +110,14 @@
             Type: {{ i['type'] }}
             <br>
             Status: {{ i['status'] }}
+            <br>
+            Rating: {{ i['rating'] }}
+            <br>
+            Genre: 
+            {% for g in i['genres'] %}
+                {{ g['name'] }}{% if not loop.last %}, {% endif %}
+            {% endfor %}            <br>
+            <img src=" {{ i['images']['jpg']['image_url'] }} ">
         </p>
     </div>
     {% endfor %}
