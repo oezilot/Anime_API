@@ -129,7 +129,10 @@ def display():
 
 @app.route('/characters', methods=['GET', 'POST'])
 def characters():
-    return render_template('characters.html')
+    params = session.get('params', {})
+    title = params.get('q')  # Access 'q' from the params dictionary
+    return render_template('characters.html', title=title)
+
 
 @app.route('/anime', methods=['GET', 'POST'])
 def anime():
