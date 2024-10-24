@@ -35,7 +35,6 @@ def fetchData():
     page = session.get('page', 1)
     params = session.get('params', {})
     
-
     response = requests.get(urlBuilder(page, params))
 
     # Print response headers and status code for debugging
@@ -131,9 +130,15 @@ def display():
 
 @app.route('/characters', methods=['GET', 'POST'])
 def characters():
-    params = session.get('params', {})
+    if request.method == 'POST':
+        # Get the anime ID from the form
+        anime_id = request.form.get('anime_id')
 
-    anime_id = request.form.get('anime_id', 'None')
+        # Store the anime ID in the session
+        session['anime_id'] = anime_id
+
+    # Retrieve the anime ID from the session
+    anime_id = session.get('anime_id', 'None')
 
     return render_template('characters.html', anime_id=anime_id)
 
