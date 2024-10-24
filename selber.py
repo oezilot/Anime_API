@@ -8,6 +8,7 @@ todo's
 - den ganzen code nochmals neu schreiben?!
 - wie genau funkitioniert das mit der message und allgemein das mit den messages?
 - ich glaube ich weiss nun was der fehler war: man sollte die daten nie direkt fetchen sondern immer eine alternative bereitsstellen denn sonst gibt es errors
+- liste mit erweiterungen schreiben die man noch hinzufügen könnte zur application
 
 '''
 
