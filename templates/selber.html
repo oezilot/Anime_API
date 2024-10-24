@@ -97,13 +97,14 @@
         </form>
         {% endif %}
     </div>
+    <br>
 
     <!--display anime data; title, type, status...-->
     {% if message %}
     <p>{{ message }}</p>
     {% else %}
     {% for i in data %}
-    <div>
+    <div style="border:black solid 3px; margin: 5px">
         <p>
             Title: {{ i['title'] }}
             <br>
@@ -116,9 +117,16 @@
             Genre: 
             {% for g in i['genres'] %}
                 {{ g['name'] }}{% if not loop.last %}, {% endif %}
-            {% endfor %}            <br>
+            {% endfor %}            
+            <br>
             <img src=" {{ i['images']['jpg']['image_url'] }} ">
         </p>
+        <form>
+            <button>View Characterlist</button>
+        </form>
+        <form>
+            <button>More Info</button>
+        </form>
     </div>
     {% endfor %}
     {% endif %}
