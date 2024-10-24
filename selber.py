@@ -11,6 +11,7 @@ todo's
 - liste mit erweiterungen schreiben die man noch hinzufügen könnte zur application
 - bug-sicher machen und klären ob das mit dem .get ein problem echt ist!
 - neue application schreiben als mischung aus dieser und der von gpt
+- sort?
 
 '''
 
@@ -124,6 +125,15 @@ def display():
     params = session.get('params', {})
 
     return render_template('selber.html', data=data, page=page, params=params, message=message, pagination=pagination)
+
+
+@app.route('/characters', methods=['GET', 'POST'])
+def characters():
+    return render_template('characters.html')
+
+@app.route('/anime', methods=['GET', 'POST'])
+def anime():
+    return render_template('anime.html')
 
 
 if __name__ == '__main__':
