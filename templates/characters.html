@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h1>Characters of {{ title }}</h1>
+{% if not anime_id == 'None' %}
+    <h1>Characters of {{ anime_id }}</h1>
+{% else %}
+    <h1>Kein Anime wurde gewählt!</h1>
+{% endif %}
 
 </body>
 </html>

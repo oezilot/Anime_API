@@ -31,8 +31,10 @@ def urlBuilder(page, params):
 
 # Daten fetchen mit dem URL aus dem urlBuilder
 def fetchData():
+    # items in die session hineintun! (session wird hier quasi erstellt)
     page = session.get('page', 1)
     params = session.get('params', {})
+    
 
     response = requests.get(urlBuilder(page, params))
 
@@ -131,7 +133,10 @@ def display():
 def characters():
     params = session.get('params', {})
     title = params.get('q')  # Access 'q' from the params dictionary
-    return render_template('characters.html', title=title)
+
+    anime_id = request.form.get('anime_id', 'None')
+
+    return render_template('characters.html', title=title, anime_id=anime_id)
 
 
 @app.route('/anime', methods=['GET', 'POST'])

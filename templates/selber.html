@@ -120,11 +120,15 @@
             {% endfor %}            
             <br>
             <img src=" {{ i['images']['jpg']['image_url'] }} ">
+
+        <!--Character button-->
         </p>
-        <form method="GET" action="/characters">
-            <button>View Characterlist</button>
+        <form method="POST" action="/characters">
+            <button name="anime_id" value="{{ i['mal_id'] }}">View Characterlist</button>
         </form>
-        <form method="GET" action="/anime">
+
+        <!-- Anime button -->
+        <form method="POST" action="/anime">
             <button>More Info</button>
         </form>
     </div>
