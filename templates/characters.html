@@ -10,6 +10,10 @@
 {% for character in character_data %}
 <div>
     {{ character['character']['name'] }}
+    <br>
+    <img src="{{ character['character']['images']['jpg']['image_url'] }}" alt="{{ character['character']['name'] }}">
+    <br>
+    <br>
 </div>
 {% endfor %}
 
