@@ -2,9 +2,16 @@
 <html>
 <body>
 {% if anime_id %}
-    <h1>Characters of Anime ID: {{ anime_id }}</h1>
+    <h1>Characters of {{ anime_id }}</h1>
 {% else %}
     <h1>No anime selected!</h1>
 {% endif %}
+
+{% for character in character_data %}
+<div>
+    {{ character['character']['name'] }}
+</div>
+{% endfor %}
+
 </body>
 </html>

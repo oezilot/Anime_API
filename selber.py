@@ -128,6 +128,22 @@ def display():
     return render_template('selber.html', data=data, page=page, params=params, message=message, pagination=pagination)
 
 
+# neue urlbuilder-funtionc für die charaktere
+# url: /anime/animeid
+def character_url(anime_id):
+    api_url = f"https://api.jikan.moe/v4/anime/{anime_id}/characters"
+    response2 = requests.get(api_url)
+    if response2.status_code == 200:
+        print(f"Character API URL: {api_url}")  # Debug print to check the URL
+        print("Response Data:", response2.json(), flush=True)  # Print the entire response data for debugging
+
+        return response2.json()
+    else:
+        return {"data": []}  # Return an empty structure if the request fails
+
+
+
+
 @app.route('/characters', methods=['GET', 'POST'])
 def characters():
     if request.method == 'POST':
@@ -140,7 +156,14 @@ def characters():
     # Retrieve the anime ID from the session
     anime_id = session.get('anime_id', 'None')
 
-    return render_template('characters.html', anime_id=anime_id)
+    # alles was mit dem url zu tun hat
+    characters = character_url(anime_id)
+    character_data = characters['data']
+
+    print("Session Data:", session, flush=True)
+
+    return render_template('characters.html', anime_id=anime_id, character_data=character_data)
+
 
 
 @app.route('/anime', methods=['GET', 'POST'])
