@@ -9,65 +9,66 @@
     <form method="POST" action="/parameters" name="parameter">
 
         <label>Anime Title</label>
-        <input type="text" name="parameter_title" value="" placeholder="Naruto, etc.">
+        <input type="text" name="parameter_title" value="{{ parameter_title }}" placeholder="Naruto, etc.">
 
         <br><br>
 
         <label>Type</label>
         <select name="parameter1">
-            <option value="">All</option>
-            <option value="tv">TV</option>
-            <option value="movie">Movie</option>
-            <option value="ova">OVA</option>
-            <option value="special">Special</option>
-            <option value="music">Music</option>
-            <option value="ona">ONA</option>
-            <option value="cm">CM</option>
-            <option value="pv">PV</option>
-            <option value="tv_special">TV Special</option>
+            <option value="" {% if parameter1 == '' %}selected{% endif %}>All</option>
+            <option value="tv" {% if parameter1 == 'tv' %}selected{% endif %}>TV</option>
+            <option value="movie" {% if parameter1 == 'movie' %}selected{% endif %}>Movie</option>
+            <option value="ova" {% if parameter1 == 'ova' %}selected{% endif %}>OVA</option>
+            <option value="special" {% if parameter1 == 'special' %}selected{% endif %}>Special</option>
+            <option value="music" {% if parameter1 == 'music' %}selected{% endif %}>Music</option>
+            <option value="ona" {% if parameter1 == 'ona' %}selected{% endif %}>ONA</option>
+            <option value="cm" {% if parameter1 == 'cm' %}selected{% endif %}>CM</option>
+            <option value="pv" {% if parameter1 == 'pv' %}selected{% endif %}>PV</option>
+            <option value="tv_special" {% if parameter1 == 'tv_special' %}selected{% endif %}>TV Special</option>
         </select>
 
         <br><br>
 
         <label>Status</label>
         <select name="parameter2">
-            <option value="">All</option>
-            <option value="airing">Airing</option>
-            <option value="complete">Complete</option>
-            <option value="upcoming">Upcoming</option>
+            <option value="" {% if parameter2 == '' %}selected{% endif %}>All</option>
+            <option value="airing" {% if parameter2 == 'airing' %}selected{% endif %}>Airing</option>
+            <option value="complete" {% if parameter2 == 'complete' %}selected{% endif %}>Complete</option>
+            <option value="upcoming" {% if parameter2 == 'upcoming' %}selected{% endif %}>Upcoming</option>
         </select>
+    
 
         <br><br>
 
         <label>Rating</label>
         <select name="parameter3">
-            <option value="">For Everyone</option>
-            <option value="g">G - All Ages</option>
-            <option value="pg">PG - Children</option>
-            <option value="pg13">PG13 - Teens 13+</option>
-            <option value="r17">R17 - 17+ (Violoence & Profanity)</option>
-            <option value="r">R+ - Mild Nudity</option>
-            <option value="rx">Rx - Hentai</option>
+            <option value="" {% if parameter3 == '' %}selected{% endif %}>For Everyone</option>
+            <option value="g" {% if parameter3 == 'g' %}selected{% endif %}>G - All Ages</option>
+            <option value="pg" {% if parameter3 == 'pg' %}selected{% endif %}>PG - Children</option>
+            <option value="pg13" {% if parameter3 == 'pg13' %}selected{% endif %}>PG13 - Teens 13+</option>
+            <option value="r17" {% if parameter3 == 'r17' %}selected{% endif %}>R17 - 17+ (Violence & Profanity)</option>
+            <option value="r" {% if parameter3 == 'r' %}selected{% endif %}>R+ - Mild Nudity</option>
+            <option value="rx" {% if parameter3 == 'rx' %}selected{% endif %}>Rx - Hentai</option>
         </select>
 
         <br><br>
 
         <label>Genre</label>
         <select name="parameter_genre">
-            <option value="">All</option>
-            <option value="1">Action</option>
-            <option value="8">Drama</option>
-            <option value="4">Comedy</option>
-            <option value="28">Boys Love</option>
-            <option value="26">Girls Love</option>
-            <option value="10">Fantasy</option>
-            <option value="14">Horror</option>
-            <option value="24">Sci-Fi</option>
-            <option value="22">Romance</option>
-            <option value="56">Educational</option>
+            <option value="" {% if parameter_genre == '' %}selected{% endif %}>All</option>
+            <option value="1" {% if parameter_genre == '1' %}selected{% endif %}>Action</option>
+            <option value="8" {% if parameter_genre == '8' %}selected{% endif %}>Drama</option>
+            <option value="4" {% if parameter_genre == '4' %}selected{% endif %}>Comedy</option>
+            <option value="28" {% if parameter_genre == '28' %}selected{% endif %}>Boys Love</option>
+            <option value="26" {% if parameter_genre == '26' %}selected{% endif %}>Girls Love</option>
+            <option value="10" {% if parameter_genre == '10' %}selected{% endif %}>Fantasy</option>
+            <option value="14" {% if parameter_genre == '14' %}selected{% endif %}>Horror</option>
+            <option value="24" {% if parameter_genre == '24' %}selected{% endif %}>Sci-Fi</option>
+            <option value="22" {% if parameter_genre == '22' %}selected{% endif %}>Romance</option>
+            <option value="56" {% if parameter_genre == '56' %}selected{% endif %}>Educational</option>
         </select>
-
         <br><br>
+        
         <input type="submit" value="Apply Filter">
 
     </form>

@@ -124,9 +124,13 @@ def display():
 
     page = session.get('page', 1)
     params = session.get('params', {})
+    parameter1 = params.get('type', '')
+    parameter2 = params.get('status', '')
+    parameter3 = params.get('rating', '')
+    parameter_title = params.get('q', '')
+    parameter_genre = params.get('genres', '')
 
-    return render_template('selber.html', data=data, page=page, params=params, message=message, pagination=pagination)
-
+    return render_template('selber.html', data=data, page=page, params=params, parameter1=parameter1, parameter2=parameter2, parameter3=parameter3, parameter_title=parameter_title, parameter_genre=parameter_genre, message=message, pagination=pagination)
 
 # neue urlbuilder-funtionc für die charaktere
 # url: /anime/animeid
