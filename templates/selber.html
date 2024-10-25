@@ -68,7 +68,7 @@
             <option value="56" {% if parameter_genre == '56' %}selected{% endif %}>Educational</option>
         </select>
         <br><br>
-        
+
         <input type="submit" value="Apply Filter">
 
     </form>
@@ -124,14 +124,15 @@
         </p>
         
         <!-- Character button -->
-<form method="POST" action="/characters">
-    <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
-    <input type="hidden" name="anime_title" value="{{ i['title'] }}">
-    <button type="submit">View Characterlist</button>
-</form>
+        <form method="POST" action="/characters">
+            <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
+            <input type="hidden" name="anime_title" value="{{ i['title'] }}">
+            <button type="submit">View Characterlist</button>
+        </form>
 
         <!-- Anime button -->
         <form method="POST" action="/anime">
+            <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
             <button>More Info</button>
         </form>
     </div>

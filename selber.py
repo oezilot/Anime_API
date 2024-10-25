@@ -21,12 +21,15 @@ import requests
 app = Flask(__name__)
 app.secret_key = '7ed2323092b13f8347245ecf314617c8a925236bd5c8f56f63c9ca8c479b2204'
 
+
+################## Search Page --> alles animes aufgelistet zu bestimmten parametern ##########################
+
 # mit dieser API-URL werden dann die Daten gefetched
 def urlBuilder(page, params):
     queryUrl = f"https://api.jikan.moe/v4/anime?page={page}"
     for param in params:
         queryUrl += f"&{param}={params[param]}"
-    print(f"Final API URL: {queryUrl}")  # Debug print to check the URL
+    print(f"Main API URL: {queryUrl}")  # Debug print to check the URL
     return queryUrl
 
 # Daten fetchen mit dem URL aus dem urlBuilder
@@ -132,6 +135,10 @@ def display():
 
     return render_template('selber.html', data=data, page=page, params=params, parameter1=parameter1, parameter2=parameter2, parameter3=parameter3, parameter_title=parameter_title, parameter_genre=parameter_genre, message=message, pagination=pagination)
 
+
+
+############################ Character Page --> alle characters aus dem anime x #########################
+
 # neue urlbuilder-funtionc für die charaktere
 # url: /anime/animeid
 def character_url(anime_id):
@@ -177,9 +184,33 @@ def characters():
 
 
 
+########################## Anime Page --> informationen zum anime mit id x ##########################
+def anime_url(anime_id):
+    api_url = f"https://api.jikan.moe/v4/anime/{anime_id}"
+    response3 = requests.get(api_url)
+    if response3.status_code == 200:
+        print(f"Anime API URL: {api_url}")  # Debug print to check the URL
+        # print("Response Data:", response2.json(), flush=True)  # Print the entire response data for debugging
+        return response3.json()
+    else:
+        return {"data": []}  # Return an empty structure if the request fails
+
+
 @app.route('/anime', methods=['GET', 'POST'])
 def anime():
-    return render_template('anime.html')
+    if request.method == 'POST':
+        anime_id = request.form.get('anime_id')
+        session['anime_id'] = anime_id
+
+    anime_id = session.get('anime_id', 'None')
+
+
+    anime = anime_url(anime_id)
+    anime_data = anime['data']
+
+    print("Session Data:", session, flush=True)
+
+    return render_template('anime.html', anime_data=anime_data)
 
 
 if __name__ == '__main__':
