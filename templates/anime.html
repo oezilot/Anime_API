@@ -1,7 +1,72 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h1>More Info About {{anime_data['title']}} </h1>
+    {% if anime_data %}
+        <h1>More Info About {{anime_data['title']}} </h1>
+    {% else %}
+        <h1>There is no futher data available for this anime!</h1>
+    {% endif %}
+<div>
+    <table border="1">
+        <tr>
+            <th>Variable</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Title</td>
+            <td>{{ anime_data['title'] }}</td>
+        </tr>
+        <tr>
+            <td>Genres</td>
+            <td>{% for i in anime_data['genres'] %} {{ i['name'] }} {% if not loop.last %}, {% endif %} {% endfor %}</td>
+        </tr>
+        <tr>
+            <td>Rating</td>
+            <td>{{ anime_data['rating'] }}</td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td>{{ anime_data['status'] }}</td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td>{{ anime_data['type'] }}</td>
+        </tr>
+        <tr>
+            <td>Synopsis</td>
+            <td>{{ anime_data['synopsis'] }}</td>
+        </tr>
+        <tr>
+            <td>Trailer</td>
+            <td><a href="{{ anime_data['trailer']['url'] }}" target="_blank">Trailer ansehen</a></td>
+        </tr>
+        <tr>
+            <!--es gibt immer dann einen loop wenn es mehrere resultate gibt, wie es hier z.b. mehrere studios oder genres gibt zu einem anime.man iteriert dann durch diese liste mit dem loop!-->
+            <td>Studios</td>
+            <td>{% for i in anime_data['studios'] %} {{ i['name'] }} {% if not loop.last %}, {% endif %} {% endfor %}</td>
+        </tr>
+        <tr>
+            <td>Producers</td>
+            <td>{% for i in anime_data['producers'] %} {{ i['name'] }} {% if not loop.last %}, {% endif %} {% endfor %}</td>
+        </tr>
+        <tr>
+            <td>Year</td>
+            <td>{{ anime_data['year'] }}</td>
+        </tr>
+        <tr>
+            <td>Rank</td>
+            <td>{{ anime_data['rank'] }}</td>
+        </tr>
+        <tr>
+            <td>Duration</td>
+            <td>{{ anime_data['duration'] }}</td>
+        </tr>
+        <tr>
+            <td>Episodes</td>
+            <td>{{ anime_data['episodes'] }}</td>
+        </tr>
+    </table>
+</div>
 <div>
 
 </div>
