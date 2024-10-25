@@ -135,34 +135,41 @@ def character_url(anime_id):
     response2 = requests.get(api_url)
     if response2.status_code == 200:
         print(f"Character API URL: {api_url}")  # Debug print to check the URL
-        print("Response Data:", response2.json(), flush=True)  # Print the entire response data for debugging
+        # print("Response Data:", response2.json(), flush=True)  # Print the entire response data for debugging
 
         return response2.json()
     else:
         return {"data": []}  # Return an empty structure if the request fails
 
 
-
-
 @app.route('/characters', methods=['GET', 'POST'])
 def characters():
     if request.method == 'POST':
-        # Get the anime ID from the form
+        # Get the anime ID and title from the form
         anime_id = request.form.get('anime_id')
+        anime_title = request.form.get('anime_title')
 
-        # Store the anime ID in the session
+
+        # Debugging: print values to ensure they are received
+        print(f"Received anime_id: {anime_id}")
+        print(f"Received anime_title: {anime_title}")
+
+
+        # Store the anime ID and title in the session
         session['anime_id'] = anime_id
+        session['anime_title'] = anime_title
 
-    # Retrieve the anime ID from the session
+    # Retrieve the anime ID and title from the session
     anime_id = session.get('anime_id', 'None')
+    anime_title = session.get('anime_title', 'Unknown')
 
-    # alles was mit dem url zu tun hat
+    # API call to get character data
     characters = character_url(anime_id)
     character_data = characters['data']
 
     print("Session Data:", session, flush=True)
 
-    return render_template('characters.html', anime_id=anime_id, character_data=character_data)
+    return render_template('characters.html', anime_id=anime_id, anime_title=anime_title, character_data=character_data)
 
 
 

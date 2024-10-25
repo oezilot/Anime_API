@@ -120,12 +120,14 @@
             {% endfor %}            
             <br>
             <img src=" {{ i['images']['jpg']['image_url'] }} ">
-
-        <!--Character button-->
         </p>
-        <form method="POST" action="/characters">
-            <button name="anime_id" value="{{ i['mal_id'] }}">View Characterlist</button>
-        </form>
+        
+        <!-- Character button -->
+<form method="POST" action="/characters">
+    <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
+    <input type="hidden" name="anime_title" value="{{ i['title'] }}">
+    <button type="submit">View Characterlist</button>
+</form>
 
         <!-- Anime button -->
         <form method="POST" action="/anime">

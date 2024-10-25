@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
 <body>
+
 {% if anime_id %}
-    <h1>Characters of {{ anime_id }}</h1>
+    <h1>Characters of {{ anime_title }} (ID: {{ anime_id }})</h1>
+
+    <div>
+        <p>
+        {% for character in character_data %}
+        {{ character['character']['name'] }}
+        <br>
+        <img src="{{ character['character']['images']['jpg']['image_url'] }}" alt="{{ character['name'] }}">
+        </p>
+        {% endfor %}
+    </div>
+
 {% else %}
     <h1>No anime selected!</h1>
 {% endif %}
 
-{% for character in character_data %}
-<div>
-    {{ character['character']['name'] }}
-    <br>
-    <img src="{{ character['character']['images']['jpg']['image_url'] }}" alt="{{ character['character']['name'] }}">
-    <br>
-    <br>
-</div>
-{% endfor %}
 
 </body>
 </html>
