@@ -57,7 +57,29 @@ def test_parameters_submission(client):
         assert session['params']['q'] == 'Naruto'
         assert session['params']['genres'] == '1'
 
+def test_filtered_results(client):
+    # Step 1: Submit form with filters
+    client.post('/parameters', data={
+        'parameter1': 'tv',
+        'parameter2': 'airing',
+        'parameter3': 'pg13',
+        'parameter_title': 'Naruto',
+        'parameter_genre': '1'
+    }, follow_redirects=True)
 
+    # Step 2: Fetch the main display page to check the filtered results
+    response = client.get('/')
+    
+    # Step 3: Check if the response includes expected text or elements (adjust for actual output)
+    assert b"Naruto" in response.data  # Expect Naruto in title
+    assert b"TV" in response.data  # Expect 'TV' type in response
+    assert b"Airing" in response.data  # Check that 'Airing' status shows up
+    #assert b"No posts with your filters exist" in response.data
+
+
+
+# mein vorschlag hier:
+# müsste es nicht irgendwie so gehen dass man ein post-request simuliert und dann unterscheidet von dem fall wo es posts gibt und dem fall wo es keine gibt
 
 
 
