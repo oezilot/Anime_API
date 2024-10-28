@@ -1,5 +1,6 @@
 # assert: checking if something is equal
 # all test-functions need to have the prefix test_... ind their function-name!!!
+# i hate testing because so much of it is pure black magic!!!
 
 # check if response == 200
 def test_home_page(client):
@@ -11,17 +12,26 @@ def test_home_page(client):
 
 # check if homepage render expected content (mal nur den content und nicht schon die funktionalität der elemente prüfen)
 def test_homepage_content(client):
+    # Set session page to 2 to ensure 'previous' button appears
+    with client.session_transaction() as session:
+        session['page'] = 2
+    
     response = client.get('/')
 
     # Check if the content includes specific text
     assert b"Anime Search" in response.data # b stands for bytes
 
-    # checks the resence of the form-elements (the 5 different parameters)
+    # checks the presence of the form-elements (the 5 different parameters)
     assert b'<input type="text" name="parameter_title"' in response.data
     assert b'<select name="parameter_genre"' in response.data
     assert b'<select name="parameter1"' in response.data
     assert b'<select name="parameter2"' in response.data
     assert b'<select name="parameter3"' in response.data
+
+    # checks for the pagination buttons
+    assert b'<button>previous</button>' in response.data
+    assert b'<button>next</button>' in response.data
+
 
     # Check for anime data placeholders
     assert b'Title:' in response.data
@@ -76,6 +86,27 @@ def test_filtered_results(client):
     assert b"Airing" in response.data  # Check that 'Airing' status shows up
     #assert b"No posts with your filters exist" in response.data
 
+
+def test_pagination_next_page(client):
+    # Simulate initial request to load page 1
+    response = client.get('/')
+    assert response.status_code == 200
+    
+    # Capture the initial page number
+    with client.session_transaction() as session:
+        initial_page = session.get('page', 1)
+    
+    # Simulate clicking "next" to increment page
+    response = client.post('/inc', follow_redirects=True)
+    assert response.status_code == 200
+    
+    # Verify that the page number has incremented (with the built-in function session_transaction sessions can be modified)
+    with client.session_transaction() as session:
+        assert session['page'] == initial_page + 1
+
+    # den content anpassen sodass neue page +1 gerenderet wird
+
+    #session anpassen
 
 
 # mein vorschlag hier:
