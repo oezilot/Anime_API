@@ -8,7 +8,12 @@ def test_home_page(client):
     assert response.status_code == 200
 
 
-# check homepage-data, what does the html display?
+# check if homepage render expected content
+def test_homepage_content(client):
+    response = client.get('/')
+
+    # Check if the content includes specific text
+    assert b"Anime Search" in response.data # b stands for bytes
 
 
 
