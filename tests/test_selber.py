@@ -1,6 +1,10 @@
+# how tests work: man simuliert requests an die application um zu sehen welche reaction dazu erzeugt würde um ptentielle errors frühzetig zu erkennen und zu vermeiden
 # assert: checking if something is equal
 # all test-functions need to have the prefix test_... ind their function-name!!!
 # i hate testing because so much of it is pure black magic!!!
+# das fehlt noch: liste mit allen notwendigen tests, api-mocks, session-keys / key-errors, die restlichen tests!
+
+
 
 # check if response == 200
 def test_home_page(client):
@@ -9,6 +13,18 @@ def test_home_page(client):
     # Check if the response status code is 200 (OK)
     assert response.status_code == 200
 
+def test_missing_session_keys(client):
+    # Clear specific session keys or initialize an empty session
+    with client.session_transaction() as session:
+        session.pop('page', None)  # Remove 'page' key
+        session.pop('params', None)  # Remove 'params' key
+    
+    # Now access the home page, which should work without 'page' or 'params'
+    response = client.get('/')
+    assert response.status_code == 200
+    
+    # Check the page content to see if it defaults to page 1 when 'page' is missing
+    assert b"Page 1" in response.data  # This assumes the HTML shows "Page 1" when page is unset
 
 # check if homepage render expected content (mal nur den content und nicht schon die funktionalität der elemente prüfen)
 def test_homepage_content(client):
