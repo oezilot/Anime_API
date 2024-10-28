@@ -1,4 +1,5 @@
 # assert: checking if something is equal
+# all test-functions need to have the prefix test_... ind their function-name!!!
 
 # check if response == 200
 def test_home_page(client):
@@ -33,7 +34,28 @@ def test_homepage_content(client):
     #assert b'images.jpg.image_url' in response.data  # Checks that the specific part of the image URL is included
 
 
+# check form.submission and storage in the session of that information
+def test_parameters_submission(client):
+    # Simulate a POST request with form data (zum ausprobieren mal nur irgend ein beispiel simulieren)
+    response = client.post('/parameters', data={
+        'parameter1': 'tv',
+        'parameter2': 'airing',
+        'parameter3': 'pg13',
+        'parameter_title': 'Naruto',
+        'parameter_genre': '1'
+    }, follow_redirects=True)
 
+    # Check if the response status code is 200 (redirect successful)
+    assert response.status_code == 200
+
+    # assert that the data stored in the session is what was posted in the form submission
+    # Access the session data to verify parameters are stored correctly (= verify session data)
+    with client.session_transaction() as session:
+        assert session['params']['type'] == 'tv'
+        assert session['params']['status'] == 'airing'
+        assert session['params']['rating'] == 'pg13'
+        assert session['params']['q'] == 'Naruto'
+        assert session['params']['genres'] == '1'
 
 
 
