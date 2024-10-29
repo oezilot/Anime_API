@@ -1,17 +1,34 @@
-# how tests work: man simuliert requests an die application um zu sehen welche reaction dazu erzeugt würde um ptentielle errors frühzetig zu erkennen und zu vermeiden
+# how tests work: man creiert einen client der einen request an die application simuliert um zu sehen welche reaction dazu erzeugt würde um ptentielle errors frühzetig zu erkennen und zu vermeiden
 # assert: checking if something is equal
 # all test-functions need to have the prefix test_... ind their function-name!!!
 # i hate testing because so much of it is pure black magic!!!
 # das fehlt noch: liste mit allen notwendigen tests, api-mocks, session-keys / key-errors, die restlichen tests!
 
+# use mock.test for mocking api-requests --> unittest.mock
+# add a break between everx test so that there are not made too many requests! (error 429) --> time.sleep(seconds)
+# reset data after each test!
 
-
+#======================= BASIC ROUTE TESTS =======================
+#===> HOMEPAGE:
 # check if response == 200
 def test_home_page(client):
     # Use the client fixture to make a GET request to the homepage
     response = client.get('/')
     # Check if the response status code is 200 (OK)
     assert response.status_code == 200
+
+#==> CHARACTERPAGE:
+def test_character_page(client):
+    response = client.get('/characters', data={'anime_id':'1', 'anime_title': 'Naruto'}) # den anime_title und character_id brauchts damit die funktion im selber.py laaufen kann (diese 'input sind post-requests')...die request von der api werden nicht gezählt!
+    assert response.status_code == 200
+
+#==> ANIMEPAGE:
+def test_anime_page(client):
+    response = client.get('/anime', data={'anime_id':1}) # den anime_id braucht die function als input im selber.py
+    assert response.status_code == 200
+
+
+#======================= FORM SUBMISSION AND SESSION DATA =======================
 
 def test_missing_session_keys(client):
     # Clear specific session keys or initialize an empty session
@@ -25,6 +42,9 @@ def test_missing_session_keys(client):
     
     # Check the page content to see if it defaults to page 1 when 'page' is missing
     assert b"Page 1" in response.data  # This assumes the HTML shows "Page 1" when page is unset
+
+
+#======================= CONTENT DISPLAY =======================
 
 # check if homepage render expected content (mal nur den content und nicht schon die funktionalität der elemente prüfen)
 def test_homepage_content(client):
@@ -106,6 +126,8 @@ def test_filtered_results(client):
     #assert b"No posts with your filters exist" in response.data
 
 
+#======================= PAGINATION =======================
+
 def test_pagination_next_page(client):
     # Simulate initial request to load page 1
     response = client.get('/')
@@ -126,6 +148,12 @@ def test_pagination_next_page(client):
     # den content anpassen sodass neue page +1 gerenderet wird
 
     #session anpassen
+
+#======================= SESSION HANDLING AND ERROR TESTS =======================
+
+
+
+
 
 
 # mein vorschlag hier:

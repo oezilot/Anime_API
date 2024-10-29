@@ -38,7 +38,13 @@
         </tr>
         <tr>
             <td>Trailer</td>
+            <!--checks if the trailer exists (if the url is not empty!)-->
+            {% if anime_data.get('trailer') and anime_data['trailer'].get('url') %}
             <td><a href="{{ anime_data['trailer']['url'] }}" target="_blank">Trailer ansehen</a></td>
+            {% else %}
+            <td>No trailer available</td>
+            {% endif %}
+
         </tr>
         <tr>
             <!--es gibt immer dann einen loop wenn es mehrere resultate gibt, wie es hier z.b. mehrere studios oder genres gibt zu einem anime.man iteriert dann durch diese liste mit dem loop!-->

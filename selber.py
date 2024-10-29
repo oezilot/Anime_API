@@ -166,6 +166,7 @@ def characters():
         print(f"Received anime_title: {anime_title}")
 
 
+
         # Store the anime ID and title in the session
         session['anime_id'] = anime_id
         session['anime_title'] = anime_title
