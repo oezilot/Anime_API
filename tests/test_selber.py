@@ -89,8 +89,8 @@ def test_parameters_submission(client):
     response = client.post('/parameters', data={
         'parameter1': 'tv',
         'parameter2': 'airing',
-        'parameter3': 'pg13',
-        'parameter_title': 'Naruto',
+        'parameter3': '',
+        'parameter_title': '',
         'parameter_genre': '1'
     }, follow_redirects=True)
 
@@ -102,8 +102,8 @@ def test_parameters_submission(client):
     with client.session_transaction() as session:
         assert session['params']['type'] == 'tv'
         assert session['params']['status'] == 'airing'
-        assert session['params']['rating'] == 'pg13'
-        assert session['params']['q'] == 'Naruto'
+        assert session['params']['rating'] == ''
+        assert session['params']['q'] == ''
         assert session['params']['genres'] == '1'
 
 def test_filtered_results(client):
@@ -111,8 +111,8 @@ def test_filtered_results(client):
     client.post('/parameters', data={
         'parameter1': 'tv',
         'parameter2': 'airing',
-        'parameter3': 'pg13',
-        'parameter_title': 'Naruto',
+        'parameter3': '',
+        'parameter_title': '',
         'parameter_genre': '1'
     }, follow_redirects=True)
 

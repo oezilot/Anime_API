@@ -17,5 +17,9 @@ FIXED -- beim test-file statt get post schreiben!
 2. Beim reload kommen zum teil mehr oder ewniger fehlermeldungen ohna dass ich etwas geändert habe
 
 ERROR
-3. 
---> FAILED tests/test_selber.py::test_homepage_content - AssertionError: assert b'<button>next</button>' in b'<!DOCTYPE html>\n<body>\n    <h1>Anime Search</h1>\n    <hr>\n    <br>\n    <!--verschiedene parameters (=filters)--...    <b...
+3. Der Button wird anscheinend nicht im html angezeigt
+--> AssertionError: assert b'<button>next</button>' in b'<!DOCTYPE html>\n<body>\n    <h1>Anime Search</h1>\n    <hr>\n    <br>\n    <!--verschiedene parameters (=filters)--...    <br>\n\n    <!--display anime data; title, type, status...-->\n    \n    <p>Error fetching data</p>\n    \n</body>'
+
+4. Ich habe das gefühl die gesamte olgik mit allen fällen mache ich doppelt wie z.b. das mit den oagination un den fällen wann ein button nagezeigt wird und wann nicht (muss ich das wirklich 2mal machen oder echt nicht?)
+
+5. beim teste wenn ich werte für die parameter angebe werden dan random werte gerüft oder immer gana diese? kann man das nicht irgendwie allgemeiner machen und dann die spezielfälle definieren (das hätte ich dann halt quasi wie bereits im code gemacht...)
