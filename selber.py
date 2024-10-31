@@ -1,18 +1,10 @@
 '''
 todo's
-
-- keep the values displayed on the filterbuttons when selected a value
 - css styling with tailwind
-- display image, title, year, studio of each anime  in data
-- do tests?
 - den ganzen code nochmals neu schreiben?!
-- wie genau funkitioniert das mit der message und allgemein das mit den messages?
 - ich glaube ich weiss nun was der fehler war: man sollte die daten nie direkt fetchen sondern immer eine alternative bereitsstellen denn sonst gibt es errors
-- liste mit erweiterungen schreiben die man noch hinzufügen könnte zur application
 - bug-sicher machen und klären ob das mit dem .get ein problem echt ist!
-- neue application schreiben als mischung aus dieser und der von gpt
 - sort?
-
 '''
 
 from flask import Flask, render_template, request, url_for, redirect, session
