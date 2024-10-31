@@ -1,0 +1,21 @@
+vielleicht habe ich eien call mit jemandem der mir helfen kann...
+für das brauche ich fragen, die wären folgend:
+
+folgendes sind meine fragen:
+- jedes mal wenn ich ale tests ausführe dann kommen andere resultate ohne dass ich etwas verändert habe...warum ist das so??
+
+folgendes möchte ich alles testen:
+
+
+
+Folgende Fehlermeldungen beim testen treten auf:
+
+FIXED -- beim test-file statt get post schreiben!
+1. Anscheined haben meine Daten niht die richtige Form weshalb man kein get-request macen kann...aber ich habe den typ geprüft denn wenn ich die daten im terminal ausprinte kommt ein dict heraus!!! 
+--> jinja2.exceptions.UndefinedError: 'list object' has no attribute 'get'
+
+2. Beim reload kommen zum teil mehr oder ewniger fehlermeldungen ohna dass ich etwas geändert habe
+
+ERROR
+3. 
+--> FAILED tests/test_selber.py::test_homepage_content - AssertionError: assert b'<button>next</button>' in b'<!DOCTYPE html>\n<body>\n    <h1>Anime Search</h1>\n    <hr>\n    <br>\n    <!--verschiedene parameters (=filters)--...    <b...

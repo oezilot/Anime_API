@@ -2,79 +2,118 @@
 <html>
 <body>
     {% if anime_data %}
-        <h1>More Info About {{anime_data['title']}} </h1>
+        {% if 'title' in anime_data %}
+            <h1>More Info About {{ anime_data['title'] }} </h1>
+        {% else %}
+            <h1>Anime information is incomplete.</h1>
+        {% endif %}
     {% else %}
-        <h1>There is no futher data available for this anime!</h1>
+        <h1>There is no further data available for this anime!</h1>
     {% endif %}
-<div>
-    <table border="1">
-        <tr>
-            <th>Variable</th>
-            <th>Value</th>
-        </tr>
-        <tr>
-            <td>Title</td>
-            <td>{{ anime_data['title'] }}</td>
-        </tr>
-        <tr>
-            <td>Genres</td>
-            <td>{% for i in anime_data['genres'] %} {{ i['name'] }} {% if not loop.last %}, {% endif %} {% endfor %}</td>
-        </tr>
-        <tr>
-            <td>Rating</td>
-            <td>{{ anime_data['rating'] }}</td>
-        </tr>
-        <tr>
-            <td>Status</td>
-            <td>{{ anime_data['status'] }}</td>
-        </tr>
-        <tr>
-            <td>Type</td>
-            <td>{{ anime_data['type'] }}</td>
-        </tr>
-        <tr>
-            <td>Synopsis</td>
-            <td>{{ anime_data['synopsis'] }}</td>
-        </tr>
-        <tr>
-            <td>Trailer</td>
-            <!--checks if the trailer exists (if the url is not empty!)-->
-            {% if anime_data.get('trailer') and anime_data['trailer'].get('url') %}
-            <td><a href="{{ anime_data['trailer']['url'] }}" target="_blank">Trailer ansehen</a></td>
-            {% else %}
-            <td>No trailer available</td>
+
+    <div>
+        <table border="1">
+            <tr>
+                <th>Variable</th>
+                <th>Value</th>
+            </tr>
+            {% if 'title' in anime_data %}
+            <tr>
+                <td>Title</td>
+                <td>{{ anime_data['title'] }}</td>
+            </tr>
             {% endif %}
 
-        </tr>
-        <tr>
-            <!--es gibt immer dann einen loop wenn es mehrere resultate gibt, wie es hier z.b. mehrere studios oder genres gibt zu einem anime.man iteriert dann durch diese liste mit dem loop!-->
-            <td>Studios</td>
-            <td>{% for i in anime_data['studios'] %} {{ i['name'] }} {% if not loop.last %}, {% endif %} {% endfor %}</td>
-        </tr>
-        <tr>
-            <td>Producers</td>
-            <td>{% for i in anime_data['producers'] %} {{ i['name'] }} {% if not loop.last %}, {% endif %} {% endfor %}</td>
-        </tr>
-        <tr>
-            <td>Year</td>
-            <td>{{ anime_data['year'] }}</td>
-        </tr>
-        <tr>
-            <td>Rank</td>
-            <td>{{ anime_data['rank'] }}</td>
-        </tr>
-        <tr>
-            <td>Duration</td>
-            <td>{{ anime_data['duration'] }}</td>
-        </tr>
-        <tr>
-            <td>Episodes</td>
-            <td>{{ anime_data['episodes'] }}</td>
-        </tr>
-    </table>
-</div>
-<div>
+            {% if 'genres' in anime_data %}
+            <tr>
+                <td>Genres</td>
+                <td>
+                    {% for i in anime_data['genres'] %} 
+                        {{ i['name'] }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endif %}
 
-</div>
+            {% if 'rating' in anime_data %}
+            <tr>
+                <td>Rating</td>
+                <td>{{ anime_data['rating'] }}</td>
+            </tr>
+            {% endif %}
+
+            {% if 'status' in anime_data %}
+            <tr>
+                <td>Status</td>
+                <td>{{ anime_data['status'] }}</td>
+            </tr>
+            {% endif %}
+
+            {% if 'type' in anime_data %}
+            <tr>
+                <td>Type</td>
+                <td>{{ anime_data['type'] }}</td>
+            </tr>
+            {% endif %}
+
+            {% if 'synopsis' in anime_data %}
+            <tr>
+                <td>Synopsis</td>
+                <td>{{ anime_data['synopsis'] }}</td>
+            </tr>
+            {% endif %}
+
+            <tr>
+                <td>Trailer</td>
+                {% if anime_data.get('trailer') and anime_data['trailer'].get('url') %}
+                    <td><a href="{{ anime_data['trailer']['url'] }}" target="_blank">Watch Trailer</a></td>
+                {% else %}
+                    <td>No trailer available</td>
+                {% endif %}
+            </tr>
+
+            {% if 'studios' in anime_data %}
+            <tr>
+                <td>Studios</td>
+                <td>{% for i in anime_data['studios'] %} {{ i['name'] }} {% if not loop.last %}, {% endif %} {% endfor %}</td>
+            </tr>
+            {% endif %}
+
+            {% if 'producers' in anime_data %}
+            <tr>
+                <td>Producers</td>
+                <td>{% for i in anime_data['producers'] %} {{ i['name'] }} {% if not loop.last %}, {% endif %} {% endfor %}</td>
+            </tr>
+            {% endif %}
+
+            {% if 'year' in anime_data %}
+            <tr>
+                <td>Year</td>
+                <td>{{ anime_data['year'] }}</td>
+            </tr>
+            {% endif %}
+
+            {% if 'rank' in anime_data %}
+            <tr>
+                <td>Rank</td>
+                <td>{{ anime_data['rank'] }}</td>
+            </tr>
+            {% endif %}
+
+            {% if 'duration' in anime_data %}
+            <tr>
+                <td>Duration</td>
+                <td>{{ anime_data['duration'] }}</td>
+            </tr>
+            {% endif %}
+
+            {% if 'episodes' in anime_data %}
+            <tr>
+                <td>Episodes</td>
+                <td>{{ anime_data['episodes'] }}</td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
 </body>
 </html>

@@ -117,7 +117,7 @@ def resetPage():
 def display():
     result = fetchData()
     data = result["data"]
-    pagination = result["pagination"]
+    pagination = result.get("pagination", {})    
     message = result["message"]
 
     #session.clear() # falls ich die session leeren möchte (mit dm musste ich genre= gerauslöschen!!!)
@@ -166,7 +166,6 @@ def characters():
         print(f"Received anime_title: {anime_title}")
 
 
-
         # Store the anime ID and title in the session
         session['anime_id'] = anime_id
         session['anime_title'] = anime_title
@@ -190,9 +189,9 @@ def anime_url(anime_id):
     api_url = f"https://api.jikan.moe/v4/anime/{anime_id}"
     response3 = requests.get(api_url)
     if response3.status_code == 200:
-        print(f"Anime API URL: {api_url}")  # Debug print to check the URL
-        # print("Response Data:", response2.json(), flush=True)  # Print the entire response data for debugging
-        return response3.json()
+        data = response3.json()
+        # print("API Response Data:", data)  # Debugging-Zeile
+        return data  # Gibt das erhaltene Daten-Dict zurück
     else:
         return {"data": []}  # Return an empty structure if the request fails
 
@@ -200,13 +199,15 @@ def anime_url(anime_id):
 @app.route('/anime', methods=['GET', 'POST'])
 def anime():
     if request.method == 'POST':
+        # anime_id aus dem form holen
         anime_id = request.form.get('anime_id')
+        # anime_id in der session speichern
         session['anime_id'] = anime_id
-
+    # variable definieren die die anime_id enthält (default None)
     anime_id = session.get('anime_id', 'None')
-
-
+    # mit der anime_id daten mit der API fetchen (wenn anime_id none ist wird das im html gehandled!)
     anime = anime_url(anime_id)
+    # anime daten in einer variable speichern
     anime_data = anime['data']
 
     print("Session Data:", session, flush=True)

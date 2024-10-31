@@ -24,7 +24,7 @@ def test_character_page(client):
 
 #==> ANIMEPAGE:
 def test_anime_page(client):
-    response = client.get('/anime', data={'anime_id':1}) # den anime_id braucht die function als input im selber.py
+    response = client.post('/anime', data={'anime_id':1}) # den anime_id braucht die function als input im selber.py
     assert response.status_code == 200
 
 
