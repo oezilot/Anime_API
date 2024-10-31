@@ -23,3 +23,8 @@ ERROR
 4. Ich habe das gefühl die gesamte olgik mit allen fällen mache ich doppelt wie z.b. das mit den oagination un den fällen wann ein button nagezeigt wird und wann nicht (muss ich das wirklich 2mal machen oder echt nicht?)
 
 5. beim teste wenn ich werte für die parameter angebe werden dan random werte gerüft oder immer gana diese? kann man das nicht irgendwie allgemeiner machen und dann die spezielfälle definieren (das hätte ich dann halt quasi wie bereits im code gemacht...)
+
+
+Erkenntnisse:
+- immer schauen ob es get und so gemacht wird mit defaultwert wenn keine daten existieren um erors zu vermeden
+- wenn man daten im html anzeigt immer zuerst prüfen ob die überhaupt existieren (warum das aber wenn man das bereits gemacht hat???)

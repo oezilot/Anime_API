@@ -8,10 +8,13 @@
     <div>
         <p>
         {% for character in character_data %}
-        {{ character['character']['name'] }}
-        <br>
-        <img src="{{ character['character']['images']['jpg']['image_url'] }}" width="200" alt="{{ character['name'] }}">
-        </p>
+            {% if character.get('character') %}
+                {{ character['character']['name'] }}
+                <br>
+                <img src="{{ character['character']['images']['jpg']['image_url'] }}" width="200" alt="{{ character['character']['name'] }}">
+            {% else %}
+                <p>No character information available.</p>
+            {% endif %}
         {% endfor %}
     </div>
 

@@ -121,7 +121,11 @@
                 {{ g['name'] }}{% if not loop.last %}, {% endif %}
             {% endfor %}            
             <br>
-            <img src=" {{ i['images']['jpg']['image_url'] }} ">
+            {% if i.get('images') and i['images'].get('jpg') %}
+                <img src="{{ i['images']['jpg']['image_url'] }}" alt="{{ i['title'] }}">
+            {% else %}
+                <p>No image available.</p>
+            {% endif %}        
         </p>
         
         <!-- Character button -->
