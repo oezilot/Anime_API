@@ -1,15 +1,7 @@
-vielleicht habe ich eien call mit jemandem der mir helfen kann...
-für das brauche ich fragen, die wären folgend:
-
-folgendes sind meine fragen:
-- jedes mal wenn ich ale tests ausführe dann kommen andere resultate ohne dass ich etwas verändert habe...warum ist das so??
-
-folgendes möchte ich alles testen:
+Frage, Antworten, Erknntnisse, Notizen, todo's, etc...
 
 
-
-Folgende Fehlermeldungen beim testen treten auf:
-
+Fragen und Fehlermeldungen:
 FIXED -- beim test-file statt get post schreiben!
 1. Anscheined haben meine Daten niht die richtige Form weshalb man kein get-request macen kann...aber ich habe den typ geprüft denn wenn ich die daten im terminal ausprinte kommt ein dict heraus!!! 
 --> jinja2.exceptions.UndefinedError: 'list object' has no attribute 'get'
@@ -28,3 +20,11 @@ ERROR
 Erkenntnisse:
 - immer schauen ob es get und so gemacht wird mit defaultwert wenn keine daten existieren um erors zu vermeden
 - wenn man daten im html anzeigt immer zuerst prüfen ob die überhaupt existieren (warum das aber wenn man das bereits gemacht hat???)
+
+
+Diese Tests müssen gemacht werden!:
+- überprüfen ob der content auf der seite angezeigt wird (html-mässig)
+- mock-requests und client definieren für simulation der users und der API-abfrage
+- überprüfen ob alle buttons in allen szenarien funktionieren
+- überprüfen ob das formular mit den parametern funktiniert (= alles richtig in die session übergeben wird etc)
+- überprüfen ob die daten die man versucht zu fetchen überhaupt existieren
