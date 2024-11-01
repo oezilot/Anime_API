@@ -20,6 +20,7 @@ ERROR
 Erkenntnisse:
 - immer schauen ob es get und so gemacht wird mit defaultwert wenn keine daten existieren um erors zu vermeden
 - wenn man daten im html anzeigt immer zuerst prüfen ob die überhaupt existieren (warum das aber wenn man das bereits gemacht hat???)
+- secret key und ihr nutzen in verbindung mit sessions, cookies etc verstehen!
 
 
 Diese Tests müssen gemacht werden!:
