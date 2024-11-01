@@ -1,6 +1,10 @@
 import pytest
 from selber2 import app2, url_animes, url_anime, url_characters  # Stelle sicher, dass der Pfad zur App korrekt ist
 
+
+#============ URL BUILDER FUNKTIONEN =============
+# spezialfälle: leere werte, negative/zu grosse pages (werden die default-werte richtig angewendet?)
+
 # Test für die URL-Builder-Funktion url_animes
 def test_url_animes():
     page = 1
