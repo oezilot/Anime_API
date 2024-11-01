@@ -16,6 +16,8 @@ ERROR
 
 5. beim teste wenn ich werte für die parameter angebe werden dan random werte gerüft oder immer gana diese? kann man das nicht irgendwie allgemeiner machen und dann die spezielfälle definieren (das hätte ich dann halt quasi wie bereits im code gemacht...)
 
+6. können zu mehreren verschiedenen files gleichzeitig mehrere tests im selben ordner sein, wie geht das mit den namen?
+
 
 Erkenntnisse:
 - immer schauen ob es get und so gemacht wird mit defaultwert wenn keine daten existieren um erors zu vermeden

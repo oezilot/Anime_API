@@ -3,7 +3,7 @@
 
 import pytest
 from unittest.mock import patch
-from selber import app #selber is tha name of the applivation: selber.py
+from selber import app #selber is tha name of the applivation: selber.py (hier kann man noch funktionen einfügen theoretisch)
 
 # creating a client
 @pytest.fixture

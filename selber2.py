@@ -30,8 +30,8 @@ Form (anpassung der items in der session)
 from flask import Flask
 import secrets # für die generiereung eines secret_keys
 
-app = Flask(__name__) # mit diser variable wird die app definiert und dass es sich um eine flask app handelt; man könnte alternativ auch einen andere namen verwenden: "app=Flask(__IrgendEinName__)"
-app.secret_key = secrets.token_hex(16) # ein zufälliger key wird jedes mal generiert, das wird benötigt für die session
+app2 = Flask(__name__) # mit diser variable wird die app definiert und dass es sich um eine flask app handelt; man könnte alternativ auch einen andere namen verwenden: "app=Flask(__IrgendEinName__)"
+app2.secret_key = secrets.token_hex(16) # ein zufälliger key wird jedes mal generiert, das wird benötigt für die session
 
 ''' 
 nur zum testen:
@@ -66,4 +66,4 @@ def url_characters(anime_id):
 
 # das besagt dass dieses file das main file und nicht nur irgendein modul ist (nur da main file wird gerunnt!)
 if __name__ == '__main__':
-    app.run(debug=True)
+    app2.run(debug=True)
