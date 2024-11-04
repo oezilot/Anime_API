@@ -193,6 +193,7 @@ def display_characters_data():
         # diese zeile hier wird im html angezeigt und nicht im terminal!
         return "ERROR in der Display funktion: fetch_characters gibt None zurück!"
 
+# TESTS: wenn aktuelle page kleiner als 1 ist, gleich der max seitenzahl ist oder eine zahl dazwischen ist
 @app2.route('/inc')
 def inc(): 
     global page
