@@ -25,10 +25,10 @@ params = {
     #"status": "airing"
 }
 page = 1
-'''
+
 anime_id = 20 # irgendein naruto-dings (achtung nicht alle zahlen sind eine anime_id...3 z.b. gibt einen error weil es keine id mit 3 gibt!)
 error = None # diese variable überbringt dem html immer den error zum darstellen!
-
+'''
 
 #=================== URL-Builder-Functions (3) =====================
 # TEST: werden die urls richtig gebildet mit den werten aus der session
@@ -142,7 +142,7 @@ def fetch_animes():
             "pagination": {}
         }
 
-    
+'''  
 # fetching a certain anime
 def fetch_anime(anime_id):
     try:
@@ -184,6 +184,7 @@ def fetch_characters(anime_id):
     except requests.RequestException as e: # falls der call selbst fehlschlägt (das mit dem exception ist so was speziellen für api-calls)
         print(f"ERROR MAKING THE Characters-API CALL:{e}")
         return None
+'''
     
 #=================== Fetch-Funktionen testen mit vorgegebenen dictionary, page, anime_id (3) =====================
 # fetch_animes(page, params) # (erwarteter output = api-url und die daten aller animes)
@@ -204,20 +205,17 @@ else:
 
 @app2.route('/', methods=['GET'])
 def display_animes_data():
-    fetched_animes_data = fetch_animes()
-
-
+    # data to display (this data is stored in variables to later give it to the html which will display it!)
+    results_dictionary = fetch_animes() # this is the dirctionary created!
+    animes_data = results_dictionary['data']
+    pagination = results_dictionary['pagination']
+    message = results_dictionary['message']
 
     page = session.get('page', 1)
-    params = session.get('params', {})
 
-    if fetch_animes(page, params) != None: # hier könnte es auch sein dass animes_data none ist deshalb muss man das noch überprüfen
-        animes_data = fetch_animes(page, params) 
-        return render_template('selber2.html', animes_data=animes_data)
-    else:
-        # diese zeile hier wird im html angezeigt und nicht im terminal!
-        return "ERROR in der Display funktion: fetch_animes gibt None zurück!"
-    
+    return render_template('selber2.html', page=page, animes_data=animes_data, pagination=pagination, message=message)
+
+'''
 @app2.route('/anime')
 def display_anime_data():
     global anime_id
@@ -237,10 +235,12 @@ def display_characters_data():
     else:
         # diese zeile hier wird im html angezeigt und nicht im terminal!
         return "ERROR in der Display funktion: fetch_characters gibt None zurück!"
+'''
+
 
 # TESTS: wenn aktuelle page kleiner als 1 ist, gleich der max seitenzahl ist oder eine zahl dazwischen ist
 # TESTS: überprüfen ob alles korrekt in der session abgespeichert/abgedated wurde
-@app2.route('/inc')
+@app2.route('/inc', methods=['POST'])
 def inc(): 
     page = session.get('page', 1)
     page = page + 1
@@ -249,7 +249,7 @@ def inc():
     print(f"SESSION DATA:{session}")
     return redirect('/')
 
-@app2.route('/dec')
+@app2.route('/dec', methods=['POST'])
 def dec():
     page = session.get('page', 1)
     if page > 1:
