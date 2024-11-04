@@ -56,10 +56,11 @@ error = None # diese variable überbringt dem html immer den error zum darstelle
 
 #=================== Sessions (params, page, anime_id, anime_title) updaten =====================
 # überall wo vorhin die werte der globalen variablen genommen wurden wird nun der wert aus der session geholt!!!
-app2.route('/session', methods=['POST'])
+app2.route('/update_session', methods=['POST'])
 def update_session():
     # parameters 
     animes_type = request.form.get('param_type', '')
+    print(animes_type)
 
 
     # data speicher wie anime_id, anime_title
@@ -71,7 +72,7 @@ def update_session():
     
     params = session.get('params', {}) # das upgedatete dictionary mit den parametern drin
 
-    print(session)
+    print(f"SESSION CONTENT:{session}")
     return redirect("/reset")
 
 @app2.route('/reset')
