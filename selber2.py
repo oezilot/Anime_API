@@ -209,7 +209,21 @@ def display_animes_data():
 
     page = session.get('page', 1) # =current page
 
-    return render_template('selber2.html', page=page, animes_data=animes_data, pagination=pagination, message=message)
+    # gespeicherte werte für die parameter damit diese in der form angezeigt werden und nicht immer gelöscht werden sobald man submitted!
+    params = session.get('params', {})
+
+    selected_param_title = params.get('q', '')
+    selected_param_genre = params.get('genres', '')
+    
+    return render_template(
+        'selber2.html', 
+        page=page, 
+        animes_data=animes_data, 
+        pagination=pagination, 
+        message=message, 
+        selected_param_title=selected_param_title,  # Tippfehler korrigiert
+        selected_param_genre=selected_param_genre  # Tippfehler korrigiert
+    )
 
 '''
 @app2.route('/anime')
