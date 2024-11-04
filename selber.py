@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request, url_for, redirect, session
 import requests
+import secrets
 
 app = Flask(__name__)
-app.secret_key = '7ed2323092b13f8347245ecf314617c8a925236bd5c8f56f63c9ca8c479b2204'
+app.secret_key = secrets.token_hex(16) # ein zufälliger key wird jedes mal generiert, das wird benötigt für die session
 
 
-################## Search Page --> alles animes aufgelistet zu bestimmten parametern ##########################
-
+#=================== URL-Builder-Functions (3) =====================
 # mit dieser API-URL werden dann die Daten gefetched
 def urlBuilder(page, params):
     queryUrl = f"https://api.jikan.moe/v4/anime?page={page}"
