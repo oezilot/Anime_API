@@ -53,8 +53,6 @@ def url_characters(anime_id):
 
 
 #=================== Sessions (params, page, anime_id, anime_title) updaten =====================
-# TESTS: werden alle werte in der session gespeichert? (die session herausprinten um das zu überprüfen)
-# Output: reset page (die session wird abgedated mit neuen params-werten)
 # tipp: wenn man etwas in der session verändert immer die veränderungen in der session abspeichern
 # überall wo vorhin die werte der globalen variablen genommen wurden wird nun der wert aus der session geholt!!!
 @app2.route('/update_session', methods=['POST'])
@@ -79,38 +77,70 @@ def update_session():
     # Save updated params in session
     session['params'] = params
     print(f"SESSION CONTENT: {session}")
-
     return redirect("/reset")
+
+@app2.route('/reset')
+def resetPage():
+    session['page'] = 1
+    return redirect('/')
     
 
 #=================== FETCH-Data Funktionen (3) =====================
-# TEST: fetch-funktion für die 3 api-urls testen mit allen spezialfällen
-# Output: alle daten und pagination in einem dictionary
-
+# TEST: fetch-funktion für die 3 api-urls tsten mit allen spezialfällen
+# erwarteter output: daten als liste
 # fetching all anime data
 def fetch_animes(page, params):
-    # sessiondaten herausholen:
+    # Session data retrieval
     page = session.get('page', 1)
     params = session.get('params', {})
-
-    try: # den call probieren zu machen
-        response_animes = requests.get(url_animes(page, params)) # antwort auf den api-call mit dem api-url der url_animes-funktion (fetchen)
+    
+    try:
+        # Make API call using the generated URL
+        response_animes = requests.get(url_animes(page, params))
+        
         if response_animes.status_code == 200:
-            animes_dict = response_animes.json() #JSON-daten in eine variable laden (= Dictionary)
-            if "data" in animes_dict and animes_dict["data"]: # überprüüft ob der key namens data im dict vorhanden ist und ob dieser key einen value hat
-                animes_data = animes_dict.get('data', []) 
-                # print(f"ERFOLG FETCHING animes_data: {animes_data}")
-                return animes_data # der rückgabewert der funktion sind die daten des calls
+            animes_dict = response_animes.json()  # Load JSON data into a dictionary
+            
+            # Check if 'data' key exists and has content
+            if "data" in animes_dict and animes_dict["data"]:
+                animes_data = animes_dict.get('data', [])
+                print(f"ERFOLG FETCHING animes_data: {animes_data}")
+                return {
+                    "message": "Data fetched successfully",
+                    "data": animes_data,
+                    "status": "success",
+                    "pagination": animes_dict.get('pagination', {})  # Include pagination if available
+                }
             else:
-                # wenn keine daten existieren zu den gewählten parametern!
-                print("ERROR FETCHING animes_data: es existiern keine Animes-Daten")
-                return None
-        else: # falls der call nicht erfolgreich war (400: bad request)
-            print(f"ERROR FETCHING animes_data:{response_animes.status_code}")
-            return None
-    except requests.RequestException as e: # falls der call selbst fehlschlägt (das mit dem exception ist so was speziellen für api-calls)
-        print(f"ERROR MAKING THE Animes-API CALL:{e}")
-        return None
+                # No data available for given filters
+                print("ERROR FETCHING animes_data: No Anime Data Found")
+                return {
+                    "message": "No Anime Data Found",
+                    "data": [],
+                    "status": "error",
+                    "pagination": {}
+                }
+        
+        else:
+            # Handle unsuccessful response
+            print(f"ERROR FETCHING animes_data: {response_animes.status_code}")
+            return {
+                "message": f"Error fetching data: {response_animes.status_code}",
+                "data": [],
+                "status": "error",
+                "pagination": {}
+            }
+    
+    except requests.RequestException as e:
+        # Handle request failure
+        print(f"ERROR MAKING THE Animes-API CALL: {e}")
+        return {
+            "message": f"Request failed: {e}",
+            "data": [],
+            "status": "error",
+            "pagination": {}
+        }
+
     
 # fetching a certain anime
 def fetch_anime(anime_id):
@@ -226,11 +256,6 @@ def dec():
     return redirect('/')
 
 
-
-@app2.route('/reset')
-def resetPage():
-    session['page'] = 1
-    return redirect('/')
 
 
 
