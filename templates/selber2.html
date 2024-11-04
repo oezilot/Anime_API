@@ -1,18 +1,49 @@
 <!DOCTYPE html>
 <html>
     <body>
+        <h1>Data from all Animes</h1>
+
         <!--Filters-->
         <!--TESTs: werden die parameter richtig in die session hinzugefügt???-->
         <form action="/update_session" method="POST">
             <label for="param_type">Type</label>
             <select name="param_type">
+                <option value="">All</option>
                 <option value="tv">TV</option>
                 <option value="movie">Movie</option>
             </select>
+
+            <label>Status</label>
+            <select name="parameter2">
+                <option value="" {% if parameter2 == '' %}selected{% endif %}>All</option>
+                <option value="airing" {% if parameter2 == 'airing' %}selected{% endif %}>Airing</option>
+                <option value="complete" {% if parameter2 == 'complete' %}selected{% endif %}>Complete</option>
+                <option value="upcoming" {% if parameter2 == 'upcoming' %}selected{% endif %}>Upcoming</option>
+            </select>
+
+
+            <label for="param_type">Type</label>
+            <select name="param_type">
+                <option value="tv">TV</option>
+                <option value="movie">Movie</option>
+            </select>
+
+            <label for="param_type">Type</label>
+            <select name="param_type">
+                <option value="tv">TV</option>
+                <option value="movie">Movie</option>
+            </select>
+
+            <label for="param_type">Type</label>
+            <select name="param_type">
+                <option value="tv">TV</option>
+                <option value="movie">Movie</option>
+            </select>
+
             <button type="submit">Apply Filters!</button>
         </form>
-        <h1>Data from all Animes</h1>
-        <!--anwesenhet der buttons-->
+
+        <!--TESTS: anwesenhet der buttons je nach der aktuellen page, das wird im python gehandled!!!-->
         <form action="/dec">
             <button>Previous</button>
         </form>

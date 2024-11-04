@@ -221,6 +221,7 @@ def display_characters_data():
         return "ERROR in der Display funktion: fetch_characters gibt None zurück!"
 
 # TESTS: wenn aktuelle page kleiner als 1 ist, gleich der max seitenzahl ist oder eine zahl dazwischen ist
+# TESTS: überprüfen ob alles korrekt in der session abgespeichert/abgedated wurde
 @app2.route('/inc')
 def inc(): 
     page = session.get('page', 1)
