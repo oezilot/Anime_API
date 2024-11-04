@@ -87,7 +87,8 @@ def resetPage():
 
 #=================== FETCH-Data Funktionen (3) =====================
 # TEST: fetch-funktion für die 3 api-urls tsten mit allen spezialfällen
-# erwarteter output: daten als liste
+# erwarteter output: daten des requests in einem dictionary gespeichert
+
 # fetching all anime data
 def fetch_animes(page, params):
     # Session data retrieval
