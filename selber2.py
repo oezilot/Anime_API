@@ -43,10 +43,11 @@ params = {
     #"status": "airing"
 }
 page = 1
+anime_id = 20 # irgendein naruto-dings (achtung nicht alle zahlen sind eine anime_id...3 z.b. gibt einen error weil es keine id mit 3 gibt!)
 error = None # diese variable überbringt dem html immer den error zum darstellen!
 
 
-#=================== urlBuilder-Functions (3) =====================
+#=================== URL-Builder-Functions (3) =====================
 # erwartender output = API url mit den richtigen parametern
 def url_animes(page, params):
     api_url = f"https://api.jikan.moe/v4/anime?page={page}" # das ist ein query parameter für filtering sachen
@@ -66,45 +67,92 @@ def url_characters(anime_id):
     print(f"URL characters:{api_url}")
     return api_url
 
-
+#=================== FETCH-Data Funktionen (3) =====================
+# TEST: fetch-funktion für die 3 api-urls tsten mit allen spezialfällen
 # erwarteter output: daten als liste
-def fetch_data(page, params):
+# fetching all anime
+def fetch_animes(page, params):
     try: # den call probieren zu machen
         # antwort auf den api-call mit dem api-url der url_animes-funktion (fetchen)
         response_animes = requests.get(url_animes(page, params))
         if response_animes.status_code == 200:
-            animes_dict = response_animes.json() #JSON-dten in eine variable laden (= Dictionary)
+            animes_dict = response_animes.json() #JSON-daten in eine variable laden (= Dictionary)
             if "data" in animes_dict and animes_dict["data"]: # überprüüft ob der key namens data im dict vorhanden ist und ob dieser key einen value hat
                 animes_data = animes_dict.get('data', []) 
                 print(f"ERFOLG FETCHING animes_data: {animes_data}")
                 return animes_data # der rückgabewert der funktion sind die daten des calls
             else:
                 # wenn keine daten existieren zu den gewählten parametern!
-                print("ERROR FETCHING animes_data: es existiern keine Anime-Daten")
+                print("ERROR FETCHING animes_data: es existiern keine Animes-Daten")
                 return None
         else: # falls der call nicht erfolgreich war (400: bad request)
             print(f"ERROR FETCHING animes_data:{response_animes.status_code}")
             return None
     except requests.RequestException as e: # falls der call selbst fehlschlägt (das mit dem exception ist so was speziellen für api-calls)
-        print(f"ERROR MAING THE API CALL:{e}")
+        print(f"ERROR MAKING THE Animes-API CALL:{e}")
         return None
     
-# fetch-funktion aufrufen: (erwarteter output = api-url und die daten)
-# fetch_data(page, params)
+# fetching a certain anime
+def fetch_anime(anime_id):
+    try:
+        response_anime = requests.get(url_anime(anime_id))
+        if response_anime.status_code == 200:
+            anime_dict = response_anime.json() #JSON-daten in eine variable laden (= Dictionary)
+            if "data" in anime_dict and anime_dict["data"]: # überprüüft ob der key namens data im dict vorhanden ist und ob dieser key einen value hat (hier ist data ein dictionary!)
+                anime_data = anime_dict.get('data', {}) 
+                print(f"ERFOLG FETCHING anime_data: {anime_data}")
+                return anime_data # der rückgabewert der funktion sind die daten des calls
+            else:
+                # wenn keine daten existieren zu den gewählten parametern!
+                print("ERROR FETCHING anime_data: es existiern keine Anime-Daten")
+                return None
+        else: # falls der call nicht erfolgreich war (wenn man parameter hinschreibt die nicht existieren wie anime_id=None) (400: bad request)
+            print(f"ERROR FETCHING anime_data:{response_anime.status_code}")
+            return None
+    except requests.RequestException as e: # falls der call selbst fehlschlägt (das mit dem exception ist so was speziellen für api-calls)
+        print(f"ERROR MAKING THE Anime-API CALL:{e}")
+        return None
 
+# fetching anime characters from a cerstain anime
+def fetch_characters(anime_id):
+    try:
+        response_characters = requests.get(url_characters(anime_id))
+        if response_characters.status_code == 200:
+            characters_dict = response_characters.json() #JSON-daten in eine variable laden (= Dictionary)
+            if "data" in characters_dict and characters_dict["data"]: # überprüüft ob der key namens data im dict vorhanden ist und ob dieser key einen value hat (hier ist data eine liste!)
+                characters_data = characters_dict.get('data', []) 
+                print(f"ERFOLG FETCHING character_data: {characters_data}")
+                return characters_data # der rückgabewert der funktion sind die daten des calls
+            else:
+                # wenn keine daten existieren zu den gewählten parametern!
+                print("ERROR FETCHING character_data: es existiern keine Anime-Daten")
+                return None
+        else: # falls der call nicht erfolgreich war (400: bad request), zum bsp wenn dieanime_id nicht existiert!
+            print(f"ERROR FETCHING animes_data:{response_characters.status_code}")
+            return None
+    except requests.RequestException as e: # falls der call selbst fehlschlägt (das mit dem exception ist so was speziellen für api-calls)
+        print(f"ERROR MAKING THE Characters-API CALL:{e}")
+        return None
+    
+#=================== Fetch-Funktionen testen mit vorgegebenen dictionary, page, anime_id (3) =====================
+# fetch_animes(page, params) # (erwarteter output = api-url und die daten aller animes)
+# fetch_anime(anime_id) # url and daten zu einem bestimmten anime
+# fetch_characters(anime_id) # url and daten zu allen charaktere eines bestimmten animes
 
+'''
+#=================== Pages/Routen (3) =====================
 # TESTS: bsp mit daten enthalten und bp mit keinen daten wenn die parameter kein erfolgreiches resultat ausspucken!
 # daten displayen im html, alles was diese funktion returnt wird im html angezeigt!
 @app2.route('/', methods=['GET'])
 def display_animes_data():
     global page, params
-    if fetch_data(page, params) != None: # hier könnte es auch sein dass animes_data none ist deshalb muss man das noch überprüfen
-        animes_data = fetch_data(page, params) 
+    if fetch_animes(page, params) != None: # hier könnte es auch sein dass animes_data none ist deshalb muss man das noch überprüfen
+        animes_data = fetch_animes(page, params) 
         return render_template('selber2.html', animes_data=animes_data)
     else:
         # diese zeile hier wird im html angezeigt und nicht im terminal!
         return "ERROR in der Display funktion: fetch_data gibt None zurück!"
-
+'''
 
 
 
