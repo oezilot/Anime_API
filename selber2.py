@@ -238,7 +238,6 @@ def display_characters_data():
 '''
 
 
-# TESTS: wenn aktuelle page kleiner als 1 ist, gleich der max seitenzahl ist oder eine zahl dazwischen ist
 # TESTS: überprüfen ob alles korrekt in der session abgespeichert/abgedated wurde
 @app2.route('/inc', methods=['POST'])
 def inc(): 
