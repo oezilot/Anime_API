@@ -40,7 +40,7 @@ app2.secret_key = secrets.token_hex(16) # ein zufälliger key wird jedes mal gen
 params = {
     "type": "tv", 
     "q": "kakegurui",
-    "status": "airing"
+    #"status": "airing"
 }
 page = 1
 error = None # diese variable überbringt dem html immer den error zum darstellen!

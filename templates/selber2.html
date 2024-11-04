@@ -5,7 +5,8 @@
         <!--Film Covers displayen von jedem Anime der Page-->
         {% for anime in animes_data %}
         <div>
-            {{ anime }}
+            <!--TESTs: wenn das image nicht existiert wird es einfach nicht angezeigt, diese anwesenheit müsste dann überprüft werden-->
+            <img src="{{ anime['images']['webp']['image_url'] }}" alt="Anime Image" style="width:10vw;">
         </div>
         {% endfor %}
     </body>
