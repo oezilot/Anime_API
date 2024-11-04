@@ -90,7 +90,7 @@ def resetPage():
 # erwarteter output: daten des requests in einem dictionary gespeichert
 
 # fetching all anime data
-def fetch_animes(page, params):
+def fetch_animes():
     # Session data retrieval
     page = session.get('page', 1)
     params = session.get('params', {})
@@ -204,6 +204,10 @@ else:
 
 @app2.route('/', methods=['GET'])
 def display_animes_data():
+    fetched_animes_data = fetch_animes()
+
+
+
     page = session.get('page', 1)
     params = session.get('params', {})
 
