@@ -55,22 +55,19 @@ error = None # diese variable überbringt dem html immer den error zum darstelle
 
 
 #=================== Sessions (params, page, anime_id, anime_title) updaten =====================
+# tipp: wenn man etwas in der session verändert immer die veränderungen in der session abspeichern
 # überall wo vorhin die werte der globalen variablen genommen wurden wird nun der wert aus der session geholt!!!
-app2.route('/update_session', methods=['POST'])
+@app2.route('/update_session', methods=['POST'])
 def update_session():
     # parameters 
     animes_type = request.form.get('param_type', '')
-    print(animes_type)
-
-
-    # data speicher wie anime_id, anime_title
 
     # alles in der session speichern
     params = session.get('params', {}) # get the existing session: das dictionary initialisieren
     
     params['type'] = animes_type # das dictionary mit den daten aufüllen aus dem form
     
-    params = session.get('params', {}) # das upgedatete dictionary mit den parametern drin
+    session['params'] = params # das upgedatete dictionary mit den parametern drin
 
     print(f"SESSION CONTENT:{session}")
     return redirect("/reset")
@@ -119,7 +116,7 @@ def fetch_animes(page, params):
             animes_dict = response_animes.json() #JSON-daten in eine variable laden (= Dictionary)
             if "data" in animes_dict and animes_dict["data"]: # überprüüft ob der key namens data im dict vorhanden ist und ob dieser key einen value hat
                 animes_data = animes_dict.get('data', []) 
-                print(f"ERFOLG FETCHING animes_data: {animes_data}")
+                # print(f"ERFOLG FETCHING animes_data: {animes_data}")
                 return animes_data # der rückgabewert der funktion sind die daten des calls
             else:
                 # wenn keine daten existieren zu den gewählten parametern!
@@ -228,6 +225,9 @@ def display_characters_data():
 def inc(): 
     page = session.get('page', 1)
     page = page + 1
+    # upgedatete page wieder in der session speichern
+    session['page'] = page
+    print(f"SESSION DATA:{session}")
     return redirect('/')
 
 @app2.route('/dec')
@@ -235,6 +235,8 @@ def dec():
     page = session.get('page', 1)
     if page > 1:
         page = page - 1
+        session['page'] = page
+        print(f"SESSION DATA:{session}")
     else: 
         return "There are no pages lower than 1!"
     return redirect('/')
