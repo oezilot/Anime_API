@@ -89,7 +89,7 @@ def resetPage():
 # TEST: fetch-funktion für die 3 api-urls tsten mit allen spezialfällen
 # erwarteter output: daten des requests in einem dictionary gespeichert
 
-# fetching all anime data
+# fetching all anime data mithilfe des urls un den informationen aus der session
 def fetch_animes():
     # Session data retrieval
     page = session.get('page', 1)
@@ -211,7 +211,7 @@ def display_animes_data():
     pagination = results_dictionary['pagination']
     message = results_dictionary['message']
 
-    page = session.get('page', 1)
+    page = session.get('page', 1) # =current page
 
     return render_template('selber2.html', page=page, animes_data=animes_data, pagination=pagination, message=message)
 
@@ -252,12 +252,9 @@ def inc():
 @app2.route('/dec', methods=['POST'])
 def dec():
     page = session.get('page', 1)
-    if page > 1:
-        page = page - 1
-        session['page'] = page
-        print(f"SESSION DATA:{session}")
-    else: 
-        return "There are no pages lower than 1!"
+    page = page - 1
+    session['page'] = page
+    print(f"SESSION DATA:{session}")
     return redirect('/')
 
 
