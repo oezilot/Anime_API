@@ -19,6 +19,8 @@ home-page (route)
 
 anime-page (route)
 
+session updaten
+
 character-page (route)
 
 resetPage (route, nach jedem submit des forms wird page wieder geresettet)
@@ -27,7 +29,7 @@ Form (anpassung der items in der session)
 
 '''
 
-from flask import Flask, render_template
+from flask import Flask, render_template, session, redirect
 import secrets # für die generiereung eines secret_keys
 import requests # für das handlen den API-calls
 
@@ -36,16 +38,24 @@ app2.secret_key = secrets.token_hex(16) # ein zufälliger key wird jedes mal gen
 
 
 #nur zum testen:
-# TEST: testwerte um requests etc zu simulieren
+# TEST: testwerte um requests etc zu simulieren, statt bei den tests diese variblen füllen füle ich einfach die session mit gewissen werten für die params und page etc
 
 params = {
-    "type": "tv", 
-    "q": "kakegurui",
+    #"type": "tv", 
+    "q": ""
     #"status": "airing"
 }
 page = 1
 anime_id = 20 # irgendein naruto-dings (achtung nicht alle zahlen sind eine anime_id...3 z.b. gibt einen error weil es keine id mit 3 gibt!)
 error = None # diese variable überbringt dem html immer den error zum darstellen!
+pagination = {
+    "has_next_page": "true", 
+}
+
+#=================== Sessions (params, page, anime_id, anime_title) updaten =====================
+# überall wo vorhin die werte der globalen variablen genommen wurden wird nun der wert aus der session geholt!!!
+# def session():
+
 
 
 #=================== URL-Builder-Functions (3) =====================
@@ -183,6 +193,20 @@ def display_characters_data():
         # diese zeile hier wird im html angezeigt und nicht im terminal!
         return "ERROR in der Display funktion: fetch_characters gibt None zurück!"
 
+@app2.route('/inc')
+def inc(): 
+    global page
+    page = page + 1
+    return redirect('/')
+
+@app2.route('/dec')
+def dec():
+    global page
+    if page > 1:
+        page = page - 1
+    else: 
+        return "There are no pages lower than 1!"
+    return redirect('/')
 
 
 
