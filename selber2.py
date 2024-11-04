@@ -48,14 +48,11 @@ params = {
 page = 1
 anime_id = 20 # irgendein naruto-dings (achtung nicht alle zahlen sind eine anime_id...3 z.b. gibt einen error weil es keine id mit 3 gibt!)
 error = None # diese variable überbringt dem html immer den error zum darstellen!
-pagination = {
-    "has_next_page": "true", 
-}
+
 
 #=================== Sessions (params, page, anime_id, anime_title) updaten =====================
 # überall wo vorhin die werte der globalen variablen genommen wurden wird nun der wert aus der session geholt!!!
 # def session():
-
 
 
 #=================== URL-Builder-Functions (3) =====================

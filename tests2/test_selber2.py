@@ -1,5 +1,5 @@
 # das ziel beim testen ist die print statements im eigentlichen code in tests umzuwandeln!
-# folgendes muss man testen: mocking API request, mocking a client using the interface of the application, testing if there is any data and what happens if there is none
+# folgendes muss man testen: mocking API request, mocking a client using the interface of the application, testing if there is any data and what happens if there is none (ich will tests auf eine art machn sodass ich einen bestimmten test mehrmals mit verschiedenen random zahlen durchgeführt wird!)
 # --> 2 sachen können none sein: die daten der request wegen den paramtern oder weil die parameter udn page none sind
 
 import pytest
