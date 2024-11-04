@@ -2,46 +2,73 @@
 <html>
     <body>
         <h1>Data from all Animes</h1>
-
-        <!--Filters-->
         <!--TESTs: werden die parameter richtig in die session hinzugefügt???-->
+        <!--Filters-->
         <form action="/update_session" method="POST">
-            <label for="param_type">Type</label>
+            <!-- Anime Title -->
+            <label for="param_title">Anime Title:</label>
+            <input type="text" name="param_title" placeholder="Enter anime title" value="{{ params.q if params and 'q' in params else '' }}">
+            <br><br>
+        
+            <!-- Type -->
+            <label for="param_type">Type:</label>
             <select name="param_type">
-                <option value="">All</option>
-                <option value="tv">TV</option>
-                <option value="movie">Movie</option>
+                <option value="" {% if params.type == '' %}selected{% endif %}>All</option>
+                <option value="tv" {% if params.type == 'tv' %}selected{% endif %}>TV</option>
+                <option value="movie" {% if params.type == 'movie' %}selected{% endif %}>Movie</option>
+                <option value="ova" {% if params.type == 'ova' %}selected{% endif %}>OVA</option>
+                <option value="special" {% if params.type == 'special' %}selected{% endif %}>Special</option>
+                <option value="music" {% if params.type == 'music' %}selected{% endif %}>Music</option>
+                <option value="ona" {% if params.type == 'ona' %}selected{% endif %}>ONA</option>
+                <option value="cm" {% if params.type == 'cm' %}selected{% endif %}>CM</option>
+                <option value="pv" {% if params.type == 'pv' %}selected{% endif %}>PV</option>
+                <option value="tv_special" {% if params.type == 'tv_special' %}selected{% endif %}>TV Special</option>
             </select>
-
-            <label>Status</label>
-            <select name="parameter2">
-                <option value="" {% if parameter2 == '' %}selected{% endif %}>All</option>
-                <option value="airing" {% if parameter2 == 'airing' %}selected{% endif %}>Airing</option>
-                <option value="complete" {% if parameter2 == 'complete' %}selected{% endif %}>Complete</option>
-                <option value="upcoming" {% if parameter2 == 'upcoming' %}selected{% endif %}>Upcoming</option>
+            <br><br>
+        
+            <!-- Status -->
+            <label for="param_status">Status:</label>
+            <select name="param_status">
+                <option value="" {% if params.status == '' %}selected{% endif %}>All</option>
+                <option value="airing" {% if params.status == 'airing' %}selected{% endif %}>Airing</option>
+                <option value="complete" {% if params.status == 'complete' %}selected{% endif %}>Complete</option>
+                <option value="upcoming" {% if params.status == 'upcoming' %}selected{% endif %}>Upcoming</option>
             </select>
-
-
-            <label for="param_type">Type</label>
-            <select name="param_type">
-                <option value="tv">TV</option>
-                <option value="movie">Movie</option>
+            <br><br>
+        
+            <!-- Rating -->
+            <label for="param_rating">Rating:</label>
+            <select name="param_rating">
+                <option value="" {% if params.rating == '' %}selected{% endif %}>For Everyone</option>
+                <option value="g" {% if params.rating == 'g' %}selected{% endif %}>G - All Ages</option>
+                <option value="pg" {% if params.rating == 'pg' %}selected{% endif %}>PG - Children</option>
+                <option value="pg13" {% if params.rating == 'pg13' %}selected{% endif %}>PG13 - Teens 13+</option>
+                <option value="r17" {% if params.rating == 'r17' %}selected{% endif %}>R17 - 17+ (Violence & Profanity)</option>
+                <option value="r" {% if params.rating == 'r' %}selected{% endif %}>R+ - Mild Nudity</option>
+                <option value="rx" {% if params.rating == 'rx' %}selected{% endif %}>Rx - Hentai</option>
             </select>
-
-            <label for="param_type">Type</label>
-            <select name="param_type">
-                <option value="tv">TV</option>
-                <option value="movie">Movie</option>
+            <br><br>
+        
+            <!-- Genre -->
+            <label for="param_genre">Genre:</label>
+            <select name="param_genre">
+                <option value="" {% if params.genres == '' %}selected{% endif %}>All</option>
+                <option value="1" {% if params.genres == '1' %}selected{% endif %}>Action</option>
+                <option value="8" {% if params.genres == '8' %}selected{% endif %}>Drama</option>
+                <option value="4" {% if params.genres == '4' %}selected{% endif %}>Comedy</option>
+                <option value="28" {% if params.genres == '28' %}selected{% endif %}>Boys Love</option>
+                <option value="26" {% if params.genres == '26' %}selected{% endif %}>Girls Love</option>
+                <option value="10" {% if params.genres == '10' %}selected{% endif %}>Fantasy</option>
+                <option value="14" {% if params.genres == '14' %}selected{% endif %}>Horror</option>
+                <option value="24" {% if params.genres == '24' %}selected{% endif %}>Sci-Fi</option>
+                <option value="22" {% if params.genres == '22' %}selected{% endif %}>Romance</option>
+                <option value="56" {% if params.genres == '56' %}selected{% endif %}>Educational</option>
             </select>
-
-            <label for="param_type">Type</label>
-            <select name="param_type">
-                <option value="tv">TV</option>
-                <option value="movie">Movie</option>
-            </select>
-
-            <button type="submit">Apply Filters!</button>
+            <br><br>
+        
+            <button type="submit">Apply Filters</button>
         </form>
+        
 
         <!--TESTS: anwesenhet der buttons je nach der aktuellen page, das wird im python gehandled!!!-->
         <form action="/dec">
