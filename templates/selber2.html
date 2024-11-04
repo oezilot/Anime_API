@@ -1,9 +1,35 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <h1>Data from all Animes</h1>
+        <h1>AniSearch</h1>
         <!--TESTs: werden die parameter richtig in die session hinzugefügt???-->
         <!--Filters-->
+        <form method="POST" action="/update_session">
+
+            <label>Anime Title</label>
+            <input type="text" name="param_title" value="{{ animes_title }}" placeholder="Naruto, etc.">
+    
+            <br><br>
+    
+            <label>Genre</label>
+            <select name="param_genre">
+                <option value="" {% if parameter_genre == '' %}selected{% endif %}>All</option>
+                <option value="1" {% if parameter_genre == '1' %}selected{% endif %}>Action</option>
+                <option value="8" {% if parameter_genre == '8' %}selected{% endif %}>Drama</option>
+                <option value="4" {% if parameter_genre == '4' %}selected{% endif %}>Comedy</option>
+                <option value="28" {% if parameter_genre == '28' %}selected{% endif %}>Boys Love</option>
+                <option value="26" {% if parameter_genre == '26' %}selected{% endif %}>Girls Love</option>
+                <option value="10" {% if parameter_genre == '10' %}selected{% endif %}>Fantasy</option>
+                <option value="14" {% if parameter_genre == '14' %}selected{% endif %}>Horror</option>
+                <option value="24" {% if parameter_genre == '24' %}selected{% endif %}>Sci-Fi</option>
+                <option value="22" {% if parameter_genre == '22' %}selected{% endif %}>Romance</option>
+                <option value="56" {% if parameter_genre == '56' %}selected{% endif %}>Educational</option>
+            </select>
+            <br><br>
+    
+            <input type="submit" value="Apply Filter">
+    
+        </form>
         
         
 
@@ -13,12 +39,15 @@
             <button>Previous</button>
         </form>
         {% endif %}
-        
+
         {% if pagination['has_next_page'] %}
         <form action="/inc" method="POST">
             <button>Next</button>
         </form>
         {% endif %}
+
+
+
         <!--Film Covers displayen von jedem Anime der Page-->
         {% if animes_data %}
             {% for anime in animes_data %}

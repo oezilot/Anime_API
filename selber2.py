@@ -40,6 +40,7 @@ def url_animes(page, params):
     print(f"URL animes:{api_url}")
     return api_url
 
+'''
 def url_anime(anime_id):
     api_url = f"https://api.jikan.moe/v4/anime/{anime_id}" # das ist ein path parameter für spezifische informationen
     print(f"URL anime:{api_url}")
@@ -50,6 +51,7 @@ def url_characters(anime_id):
     api_url = f"https://api.jikan.moe/v4/anime/{anime_id}/characters"  # path parameter
     print(f"URL characters:{api_url}")
     return api_url
+'''
 
 
 #=================== Sessions (params, page, anime_id, anime_title) updaten =====================
@@ -59,9 +61,6 @@ def url_characters(anime_id):
 def update_session():
     # Get parameters from form
     animes_title = request.form.get('param_title', '')
-    animes_type = request.form.get('param_type', '')
-    animes_status = request.form.get('param_status', '')
-    animes_rating = request.form.get('param_rating', '')
     animes_genre = request.form.get('param_genre', '')
 
     # Initialize or update session params
@@ -69,9 +68,6 @@ def update_session():
     
     # Update session with form data
     params['q'] = animes_title
-    params['type'] = animes_type
-    params['status'] = animes_status
-    params['rating'] = animes_rating
     params['genres'] = animes_genre
     
     # Save updated params in session
