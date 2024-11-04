@@ -29,7 +29,7 @@ Form (anpassung der items in der session)
 
 '''
 
-from flask import Flask, render_template, session, redirect
+from flask import Flask, render_template, session, redirect, request
 import secrets # für die generiereung eines secret_keys
 import requests # für das handlen den API-calls
 
@@ -39,20 +39,49 @@ app2.secret_key = secrets.token_hex(16) # ein zufälliger key wird jedes mal gen
 
 #nur zum testen:
 # TEST: testwerte um requests etc zu simulieren, statt bei den tests diese variblen füllen füle ich einfach die session mit gewissen werten für die params und page etc
+# TESTS: session simulieren statt einzelnenvariablen simulieren!
 
+'''
 params = {
     #"type": "tv", 
     "q": ""
     #"status": "airing"
 }
 page = 1
+'''
+
 anime_id = 20 # irgendein naruto-dings (achtung nicht alle zahlen sind eine anime_id...3 z.b. gibt einen error weil es keine id mit 3 gibt!)
 error = None # diese variable überbringt dem html immer den error zum darstellen!
 
 
 #=================== Sessions (params, page, anime_id, anime_title) updaten =====================
 # überall wo vorhin die werte der globalen variablen genommen wurden wird nun der wert aus der session geholt!!!
-# def session():
+app2.route('/session', methods=['POST'])
+def session():
+    # parameters 
+    animes_type = request.form.get('param_type')
+
+
+    # pagenumber/currentpage speichern...pagination-dictionary (default-wert ist eins wenn noch keine pagenumber in der session existiert!)
+    page = session.get('page', 1)
+
+    # data speicher wie anime_id, anime_title
+
+    # alles in der session speichern
+    params = session.get('params', {}) # get the existing session: das dictionary initialisieren
+    
+    params['type'] = animes_type # das dictionary mit den daten aufüllen aus dem form
+    
+    params = session.get('params', {}) # das upgedatete dictionary mit den parametern drin
+
+    print(session)
+    return redirect("/reset")
+
+@app2.route('/reset')
+def resetPage():
+    session['page'] = 1
+    return redirect('/')
+    
 
 
 #=================== URL-Builder-Functions (3) =====================
@@ -79,8 +108,12 @@ def url_characters(anime_id):
 #=================== FETCH-Data Funktionen (3) =====================
 # TEST: fetch-funktion für die 3 api-urls tsten mit allen spezialfällen
 # erwarteter output: daten als liste
-# fetching all anime
+# fetching all anime data
 def fetch_animes(page, params):
+    # sessiondaten herausholen:
+    page = session.get('page', 1)
+    params = session.get('params', {})
+
     try: # den call probieren zu machen
         # antwort auf den api-call mit dem api-url der url_animes-funktion (fetchen)
         response_animes = requests.get(url_animes(page, params))
@@ -162,7 +195,9 @@ else:
 
 @app2.route('/', methods=['GET'])
 def display_animes_data():
-    global page, params
+    page = session.get('page', 1)
+    params = session.get('params', {})
+
     if fetch_animes(page, params) != None: # hier könnte es auch sein dass animes_data none ist deshalb muss man das noch überprüfen
         animes_data = fetch_animes(page, params) 
         return render_template('selber2.html', animes_data=animes_data)
@@ -193,13 +228,13 @@ def display_characters_data():
 # TESTS: wenn aktuelle page kleiner als 1 ist, gleich der max seitenzahl ist oder eine zahl dazwischen ist
 @app2.route('/inc')
 def inc(): 
-    global page
+    page = session.get('page', 1)
     page = page + 1
     return redirect('/')
 
 @app2.route('/dec')
 def dec():
-    global page
+    page = session.get('page', 1)
     if page > 1:
         page = page - 1
     else: 
