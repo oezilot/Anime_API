@@ -27,7 +27,7 @@ Form (anpassung der items in der session)
 
 '''
 
-from flask import Flask
+from flask import Flask, render_template
 import secrets # für die generiereung eines secret_keys
 import requests # für das handlen den API-calls
 
@@ -43,6 +43,7 @@ params = {
     "status": "airing"
 }
 page = 1
+error = None # diese variable überbringt dem html immer den error zum darstellen!
 
 
 #=================== urlBuilder-Functions (3) =====================
@@ -74,7 +75,7 @@ def fetch_data(page, params):
         if response_animes.status_code == 200:
             animes_dict = response_animes.json() #JSON-dten in eine variable laden (= Dictionary)
             if "data" in animes_dict and animes_dict["data"]: # überprüüft ob der key namens data im dict vorhanden ist und ob dieser key einen value hat
-                animes_data = animes_dict.get('data', []) # anwesenheit des keys und seinem value überprüfen (data ist iene liste)
+                animes_data = animes_dict.get('data', []) 
                 print(f"ERFOLG FETCHING animes_data: {animes_data}")
                 return animes_data # der rückgabewert der funktion sind die daten des calls
             else:
@@ -89,11 +90,31 @@ def fetch_data(page, params):
         return None
     
 # fetch-funktion aufrufen: (erwarteter output = api-url und die daten)
-fetch_data(page, params)
-url_animes(page, params)
+# fetch_data(page, params)
+
+
+# TESTS: bsp mit daten enthalten und bp mit keinen daten wenn die parameter kein erfolgreiches resultat ausspucken!
+# daten displayen im html, alles was diese funktion returnt wird im html angezeigt!
+@app2.route('/', methods=['GET'])
+def display_animes_data():
+    global page, params
+    if fetch_data(page, params) != None: # hier könnte es auch sein dass animes_data none ist deshalb muss man das noch überprüfen
+        animes_data = fetch_data(page, params) 
+        return render_template('selber2.html', animes_data=animes_data)
+    else:
+        # diese zeile hier wird im html angezeigt und nicht im terminal!
+        return "ERROR in der Display funktion: fetch_data gibt None zurück!"
+
+
 
 
 
 # das besagt dass dieses file das main file und nicht nur irgendein modul ist (nur da main file wird gerunnt!)
 if __name__ == '__main__':
     app2.run(debug=True)
+
+
+'''
+das habe ich gelernt:
+- wenn man globale variablem in einer funktion verändern will muss man dise variablen zuerst als global deklarieren in der besagten funktion!
+'''

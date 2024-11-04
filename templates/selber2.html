@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <h1>Home Page</h1>
+        <h1>Data from all Animes</h1>
+        <!--Film Covers displayen von jedem Anime der Page-->
+        {% for anime in animes_data %}
+        <div>
+            {{ anime }}
+        </div>
+        {% endfor %}
     </body>
 </html>
