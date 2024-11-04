@@ -53,6 +53,8 @@ def url_characters(anime_id):
 
 
 #=================== Sessions (params, page, anime_id, anime_title) updaten =====================
+# TESTS: werden alle werte in der session gespeichert? (die session herausprinten um das zu überprüfen)
+# Output: reset page (die session wird abgedated mit neuen params-werten)
 # tipp: wenn man etwas in der session verändert immer die veränderungen in der session abspeichern
 # überall wo vorhin die werte der globalen variablen genommen wurden wird nun der wert aus der session geholt!!!
 @app2.route('/update_session', methods=['POST'])
@@ -77,25 +79,22 @@ def update_session():
     # Save updated params in session
     session['params'] = params
     print(f"SESSION CONTENT: {session}")
-    return redirect("/reset")
 
-@app2.route('/reset')
-def resetPage():
-    session['page'] = 1
-    return redirect('/')
+    return redirect("/reset")
     
 
 #=================== FETCH-Data Funktionen (3) =====================
-# TEST: fetch-funktion für die 3 api-urls tsten mit allen spezialfällen
-# erwarteter output: daten als liste
+# TEST: fetch-funktion für die 3 api-urls testen mit allen spezialfällen
+# Output: alle daten und pagination in einem dictionary
+
 # fetching all anime data
 def fetch_animes(page, params):
     # sessiondaten herausholen:
     page = session.get('page', 1)
     params = session.get('params', {})
+
     try: # den call probieren zu machen
-        # antwort auf den api-call mit dem api-url der url_animes-funktion (fetchen)
-        response_animes = requests.get(url_animes(page, params))
+        response_animes = requests.get(url_animes(page, params)) # antwort auf den api-call mit dem api-url der url_animes-funktion (fetchen)
         if response_animes.status_code == 200:
             animes_dict = response_animes.json() #JSON-daten in eine variable laden (= Dictionary)
             if "data" in animes_dict and animes_dict["data"]: # überprüüft ob der key namens data im dict vorhanden ist und ob dieser key einen value hat
@@ -227,6 +226,11 @@ def dec():
     return redirect('/')
 
 
+
+@app2.route('/reset')
+def resetPage():
+    session['page'] = 1
+    return redirect('/')
 
 
 

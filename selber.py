@@ -38,6 +38,38 @@ def character_url(anime_id):
 
 
 
+# Sessions
+@app.route('/parameters', methods=['POST'])
+def parameters():
+    # Get the parameters from the form
+    parameter1 = request.form.get('parameter1')
+    parameter2 = request.form.get('parameter2')
+    parameter3 = request.form.get('parameter3')
+    parameter_title = request.form.get('parameter_title')
+    parameter_genre = request.form.get('parameter_genre')
+
+    # Debugging: Print the values received from the form
+    print("Title:", parameter_title)
+    print("Genre:", parameter_genre)
+
+    # Get the existing parameters in the session
+    params = session.get('params', {})
+
+    # Add/update the parameters in the session
+    params['type'] = parameter1
+    params['status'] = parameter2
+    params['rating'] = parameter3
+    params['q'] = parameter_title
+    params['genres'] = parameter_genre
+
+    # Save the updated params back into the session
+    session['params'] = params
+    print("Session params:", session['params'])  # Debug print for session data
+
+    return redirect('/resetPage')
+
+
+
 # Daten fetchen mit dem URL aus dem urlBuilder
 def fetchData():
     # items in die session hineintun! (session wird hier quasi erstellt)
@@ -81,36 +113,6 @@ def dec():
     if page > 1:
         session['page'] = page - 1
     return redirect('/')
-
-
-@app.route('/parameters', methods=['POST'])
-def parameters():
-    # Get the parameters from the form
-    parameter1 = request.form.get('parameter1')
-    parameter2 = request.form.get('parameter2')
-    parameter3 = request.form.get('parameter3')
-    parameter_title = request.form.get('parameter_title')
-    parameter_genre = request.form.get('parameter_genre')
-
-    # Debugging: Print the values received from the form
-    print("Title:", parameter_title)
-    print("Genre:", parameter_genre)
-
-    # Get the existing parameters in the session
-    params = session.get('params', {})
-
-    # Add/update the parameters in the session
-    params['type'] = parameter1
-    params['status'] = parameter2
-    params['rating'] = parameter3
-    params['q'] = parameter_title
-    params['genres'] = parameter_genre
-
-    # Save the updated params back into the session
-    session['params'] = params
-    print("Session params:", session['params'])  # Debug print for session data
-
-    return redirect('/resetPage')
 
 
 @app.route('/resetPage')
