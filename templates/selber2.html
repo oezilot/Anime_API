@@ -3,11 +3,12 @@
     <body>
         <!--Filters-->
         <!--TESTs: werden die parameter richtig in die session hinzugefügt???-->
-        <form action="/session">
+        <form action="/update_session" method="POST">
             <select name="param_type">
                 <option value="tv">TV</option>
                 <option value="movie">Movie</option>
             </select>
+            <button type="submit">Apply Filters!</button>
         </form>
         <h1>Data from all Animes</h1>
         <!--anwesenhet der buttons-->

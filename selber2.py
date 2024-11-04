@@ -57,13 +57,10 @@ error = None # diese variable überbringt dem html immer den error zum darstelle
 #=================== Sessions (params, page, anime_id, anime_title) updaten =====================
 # überall wo vorhin die werte der globalen variablen genommen wurden wird nun der wert aus der session geholt!!!
 app2.route('/session', methods=['POST'])
-def session():
+def update_session():
     # parameters 
-    animes_type = request.form.get('param_type')
+    animes_type = request.form.get('param_type', '')
 
-
-    # pagenumber/currentpage speichern...pagination-dictionary (default-wert ist eins wenn noch keine pagenumber in der session existiert!)
-    page = session.get('page', 1)
 
     # data speicher wie anime_id, anime_title
 
