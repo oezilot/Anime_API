@@ -1,12 +1,3 @@
-'''
-todo's
-- css styling with tailwind
-- den ganzen code nochmals neu schreiben?!
-- ich glaube ich weiss nun was der fehler war: man sollte die daten nie direkt fetchen sondern immer eine alternative bereitsstellen denn sonst gibt es errors
-- bug-sicher machen und klären ob das mit dem .get ein problem echt ist!
-- sort?
-'''
-
 from flask import Flask, render_template, request, url_for, redirect, session
 import requests
 

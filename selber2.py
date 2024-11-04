@@ -6,29 +6,6 @@ Arten von Data:
 
 # jikan API documentation: https://docs.api.jikan.moe/#tag/anime/operation/getAnimeSearch 
 
-'''
-My Plan:
-
-urlBuilder (3 verschiedene arten von urls)
-
-fetchData (3 verschiedene datasets: merere animes in pages, anime: infos zu nur 1 anime mit id, characters: characters zu 1 anime mit id)
-
-pagination (route --> inc, dec)
-
-home-page (route)
-
-anime-page (route)
-
-session updaten
-
-character-page (route)
-
-resetPage (route, nach jedem submit des forms wird page wieder geresettet)
-
-Form (anpassung der items in der session)
-
-'''
-
 from flask import Flask, render_template, session, redirect, request
 import secrets # für die generiereung eines secret_keys
 import requests # für das handlen den API-calls
@@ -49,7 +26,6 @@ params = {
 }
 page = 1
 '''
-
 anime_id = 20 # irgendein naruto-dings (achtung nicht alle zahlen sind eine anime_id...3 z.b. gibt einen error weil es keine id mit 3 gibt!)
 error = None # diese variable überbringt dem html immer den error zum darstellen!
 
@@ -89,7 +65,7 @@ def resetPage():
 
 
 #=================== URL-Builder-Functions (3) =====================
-# TEST: werden die urls richtig gebildet?
+# TEST: werden die urls richtig gebildet? (mit gegebenem dictionary urls bilden)
 # erwartender output = API url mit den richtigen parametern
 def url_animes(page, params):
     api_url = f"https://api.jikan.moe/v4/anime?page={page}" # das ist ein query parameter für filtering sachen
@@ -117,7 +93,6 @@ def fetch_animes(page, params):
     # sessiondaten herausholen:
     page = session.get('page', 1)
     params = session.get('params', {})
-
     try: # den call probieren zu machen
         # antwort auf den api-call mit dem api-url der url_animes-funktion (fetchen)
         response_animes = requests.get(url_animes(page, params))
