@@ -15,6 +15,29 @@ def urlBuilder(page, params):
     print(f"Main API URL: {queryUrl}")  # Debug print to check the URL
     return queryUrl
 
+def anime_url(anime_id):
+    api_url = f"https://api.jikan.moe/v4/anime/{anime_id}"
+    response3 = requests.get(api_url)
+    if response3.status_code == 200:
+        data = response3.json()
+        # print("API Response Data:", data)  # Debugging-Zeile
+        return data  # Gibt das erhaltene Daten-Dict zurück
+    else:
+        return {"data": []}  # Return an empty structure if the request fails
+
+def character_url(anime_id):
+    api_url = f"https://api.jikan.moe/v4/anime/{anime_id}/characters"
+    response2 = requests.get(api_url)
+    if response2.status_code == 200:
+        print(f"Character API URL: {api_url}")  # Debug print to check the URL
+        # print("Response Data:", response2.json(), flush=True)  # Print the entire response data for debugging
+
+        return response2.json()
+    else:
+        return {"data": []}  # Return an empty structure if the request fails
+
+
+
 # Daten fetchen mit dem URL aus dem urlBuilder
 def fetchData():
     # items in die session hineintun! (session wird hier quasi erstellt)
@@ -124,16 +147,6 @@ def display():
 
 # neue urlbuilder-funtionc für die charaktere
 # url: /anime/animeid
-def character_url(anime_id):
-    api_url = f"https://api.jikan.moe/v4/anime/{anime_id}/characters"
-    response2 = requests.get(api_url)
-    if response2.status_code == 200:
-        print(f"Character API URL: {api_url}")  # Debug print to check the URL
-        # print("Response Data:", response2.json(), flush=True)  # Print the entire response data for debugging
-
-        return response2.json()
-    else:
-        return {"data": []}  # Return an empty structure if the request fails
 
 
 @app.route('/characters', methods=['GET', 'POST'])
@@ -168,15 +181,6 @@ def characters():
 
 
 ########################## Anime Page --> informationen zum anime mit id x ##########################
-def anime_url(anime_id):
-    api_url = f"https://api.jikan.moe/v4/anime/{anime_id}"
-    response3 = requests.get(api_url)
-    if response3.status_code == 200:
-        data = response3.json()
-        # print("API Response Data:", data)  # Debugging-Zeile
-        return data  # Gibt das erhaltene Daten-Dict zurück
-    else:
-        return {"data": []}  # Return an empty structure if the request fails
 
 
 @app.route('/anime', methods=['GET', 'POST'])

@@ -30,6 +30,28 @@ anime_id = 20 # irgendein naruto-dings (achtung nicht alle zahlen sind eine anim
 error = None # diese variable überbringt dem html immer den error zum darstellen!
 
 
+#=================== URL-Builder-Functions (3) =====================
+# TEST: werden die urls richtig gebildet mit den werten aus der session
+# Output = API url mit den richtigen parametern
+def url_animes(page, params):
+    api_url = f"https://api.jikan.moe/v4/anime?page={page}" # das ist ein query parameter für filtering sachen
+    for param in params:
+        api_url = api_url + f"&{param}={params[param]}"
+    print(f"URL animes:{api_url}")
+    return api_url
+
+def url_anime(anime_id):
+    api_url = f"https://api.jikan.moe/v4/anime/{anime_id}" # das ist ein path parameter für spezifische informationen
+    print(f"URL anime:{api_url}")
+    return api_url
+
+
+def url_characters(anime_id):
+    api_url = f"https://api.jikan.moe/v4/anime/{anime_id}/characters"  # path parameter
+    print(f"URL characters:{api_url}")
+    return api_url
+
+
 #=================== Sessions (params, page, anime_id, anime_title) updaten =====================
 # tipp: wenn man etwas in der session verändert immer die veränderungen in der session abspeichern
 # überall wo vorhin die werte der globalen variablen genommen wurden wird nun der wert aus der session geholt!!!
@@ -62,28 +84,6 @@ def resetPage():
     session['page'] = 1
     return redirect('/')
     
-
-
-#=================== URL-Builder-Functions (3) =====================
-# TEST: werden die urls richtig gebildet? (mit gegebenem dictionary urls bilden)
-# erwartender output = API url mit den richtigen parametern
-def url_animes(page, params):
-    api_url = f"https://api.jikan.moe/v4/anime?page={page}" # das ist ein query parameter für filtering sachen
-    for param in params:
-        api_url = api_url + f"&{param}={params[param]}"
-    print(f"URL animes:{api_url}")
-    return api_url
-
-def url_anime(anime_id):
-    api_url = f"https://api.jikan.moe/v4/anime/{anime_id}" # das ist ein path parameter für spezifische informationen
-    print(f"URL anime:{api_url}")
-    return api_url
-
-
-def url_characters(anime_id):
-    api_url = f"https://api.jikan.moe/v4/anime/{anime_id}/characters"  # path parameter
-    print(f"URL characters:{api_url}")
-    return api_url
 
 #=================== FETCH-Data Funktionen (3) =====================
 # TEST: fetch-funktion für die 3 api-urls tsten mit allen spezialfällen
