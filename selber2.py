@@ -29,7 +29,7 @@ Form (anpassung der items in der session)
 
 from flask import Flask
 import secrets # für die generiereung eines secret_keys
-import requests
+import requests # für das handlen den API-calls
 
 app2 = Flask(__name__) # mit diser variable wird die app definiert und dass es sich um eine flask app handelt; man könnte alternativ auch einen andere namen verwenden: "app=Flask(__IrgendEinName__)"
 app2.secret_key = secrets.token_hex(16) # ein zufälliger key wird jedes mal generiert, das wird benötigt für die session
@@ -39,12 +39,14 @@ app2.secret_key = secrets.token_hex(16) # ein zufälliger key wird jedes mal gen
 
 params = {
     "type": "tv", 
-    "q": "naruto"
+    "q": "kakegurui",
+    "status": "airing"
 }
 page = 1
 
 
 #=================== urlBuilder-Functions (3) =====================
+# erwartender output = API url mit den richtigen parametern
 def url_animes(page, params):
     api_url = f"https://api.jikan.moe/v4/anime?page={page}" # das ist ein query parameter für filtering sachen
     for param in params:
@@ -64,6 +66,7 @@ def url_characters(anime_id):
     return api_url
 
 
+# erwarteter output: daten als liste
 def fetch_data(page, params):
     try: # den call probieren zu machen
         # antwort auf den api-call mit dem api-url der url_animes-funktion (fetchen)
@@ -71,10 +74,11 @@ def fetch_data(page, params):
         if response_animes.status_code == 200:
             animes_dict = response_animes.json() #JSON-dten in eine variable laden (= Dictionary)
             if "data" in animes_dict and animes_dict["data"]: # überprüüft ob der key namens data im dict vorhanden ist und ob dieser key einen value hat
-                animes_data = animes_dict.get('data', []) # data ist eine liste mit einem dictionary
+                animes_data = animes_dict.get('data', []) # anwesenheit des keys und seinem value überprüfen (data ist iene liste)
                 print(f"ERFOLG FETCHING animes_data: {animes_data}")
                 return animes_data # der rückgabewert der funktion sind die daten des calls
             else:
+                # wenn keine daten existieren zu den gewählten parametern!
                 print("ERROR FETCHING animes_data: es existiern keine Anime-Daten")
                 return None
         else: # falls der call nicht erfolgreich war (400: bad request)

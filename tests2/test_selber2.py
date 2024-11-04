@@ -1,3 +1,6 @@
+# das ziel beim testen ist die print statements im eigentlichen code in tests umzuwandeln!
+# folgendes muss man testen: mocking API request, mocking a client using the interface of the application, testing if there is any data and what happens if there is none
+
 import pytest
 from selber2 import app2, url_animes, url_anime, url_characters  # Stelle sicher, dass der Pfad zur App korrekt ist
 
