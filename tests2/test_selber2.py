@@ -30,3 +30,34 @@ def test_url_characters():
     anime_id = 1
     expected_url = "https://api.jikan.moe/v4/anime/1/characters"
     assert url_characters(anime_id) == expected_url
+
+
+# TESTS: das muss man resten:
+
+# client simulieren der die application bedient
+# session simulieren mit sample session (nur einmal definieren und immer diese session verwenden)
+# url-biulder-function (sample session)
+# API-call simulieren sumulieren (sample api-urls)
+# session correctly updated (pagination, filters, default values)
+# buttons displayed correctly ()
+# existieren die daten, dara correctly fetched???...return-dictionary simulieren?!
+
+
+'''
+session tests:
+- session inizialised correctly? (default session)
+- session updated correctly? (filters)
+
+url-builder-function: (bei den tests immer noch das resultat ausprinten umd mit mehreren verschiedenen inputs testen die random generiert werden)
+- url_animes()-function with an empty session (empty params)
+- url-animes()-function with random session values (page, params)
+- url-builder-function() mit speziellen characters für das value 'q'
+
+fetch data:
+- testen ob der api-call erfolgreich gemacht wurde (eception)..existiert der api-url überhaut?
+- testen ob eine erfolgreiche response generiert wurde/gefetched
+- testen ob daten überhaupt existieren
+'''
+
+
+# FRAGE: muss ich sachen testen die eh nicht vorkommen wie zum beisiel der fall dass page -2 ist wenn das nicht vorkommen kann
