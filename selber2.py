@@ -1,22 +1,21 @@
 '''
-Arten von Data:
-- sessiondata = page(int), params(dict mit ints und strs), anime_id(variabla mit int), anime_title(variable mit string)
-- gefetchte daten(variable)
+Types of Data:
+- session data = page (int), params (dict with ints and strings), anime_id (int variable), anime_title (string variable)
+- fetched data (variable)
 '''
 
-# jikan API documentation: https://docs.api.jikan.moe/#tag/anime/operation/getAnimeSearch 
+# Jikan API documentation: https://docs.api.jikan.moe/#tag/anime/operation/getAnimeSearch
 
 from flask import Flask, render_template, session, redirect, request
-import secrets # für die generiereung eines secret_keys
-import requests # für das handlen den API-calls
+import secrets  # for generating a secret_key
+import requests  # for handling API calls
 
-app2 = Flask(__name__) # mit diser variable wird die app definiert und dass es sich um eine flask app handelt; man könnte alternativ auch einen andere namen verwenden: "app=Flask(__IrgendEinName__)"
-app2.secret_key = secrets.token_hex(16) # ein zufälliger key wird jedes mal generiert, das wird benötigt für die session
+app2 = Flask(__name__)  # defining this app as a Flask application
+app2.secret_key = secrets.token_hex(16)  # generating a random key needed for session handling
 
-
-#nur zum testen:
-# TEST: testwerte um requests etc zu simulieren, statt bei den tests diese variblen füllen füle ich einfach die session mit gewissen werten für die params und page etc
-# TESTS: session simulieren statt einzelnenvariablen simulieren!
+# TESTING ONLY:
+# TEST: Set up sample values in the session to simulate various API requests. Instead of filling these variables each time, use the session with defined params and page values
+# TESTS: Simulate session rather than individual variables
 
 '''
 params = {
@@ -27,23 +26,23 @@ params = {
 page = 1
 '''
 
-#=================== URL-Builder-Function =====================
-# TEST: mit gegebener session aus params und page den richtigen api-url bauen (leere params und gefüllte params testen...per degault müssen params leer sein und page 1) (gefüllte session wird simuliert)
-# Output = API url mit den richtigen parametern
+# =================== URL-Builder Function =====================
+# TEST: Create the correct API URL based on session values from params and page (test both empty and filled params; default should be empty params and page 1)
+# Output: API URL with the correct parameters
 def url_animes(page, params):
-    api_url = f"https://api.jikan.moe/v4/anime?page={page}" # das ist ein query parameter für filtering sachen
+    api_url = f"https://api.jikan.moe/v4/anime?page={page}"  # Adding query parameters for filtering options
     for param in params:
         api_url = api_url + f"&{param}={params[param]}"
-    print(f"URL animes:{api_url}")
+    print(f"URL animes: {api_url}")
     return api_url
 
 
-#=================== Session updaten =====================
-# TEST: wird die session korrekt upgedated? session data vor und nach update vergleichen (form-submission simulieren wenn nichts submitted wird wenn etwas realistisches/unrealistisches submitted wird)
-# Output: gefüllte session und reset
+# =================== Updating Session Data =====================
+# TEST: Check if session updates correctly; compare session data before and after updating (simulate form submission with valid and invalid inputs)
+# Output: Updated session and reset confirmation
 @app2.route('/update_session', methods=['POST'])
 def update_session():
-    # Get parameters from form
+    # Get parameters from form submission
     animes_title = request.form.get('param_title', '')
     animes_genre = request.form.get('param_genre', '')
 
@@ -65,13 +64,13 @@ def resetPage():
     session['page'] = 1
     return redirect('/')
     
-#=================== FETCH-Data Funktion =====================
-# TEST: gefüllte session mit prams und page simulieren und api-call simulieren (simulationen variieren für jedes print-statement)
-# Output: daten des requests in einem dictionary gespeichert
+# =================== Data Fetch Function =====================
+# TEST: Simulate a filled session with params and page and execute an API call (test print statements with various simulation scenarios)
+# Output: Data from the request stored in a dictionary
 
-# fetching all anime data mithilfe des urls un den informationen aus der session
+# Fetch all anime data using the URL and session data
 def fetch_animes():
-    # Session data retrieval
+    # Retrieve session data
     page = session.get('page', 1)
     params = session.get('params', {})
     
@@ -85,7 +84,7 @@ def fetch_animes():
             # Check if 'data' key exists and has content
             if "data" in animes_dict and animes_dict["data"]:
                 animes_data = animes_dict.get('data', [])
-                print(f"ERFOLG FETCHING animes_data: {animes_data}")
+                print(f"SUCCESS FETCHING animes_data: {animes_data}")
                 return {
                     "message": "Data fetched successfully",
                     "data": animes_data,
@@ -123,33 +122,20 @@ def fetch_animes():
         }
 
 
-#=================== Fetch-Funktionen testen mit vorgegebenen dictionary, page, anime_id (3) =====================
-# fetch_animes(page, params) # (erwarteter output = api-url und die daten aller animes)
-# fetch_anime(anime_id) # url and daten zu einem bestimmten anime
-'''
-anime_data = fetch_anime(anime_id)  # Anime-Daten abrufen
-if anime_data is not None:
-    print("image_url:", anime_data['images']['webp']['image_url'])  # mal_id ausgeben
-else:
-    print("Fehler: fetch_anime() hat None zurückgegeben.")
-'''
-# fetch_characters(anime_id) # url and daten zu allen charaktere eines bestimmten animes
-
-
-#=================== Pages/Routen (3) =====================
-# TESTS: gefülltes resultat-dictionary simulieren; wenn das dictionary mit den resultaten nicht leer ist dann sollten die bilder displayed werden und sonst nicht (eine meldung wird angezeigt dass keine daten existieren zu genannten parametern)
+# =================== Page Routes (3) =====================
+# TEST: Simulate a filled results dictionary; if the dictionary with results is not empty, images should be displayed, otherwise a message should appear indicating that no data exists for the given parameters
 
 @app2.route('/', methods=['GET'])
 def display_animes_data():
-    # data to display (this data is stored in variables to later give it to the html which will display it!)
-    results_dictionary = fetch_animes() # this is the dirctionary created!
+    # Data for display (stored in variables for passing to HTML for rendering)
+    results_dictionary = fetch_animes()  # The dictionary created from fetch_animes function
     animes_data = results_dictionary['data']
     pagination = results_dictionary['pagination']
     message = results_dictionary['message']
 
-    page = session.get('page', 1) # =current page
+    page = session.get('page', 1)  # Current page
 
-    # gespeicherte werte für die parameter damit diese in der form angezeigt werden und nicht immer gelöscht werden sobald man submitted!
+    # Retrieve stored filter parameters to maintain them in the form after submission
     params = session.get('params', {})
 
     selected_param_title = params.get('q', '')
@@ -161,19 +147,19 @@ def display_animes_data():
         animes_data=animes_data, 
         pagination=pagination, 
         message=message, 
-        selected_param_title=selected_param_title,  # Tippfehler korrigiert
-        selected_param_genre=selected_param_genre  # Tippfehler korrigiert
+        selected_param_title=selected_param_title,
+        selected_param_genre=selected_param_genre
     )
 
 
-# TESTS: überprüfen ob die page korrekt in der session abgespeichert/abgedated wurde und überprüfen ob die buttons richtig dargestellt sind je nach der aktuellen page
+# TEST: Check if the page number is correctly saved and updated in the session; ensure the buttons display correctly based on the current page
 @app2.route('/inc', methods=['POST'])
 def inc(): 
     page = session.get('page', 1)
     page = page + 1
-    # upgedatete page wieder in der session speichern
+    # Save updated page number back to session
     session['page'] = page
-    print(f"SESSION DATA:{session}")
+    print(f"SESSION DATA: {session}")
     return redirect('/')
 
 @app2.route('/dec', methods=['POST'])
@@ -181,16 +167,16 @@ def dec():
     page = session.get('page', 1)
     page = page - 1
     session['page'] = page
-    print(f"SESSION DATA:{session}")
+    print(f"SESSION DATA: {session}")
     return redirect('/')
 
 
-# das besagt dass dieses file das main file und nicht nur irgendein modul ist (nur da main file wird gerunnt!)
+# Specify that this file is the main file and not just a module (only the main file runs!)
 if __name__ == '__main__':
     app2.run(debug=True)
 
 
 '''
-das habe ich gelernt:
-- wenn man globale variablem in einer funktion verändern will muss man dise variablen zuerst als global deklarieren in der besagten funktion!
+What I learned:
+- To modify global variables within a function, you must declare them as global within that function!
 '''
