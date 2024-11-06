@@ -12,7 +12,12 @@ def client():
             yield client
 
 
-def test_update_session(client):
+def test_update_session_and_pagination(client):
+    # initialize the session (initial_title, initial_genre are placeholders dor the actual session data)
+    with client.session_transaction() as sess:
+        sess['params'] = {"q": "initial_title", "genres": "initial_genre"}
+        sess['page'] = 3  # Start on page 3 to test if pagination and filters reset properly
+
     # simulate data for the POST-request
     # die key-names müssen den namen der forms entsprechen
     form_data = {
@@ -20,18 +25,29 @@ def test_update_session(client):
         "param_genre":"1"
     }
 
-    # simulate the POST-request: der client postet doe form_data an die funktion update_session
-    response = client.post('update_session', data=form_data, follow_redirects=True)
+    # simulate the POST-request: der client postet das form_data an die funktion update_session
+    response = client.post('/update_session', data=form_data, follow_redirects=True)
 
     # check if the session was correclty updated (with client)
     with client.session_transaction() as sess:
         assert sess['params']['q'] == "naruto"
         assert sess['params']['genres'] == "1"
+        # pagination (pagereset with the refresh)
+        assert sess['page'] == 1 # muss man das nicht seperat in einem unittest testen???
+
+    # wo wird gesagt was der aktuelle sessionwert für die page ist? es wird ja nicht jedes mal wenn die page geändert wird auch die filters geändert...(müsste man nicht allgemein eine session zu beginn simulieren?!)
+    client.post('/inc', follow_redirects=True)
+    with client.session_transaction() as sess:
+        assert sess['page'] == 2
+
+    client.post('/dec' ,follow_redirects=True)
+    with client.session_transaction() as sess:
+        assert sess['page'] == 1 # man geht hier davon aus dass man von der page 2 decrementiert
+
+    # muss man hier testen ob die pagination unter 1 geht?... der button wird in diesem szenario gar nicht dargestellt!
 
     # verify the reset
     assert response.status_code == 200
 
-
-def test_session(client):
-    # button-druck simulieren
+    
     
