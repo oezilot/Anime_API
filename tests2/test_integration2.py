@@ -14,9 +14,10 @@ def client():
 
 def test_update_session(client):
     # simulate data for the POST-request
+    # die key-names müssen den namen der forms entsprechen
     form_data = {
-        "q":"naruto",
-        "genres":"1"
+        "param_title":"naruto",
+        "param_genre":"1"
     }
 
     # simulate the POST-request: der client postet doe form_data an die funktion update_session
