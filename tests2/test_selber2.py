@@ -20,6 +20,7 @@ def client():
             }
             session["page"] = 1
 
+
 # =================== URL-Builder Function =====================
 # test url-builder function with various inputs (different scenarios)
 
