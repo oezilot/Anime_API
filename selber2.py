@@ -9,6 +9,8 @@ Types of Data:
 from flask import Flask, render_template, session, redirect, request
 import secrets  # for generating a secret_key
 import requests  # for handling API calls
+from urllib.parse import urlencode # for an endcoded api-url (query-parameters)
+
 
 app2 = Flask(__name__)  # defining this app as a Flask application
 app2.secret_key = secrets.token_hex(16)  # generating a random key needed for session handling
@@ -29,10 +31,22 @@ page = 1
 # =================== URL-Builder Function =====================
 # TEST: Create the correct API URL based on session values from params and page (test both empty and filled params; default should be empty params and page 1)
 # Output: API URL with the correct parameters
+''' ursprüngliche funktion
 def url_animes(page, params):
     api_url = f"https://api.jikan.moe/v4/anime?page={page}"  # Adding query parameters for filtering options
     for param in params:
         api_url = api_url + f"&{param}={params[param]}"
+    print(f"URL animes: {api_url}")
+    return api_url
+'''
+# neue verbesserte funktion mit query-endcoding
+def url_animes(page, params):
+    base_url = f"https://api.jikan.moe/v4/anime?page={page}"  # Adding page parameter directly to the base URL
+    encoded_params = urlencode(params)  # Encode all parameters in params dictionary
+    
+    # Construct the final URL by appending encoded query parameters
+    api_url = f"{base_url}&{encoded_params}"
+    
     print(f"URL animes: {api_url}")
     return api_url
 
