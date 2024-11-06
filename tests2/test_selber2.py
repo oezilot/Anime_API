@@ -23,9 +23,10 @@ def client():
 # =================== URL-Builder Function =====================
 # test url-builder function with various inputs (different scenarios)
 
+# random werte für params und page
 def test_url_animes_filled():
     # arrange
-    page = 1
+    page = 2
     params = {
         "q":"naruto",
         "genres":"4"
@@ -38,16 +39,46 @@ def test_url_animes_filled():
     print(f"result_api_url = {result_api_url}") # output
 
     # assert
-    assert result_api_url == "https://api.jikan.moe/v4/anime?page=1&q=naruto&genres=4"
+    assert result_api_url == "https://api.jikan.moe/v4/anime?page=2&q=naruto&genres=4"
 
-'''
+# defaultwerte page und params wenn nicht spezifiziert wurde
 def test_url_animes_default():
+    page = 1
+    params = {}
 
+    result_api_url = url_animes(page, params) # als input werden automatisch die sessiondaten verwendet?
 
+    print(f"session_page = {page}, session_params = {params}, result_api_url = {result_api_url}") # input
+
+    assert result_api_url == "https://api.jikan.moe/v4/anime?page=1"
+
+# wenn params-dictionary leer ist (bei der filtersuche würde man dan nach allen ergebnissen suchen)
 def test_url_animes_emptyP():
+    page = 1
+    params = {
+        "q":"",
+        "genres":""
+    }
 
-def tes_url_animes_specialC():
-'''
+    result_api_url = url_animes(page, params) # als input werden automatisch die sessiondaten verwendet?
+
+    print(f"session_page = {page}, session_params = {params}, result_api_url = {result_api_url}") # input
+
+    assert result_api_url == "https://api.jikan.moe/v4/anime?page=1&q=&genres="
+
+# spezielle characters wie abstände oder prozentzeichen
+def test_url_animes_specialC():
+    page = 1
+    params = {
+        "q":"tokyo ghoul %",
+        "genres":""
+    }
+
+    result_api_url = url_animes(page, params) # als input werden automatisch die sessiondaten verwendet?
+
+    print(f"session_page = {page}, session_params = {params}, result_api_url = {result_api_url}") # input
+
+    assert result_api_url == "https://api.jikan.moe/v4/anime?page=1&q=tokyo%20ghoul%25"
 
 
 
@@ -89,4 +120,4 @@ fragen:
 
 
 # so runne ich das test-file wenn mehrere test-ordner existieren: pytest ordner/file.py
-# bestimmter test innerhalb des files testen: pytest ordner/file.py::test_example (-s zeigt alle print ausgaben)
+# bestimmter test innerhalb des files testen: pytest ordner/file.py::test_example (-s zeigt alle print ausgaben auch die von der applikation)

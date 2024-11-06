@@ -84,7 +84,7 @@ def fetch_animes():
             # Check if 'data' key exists and has content
             if "data" in animes_dict and animes_dict["data"]:
                 animes_data = animes_dict.get('data', [])
-                print(f"SUCCESS FETCHING animes_data: {animes_data}")
+                # print(f"SUCCESS FETCHING animes_data: {animes_data}")
                 return {
                     "message": "Data fetched successfully",
                     "data": animes_data,
