@@ -24,9 +24,8 @@ def test_update_session(client):
 
     # check if the session was correclty updated (with client)
     with client.session_transaction() as sess:
-        assert sess['params'].get('q') == form_data.get('param_title')
-        assert sess['params'].get('genres') == form_data.get('param_genre')
-
+        assert sess['params']['q'] == "naruto"
+        assert sess['params']['genres'] == "1"
 
     # verify the reset
     assert response.status_code == 200
