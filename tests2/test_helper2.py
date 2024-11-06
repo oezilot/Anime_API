@@ -42,10 +42,12 @@ def test_url_animes_filled():
     # assert
     assert result_api_url == "https://api.jikan.moe/v4/anime?page=2&q=naruto&genres=4"
 
-# defaultwerte page und params wenn nicht spezifiziert wurde (zwar dieser fall tritt nie auf denn die funktion wird nur aufgerufen wenn ein params existiert weil das params beim aufrufen der function gefüllt wird)
-# def test_url_animes_default():
-#     page = 1
-#     params = {}
+# defaultwerte page und params wenn nicht spezifiziert wurde (= das form wurde nicht abgeschickt!)
+def test_url_animes_default():
+    page = 1
+    params = {}
+    results_api_url = url_animes(page, params)
+    assert results_api_url == "https://api.jikan.moe/v4/anime?page=1&"
 
 # wenn params-dictionary leer ist (bei der filtersuche würde man dan nach allen ergebnissen suchen)
 def test_url_animes_emptyP():

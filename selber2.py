@@ -39,7 +39,7 @@ def url_animes(page, params):
     print(f"URL animes: {api_url}")
     return api_url
 '''
-# neue verbesserte funktion mit query-endcoding
+# neue verbesserte funktion mit query-endcoding 
 def url_animes(page, params):
     base_url = f"https://api.jikan.moe/v4/anime?page={page}"  # Adding page parameter directly to the base URL
     encoded_params = urlencode(params)  # Encode all parameters in params dictionary
@@ -84,7 +84,7 @@ def resetPage():
 
 # Fetch all anime data using the URL and session data
 def fetch_animes():
-    # Retrieve session data
+    # Retrieve session data or create this data if not deklared already
     page = session.get('page', 1)
     params = session.get('params', {})
     
