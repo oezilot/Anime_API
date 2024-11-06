@@ -30,3 +30,8 @@ def test_update_session(client):
 
     # verify the reset
     assert response.status_code == 200
+
+
+def test_session(client):
+    # button-druck simulieren
+    
