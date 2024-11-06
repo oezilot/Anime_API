@@ -93,11 +93,6 @@ session tests:
 - session inizialised correctly? (default session)
 - session updated correctly? (filters)
 
-url-builder-function: (bei den tests immer noch das resultat ausprinten umd mit mehreren verschiedenen inputs testen die random generiert werden)
-- url_animes()-function with an empty session (empty params)
-- url-animes()-function with random session values (page, params)
-- url-builder-function() mit speziellen characters für das value 'q'
-
 fetch data:
 - testen ob der api-call erfolgreich gemacht wurde (eception)..existiert der api-url überhaut?
 - testen ob eine erfolgreiche response generiert wurde/gefetched
