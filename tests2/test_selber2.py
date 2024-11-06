@@ -1,14 +1,53 @@
 # das ziel beim testen ist die print statements im eigentlichen code in tests umzuwandeln!
+# beim testen sollte man immer alle arten von tests für die selbe application machen (unit, functional, integration)
 # folgendes muss man testen: mocking API request, mocking a client using the interface of the application, testing if there is any data and what happens if there is none (ich will tests auf eine art machn sodass ich einen bestimmten test mehrmals mit verschiedenen random zahlen durchgeführt wird!)
 # --> 2 sachen können none sein: die daten der request wegen den paramtern oder weil die parameter udn page none sind
 
 import pytest
-from selber2 import app2  # Stelle sicher, dass der Pfad zur App korrekt ist
-from unittest.mock import patch
-
-# test url-builder function
+from selber2 import app2, url_animes  # Stelle sicher, dass der Pfad zur App korrekt ist
 
 
+# =================== Session simulieren =====================
+# arrange (session simulieren)
+@pytest.fixture
+def client():
+    app2.config["TESTING"] = True
+    with app2.test_client as client:
+        with client.session_transaction() as session:
+            session["params"] = {
+                "q": "naruto",
+                "genres": "4"
+            }
+            session["page"] = 1
+
+# =================== URL-Builder Function =====================
+# test url-builder function with various inputs (different scenarios)
+
+def test_url_animes_filled():
+    # arrange
+    page = 1
+    params = {
+        "q":"naruto",
+        "genres":"4"
+    }
+    # act
+    result_api_url = url_animes(page, params) # als input werden automatisch die sessiondaten verwendet?
+
+    # prints
+    print(f"session_page = {page}, session_params = {params}") # input
+    print(f"result_api_url = {result_api_url}") # output
+
+    # assert
+    assert result_api_url == "https://api.jikan.moe/v4/anime?page=1&q=naruto&genres=4"
+
+'''
+def test_url_animes_default():
+
+
+def test_url_animes_emptyP():
+
+def tes_url_animes_specialC():
+'''
 
 
 
@@ -39,5 +78,15 @@ fetch data:
 - testen ob daten überhaupt existieren
 '''
 
-
+'''
+fragen:
+- alle arten von tests machen?
+- für jede function einen test
+- auch das testen was gar nicht auftreten kann
+- wie arbeiten die verschiedenen funktionen miteinander wenn ich alles mit unittests teste
+'''
 # FRAGE: muss ich sachen testen die eh nicht vorkommen wie zum beisiel der fall dass page -2 ist wenn das nicht vorkommen kann
+
+
+# so runne ich das test-file wenn mehrere test-ordner existieren: pytest ordner/file.py
+# bestimmter test innerhalb des files testen: pytest ordner/file.py::test_example (-s zeigt alle print ausgaben)
