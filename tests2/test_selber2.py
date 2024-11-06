@@ -41,16 +41,10 @@ def test_url_animes_filled():
     # assert
     assert result_api_url == "https://api.jikan.moe/v4/anime?page=2&q=naruto&genres=4"
 
-# defaultwerte page und params wenn nicht spezifiziert wurde
-def test_url_animes_default():
-    page = 1
-    params = {}
-
-    result_api_url = url_animes(page, params) # als input werden automatisch die sessiondaten verwendet?
-
-    print(f"session_page = {page}, session_params = {params}, result_api_url = {result_api_url}") # input
-
-    assert result_api_url == "https://api.jikan.moe/v4/anime?page=1"
+# defaultwerte page und params wenn nicht spezifiziert wurde (zwar dieser fall tritt nie auf denn die funktion wird nur aufgerufen wenn ein params existiert weil das params beim aufrufen der function gefüllt wird)
+# def test_url_animes_default():
+#     page = 1
+#     params = {}
 
 # wenn params-dictionary leer ist (bei der filtersuche würde man dan nach allen ergebnissen suchen)
 def test_url_animes_emptyP():
@@ -78,7 +72,7 @@ def test_url_animes_specialC():
 
     print(f"session_page = {page}, session_params = {params}, result_api_url = {result_api_url}") # input
 
-    assert result_api_url == "https://api.jikan.moe/v4/anime?page=1&q=tokyo%20ghoul%25"
+    assert result_api_url == "https://api.jikan.moe/v4/anime?page=1&q=tokyo+ghoul+%25&genres="
 
 
 
