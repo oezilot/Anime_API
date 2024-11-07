@@ -14,3 +14,5 @@ functional testing:
 allg.:
 - kann der selbe client nicht für alle verschiednen arten von tests geteilt werden?
 - seperates file für jeden test?
+- modules and classes???
+muss ich für jede funktion alle arten von tests machen oder für jede funktion eines von diesen arten oder ein gemisch?

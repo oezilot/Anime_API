@@ -94,6 +94,7 @@ def fetch_animes():
         
         if response_animes.status_code == 200:
             animes_dict = response_animes.json()  # Load JSON data into a dictionary
+            #print(animes_dict)
             
             # Check if 'data' key exists and has content
             if "data" in animes_dict and animes_dict["data"]:
@@ -106,7 +107,7 @@ def fetch_animes():
                     "pagination": animes_dict.get('pagination', {})  # Include pagination if available
                 }
             else:
-                # No data available for given filters
+                # No data available for given filters (wenn zu gesuchten parameter nichts vorhanden ist dann ist die datenliste einfach leer!!!)
                 print("ERROR FETCHING animes_data: No Anime Data Found")
                 return {
                     "message": "No Anime Data Found",
@@ -116,7 +117,7 @@ def fetch_animes():
                 }
         
         else:
-            # Handle unsuccessful response
+            # Handle unsuccessful response, client/server problem (als rückgabe wir dann einfach eine leere liste zurückgegeben)
             print(f"ERROR FETCHING animes_data: {response_animes.status_code}")
             return {
                 "message": f"Error fetching data: {response_animes.status_code}",
@@ -126,7 +127,7 @@ def fetch_animes():
             }
     
     except requests.RequestException as e:
-        # Handle request failure
+        # Handle request failure, der request konnte gar nicht gemacht werden!
         print(f"ERROR MAKING THE Animes-API CALL: {e}")
         return {
             "message": f"Request failed: {e}",
