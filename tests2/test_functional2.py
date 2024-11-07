@@ -3,6 +3,7 @@ import pytest
 from unittest.mock import patch, MagicMock
 from flask import session
 from selber2 import app2, fetch_animes
+import requests
 
 @pytest.fixture
 def client():
