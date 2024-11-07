@@ -1,9 +1,8 @@
 import pytest
 from flask import session
-from selber2 import app2
+from unittest.mock import patch, MagicMock
+from selber2 import app2, fetch_animes
 
-# setting up a test client for form submissions (setting up a fake session too???)
-# test_client (= methode) bildet eine test-umgebung von dem test-client-object erzeigt...erlaubt https anfragen zustellen ohne den echten browser/server zu benützen müssen
 @pytest.fixture
 def client():
     app2.config["TESTING"] = True
@@ -11,46 +10,51 @@ def client():
         with app2.app_context():
             yield client
 
-# ist es be integration tests üblich dass man eine funktion macht zum testen mehrerer applicationsfunktionen?
-def test_update_session_and_pagination(client):
-    # initialize the session (initial_title, initial_genre are placeholders dor the actual session data)...die session hier zu initialisieren ist unnötig?!!
-    with client.session_transaction() as sess:
-        sess['params'] = {"q": "initial_title", "genres": "initial_genre"}
-        sess['page'] = 3  # Start on page 3 to test if pagination and filters reset properly
-
-    # simulate data for the POST-request
-    # die key-names müssen den namen der forms entsprechen
-    form_data = {
-        "param_title":"naruto",
-        "param_genre":"1"
+@patch('selber2.fetch_animes')
+def test_update_session_and_pagination(mock_fetch_animes, client):
+    # Mock API response with pagination data for upper bound limit
+    mock_fetch_animes.return_value = {
+        "message": "Data fetched successfully",
+        "data": [{"title": "Naruto"}],
+        "status": "success",
+        "pagination": {
+            "has_next_page": True,
+            "last_visible_page": 5  # Mocked last visible page for boundary testing
+        }
     }
 
-    # simulate the POST-request: der client postet das form_data an die funktion update_session
+    # Simulate form data for updating session
+    form_data = {
+        "param_title": "naruto",
+        "param_genre": "1"
+    }
     response = client.post('/update_session', data=form_data, follow_redirects=True)
 
-    # check if the session was correclty updated (with client)
+    # Check if session was correctly updated with parameters
     with client.session_transaction() as sess:
         assert sess['params']['q'] == "naruto"
         assert sess['params']['genres'] == "1"
-        # pagination (pagereset with the refresh)
-        assert sess['page'] == 1 # muss man das nicht seperat in einem unittest testen???
+        assert sess['page'] == 1  # Ensure page resets to 1 on form submission
 
-    # wo wird gesagt was der aktuelle sessionwert für die page ist? es wird ja nicht jedes mal wenn die page geändert wird auch die filters geändert...(müsste man nicht allgemein eine session zu beginn simulieren?!)
+    # Test incrementing page up to last_visible_page
+    for _ in range(5):
+        client.post('/inc', follow_redirects=True)
+
+    # Verify page is at last_visible_page
+    with client.session_transaction() as sess:
+        assert sess['page'] == 5  # Page should reach but not exceed last_visible_page
+
+    # Attempt to increment beyond last_visible_page
     client.post('/inc', follow_redirects=True)
     with client.session_transaction() as sess:
-        assert sess['page'] == 2
+        assert sess['page'] == 5  # Page should remain at last_visible_page
 
-    client.post('/dec' ,follow_redirects=True)
+    # Test decrementing back to 1
+    for _ in range(5):
+        client.post('/dec', follow_redirects=True)
+
     with client.session_transaction() as sess:
-        assert sess['page'] == 1 # man geht hier davon aus dass man von der page 2 decrementiert
+        assert sess['page'] == 1  # Page should not go below 1
 
-    # muss man hier testen ob die pagination unter 1 geht?... der button wird in diesem szenario gar nicht dargestellt!
-
-    # verify the reset
+    # Verify response status code to ensure the page loads successfully
     assert response.status_code == 200
-
-
-
-
-    
-    

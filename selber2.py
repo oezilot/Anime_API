@@ -169,21 +169,38 @@ def display_animes_data():
 
 # TEST: Check if the page number is correctly saved and updated in the session; ensure the buttons display correctly based on the current page
 @app2.route('/inc', methods=['POST'])
-def inc(): 
+def inc():
+    # Get the current page from the session
     page = session.get('page', 1)
-    page = page + 1
-    # Save updated page number back to session
+
+    # Fetch pagination information to get the last visible page
+    result = fetch_animes()
+    last_visible_page = result['pagination'].get('last_visible_page', 1)
+
+    # Increment only if the current page is less than the last_visible_page
+    if page < last_visible_page:
+        page += 1
+
+    # Update the session with the new page value
     session['page'] = page
-    print(f"SESSION DATA: {session}")
+    print(f"SESSION DATA after increment: {session}")
     return redirect('/')
+
 
 @app2.route('/dec', methods=['POST'])
 def dec():
+    # Get the current page from the session
     page = session.get('page', 1)
-    page = page - 1
+
+    # Decrement only if the page is greater than 1
+    if page > 1:
+        page -= 1
+
+    # Update the session with the new page value
     session['page'] = page
-    print(f"SESSION DATA: {session}")
+    print(f"SESSION DATA after decrement: {session}")
     return redirect('/')
+
 
 
 # Specify that this file is the main file and not just a module (only the main file runs!)
