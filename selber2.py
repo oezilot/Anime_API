@@ -113,7 +113,7 @@ def fetch_animes():
                     "message": "No Anime Data Found",
                     "data": [],
                     "status": "error",
-                    "pagination": {}
+                    "pagination": {"has_next_page": False, "last_visible_page": 1}  # Default pagination
                 }
         
         else:
@@ -123,7 +123,7 @@ def fetch_animes():
                 "message": f"Error fetching data: {response_animes.status_code}",
                 "data": [],
                 "status": "error",
-                "pagination": {}
+                "pagination": {"has_next_page": False, "last_visible_page": 1}  # Default pagination
             }
     
     except requests.RequestException as e:
@@ -133,7 +133,7 @@ def fetch_animes():
             "message": f"Request failed: {e}",
             "data": [],
             "status": "error",
-            "pagination": {}
+            "pagination": {"has_next_page": False, "last_visible_page": 1}  # Default pagination
         }
 
 
