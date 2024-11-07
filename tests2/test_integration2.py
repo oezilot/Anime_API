@@ -3,7 +3,7 @@ from flask import session
 from selber2 import app2
 
 # setting up a test client for form submissions (setting up a fake session too???)
-# test_client (= methode) bildet eine test-umgebung von dem test-client-object erzeigt...erlaubt dem server https anfragen zustellen ohne den echten browser zu benützen müssen
+# test_client (= methode) bildet eine test-umgebung von dem test-client-object erzeigt...erlaubt https anfragen zustellen ohne den echten browser/server zu benützen müssen
 @pytest.fixture
 def client():
     app2.config["TESTING"] = True
@@ -11,9 +11,9 @@ def client():
         with app2.app_context():
             yield client
 
-
+# ist es be integration tests üblich dass man eine funktion macht zum testen mehrerer applicationsfunktionen?
 def test_update_session_and_pagination(client):
-    # initialize the session (initial_title, initial_genre are placeholders dor the actual session data)
+    # initialize the session (initial_title, initial_genre are placeholders dor the actual session data)...die session hier zu initialisieren ist unnötig?!!
     with client.session_transaction() as sess:
         sess['params'] = {"q": "initial_title", "genres": "initial_genre"}
         sess['page'] = 3  # Start on page 3 to test if pagination and filters reset properly
@@ -48,6 +48,9 @@ def test_update_session_and_pagination(client):
 
     # verify the reset
     assert response.status_code == 200
+
+
+
 
     
     

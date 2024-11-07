@@ -1,0 +1,16 @@
+unit-test:
+- api mocking nur im unititesting
+- für die selbe applikation unit/integration und functional test alle zusammen machen oder sich für einen ansatz entscheiden?
+- für jede function einen unittest oder muss man nicht alle funktionen mit allen arten von tests testen?
+- wie kann man statt nur einen wert gleich mehrere wert simulieren und mit denen die tests durchführen?
+
+integration testing:
+- eine funktione in der mehrere enthalten sind
+
+functional testing:
+- eine function (quasi wie unit tests) welche allgemein testet und nicht mit spezifischen werten
+
+
+allg.:
+- kann der selbe client nicht für alle verschiednen arten von tests geteilt werden?
+- seperates file für jeden test?
