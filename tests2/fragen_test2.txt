@@ -3,6 +3,7 @@ unit-test:
 - für die selbe applikation unit/integration und functional test alle zusammen machen oder sich für einen ansatz entscheiden?
 - für jede function einen unittest oder muss man nicht alle funktionen mit allen arten von tests testen?
 - wie kann man statt nur einen wert gleich mehrere wert simulieren und mit denen die tests durchführen?
+- ich habe bei den urlbuilder function immer page und so vorgegeben aber wäre es nicht sinnvoller diese aus der session zu entnehmen?
 
 integration testing:
 - eine funktione in der mehrere enthalten sind
@@ -15,4 +16,6 @@ allg.:
 - kann der selbe client nicht für alle verschiednen arten von tests geteilt werden?
 - seperates file für jeden test?
 - modules and classes???
-muss ich für jede funktion alle arten von tests machen oder für jede funktion eines von diesen arten oder ein gemisch?
+- muss ich für jede funktion alle arten von tests machen oder für jede funktion eines von diesen arten oder ein gemisch?
+- auch szenarien testen die gar nicht möglich sind?
+- wie muss die file struktur etc sein?
