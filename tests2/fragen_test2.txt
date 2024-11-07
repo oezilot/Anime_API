@@ -19,3 +19,4 @@ allg.:
 - muss ich für jede funktion alle arten von tests machen oder für jede funktion eines von diesen arten oder ein gemisch?
 - auch szenarien testen die gar nicht möglich sind?
 - wie muss die file struktur etc sein?
+- wie kann ich testen ob eine funktion bloss gemockt wurde oder es sich um einen tatsächlichen request handelt?
