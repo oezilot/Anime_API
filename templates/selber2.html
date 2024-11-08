@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="./static/input.css" rel="stylesheet">
+        <link href="./static/output.css" rel="stylesheet">
       </head>
     <body>
         <h1>AniSearch</h1>
@@ -40,13 +40,13 @@
         <!--TESTS: anwesenhet der buttons je nach der aktuellen page-->
         {% if page > 1 %}
         <form action="/dec" method="POST">
-            <button class="btn">Previous</button>
+            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">Previous</button>
         </form>
         {% endif %}
 
         {% if pagination['has_next_page'] %}
         <form action="/inc" method="POST">
-            <button class="btn">Next</button>
+            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">Next</button>
         </form>
         {% endif %}
 
