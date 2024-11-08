@@ -3,32 +3,47 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="./static/output.css" rel="stylesheet">
+        <!--<link href="./static/output.css" rel="stylesheet">-->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+              theme: {
+                extend: {
+                  colors: {
+                    clifford: '#da373d',
+                  }
+                }
+              }
+            }
+          </script>
+        <title>Anime Search</title>
       </head>
     <body>
-        <h1>AniSearch</h1>
+        <h1 class="text-2xl/7 font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight" >AniSearch</h1>
         <!--Filters-->
         <form method="POST" action="/update_session">
 
             <label>Anime Title</label>
-            <input type="text" name="param_title" value="{{ selected_param_title }}" placeholder="Naruto, etc.">
+            <input class="block w-full max-w-lg pr-4 pl-4 py-2 text-sm font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed" type="text" name="param_title" value="{{ selected_param_title }}" placeholder="Naruto, etc.">
     
             <br><br>
     
             <label>Genre</label>
-            <select name="param_genre">
-                <option value="" {% if selected_param_genre == '' %}selected{% endif %}>All</option>
-                <option value="1" {% if selected_param_genre == '1' %}selected{% endif %}>Action</option>
-                <option value="8" {% if selected_param_genre == '8' %}selected{% endif %}>Drama</option>
-                <option value="4" {% if selected_param_genre == '4' %}selected{% endif %}>Comedy</option>
-                <option value="28" {% if selected_param_genre == '28' %}selected{% endif %}>Boys Love</option>
-                <option value="26" {% if selected_param_genre == '26' %}selected{% endif %}>Girls Love</option>
-                <option value="10" {% if selected_param_genre == '10' %}selected{% endif %}>Fantasy</option>
-                <option value="14" {% if selected_param_genre == '14' %}selected{% endif %}>Horror</option>
-                <option value="24" {% if selected_param_genre == '24' %}selected{% endif %}>Sci-Fi</option>
-                <option value="22" {% if selected_param_genre == '22' %}selected{% endif %}>Romance</option>
-                <option value="56" {% if selected_param_genre == '56' %}selected{% endif %}>Educational</option>
-            </select>
+            </div>
+                <select class="h-12 max-w-xs border border-gray-300 text-gray-600 text-base rounded-lg block w-full py-2.5 px-4 focus:outline-none" name="param_genre">
+                    <option value="" {% if selected_param_genre == '' %}selected{% endif %}>All</option>
+                    <option value="1" {% if selected_param_genre == '1' %}selected{% endif %}>Action</option>
+                    <option value="8" {% if selected_param_genre == '8' %}selected{% endif %}>Drama</option>
+                    <option value="4" {% if selected_param_genre == '4' %}selected{% endif %}>Comedy</option>
+                    <option value="28" {% if selected_param_genre == '28' %}selected{% endif %}>Boys Love</option>
+                    <option value="26" {% if selected_param_genre == '26' %}selected{% endif %}>Girls Love</option>
+                    <option value="10" {% if selected_param_genre == '10' %}selected{% endif %}>Fantasy</option>
+                    <option value="14" {% if selected_param_genre == '14' %}selected{% endif %}>Horror</option>
+                    <option value="24" {% if selected_param_genre == '24' %}selected{% endif %}>Sci-Fi</option>
+                    <option value="22" {% if selected_param_genre == '22' %}selected{% endif %}>Romance</option>
+                    <option value="56" {% if selected_param_genre == '56' %}selected{% endif %}>Educational</option>
+                </select>
+            </div>
             <br><br>
     
             <input type="submit" value="Apply Filter">
