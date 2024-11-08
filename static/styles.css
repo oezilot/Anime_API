@@ -1,9 +1,0 @@
-/* input.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Hier kannst du auch benutzerdefinierte Klassen mit @apply verwenden */
-.btn {
-    @apply bg-blue-500 text-white p-2 rounded;
-}
