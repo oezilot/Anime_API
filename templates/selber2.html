@@ -19,18 +19,18 @@
         <title>Anime Search</title>
       </head>
     <body>
-        <h1 class="text-2xl/7 font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight" >AniSearch</h1>
+        <h1 class="font-bold text-3xl/7" >AniSearch</h1>
+
+
         <!--Filters-->
         <form method="POST" action="/update_session">
 
-            <label>Anime Title</label>
+            <label class="font-bold">Anime Title</label>
             <input class="block w-full max-w-lg pr-4 pl-4 py-2 text-sm font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed" type="text" name="param_title" value="{{ selected_param_title }}" placeholder="Naruto, etc.">
-    
-            <br><br>
-    
-            <label>Genre</label>
+            <br>
+            <label class="font-bold" >Genre</label>
             </div>
-                <select class="h-12 max-w-xs border border-gray-300 text-gray-600 text-base rounded-lg block w-full py-2.5 px-4 focus:outline-none" name="param_genre">
+                <select class="max-w-28 border border-gray-300 text-gray-600 text-base rounded-lg block w-full py-2.5 px-4 focus:outline-none" name="param_genre">
                     <option value="" {% if selected_param_genre == '' %}selected{% endif %}>All</option>
                     <option value="1" {% if selected_param_genre == '1' %}selected{% endif %}>Action</option>
                     <option value="8" {% if selected_param_genre == '8' %}selected{% endif %}>Drama</option>
@@ -44,9 +44,8 @@
                     <option value="56" {% if selected_param_genre == '56' %}selected{% endif %}>Educational</option>
                 </select>
             </div>
-            <br><br>
-    
-            <input type="submit" value="Apply Filter">
+            <br>
+            <input class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400" type="submit" value="Apply Filter">
     
         </form>
         
