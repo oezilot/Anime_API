@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!--<link href="./static/output.css" rel="stylesheet">-->
-        <!--<script src="https://cdn.tailwindcss.com"></script>-->
+        <script src="https://cdn.tailwindcss.com"></script>
         <script>
             tailwind.config = {
               theme: {
@@ -19,6 +19,8 @@
         <title>Anime Search</title>
       </head>
     <body>
+        <div class="bg-gradient-to-b  from-sky-100 to-sky-400"> <!--gradient hintergrundfarbe-->
+
         <h1 class="font-bold text-3xl/7" >AniSearch</h1>
 
 
@@ -29,7 +31,7 @@
             <input class="block w-full max-w-lg pr-4 pl-4 py-2 text-sm font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed" type="text" name="param_title" value="{{ selected_param_title }}" placeholder="Naruto, etc.">
             <br>
             <label class="font-bold" >Genre</label>
-            </div>
+            <div>
                 <select class="max-w-28 border border-gray-300 text-gray-600 text-base rounded-lg block w-full py-2.5 px-4 focus:outline-none" name="param_genre">
                     <option value="" {% if selected_param_genre == '' %}selected{% endif %}>All</option>
                     <option value="1" {% if selected_param_genre == '1' %}selected{% endif %}>Action</option>
@@ -79,6 +81,6 @@
         {% else %}
             <p>No data available.</p>
         {% endif %}
-
+        </div>
     </body>
 </html>
