@@ -117,7 +117,7 @@ def fetch_animes():
                 }
         
         else:
-            # Handle unsuccessful response, client/server problem (als rückgabe wir dann einfach eine leere liste zurückgegeben)
+            # Handle unsuccessful response, client/server problem (als rückgabe wir dann einfach eine leere liste zurückgegeben)...z.b. wenn zu viele anfragen gemacht wurden
             print(f"ERROR FETCHING animes_data: {response_animes.status_code}")
             return {
                 "message": f"Error fetching data: {response_animes.status_code}",
