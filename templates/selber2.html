@@ -21,9 +21,9 @@
     <body>
 
         <!--background color-->
-        <div class="bg-gradient-to-b  from-sky-100 to-sky-400"> <!--gradient hintergrundfarbe-->
+        <div > <!--gradient hintergrundfarbe-->
 
-        <!--title, form, buttons-->
+        <!--title, form, buttons(statischer teil)-->
         <div>
 
         <!--title and form-->
@@ -69,10 +69,10 @@
         
 <hr>
         
-        <div class="flex justify-center space-x-4">
+        <div style="margin:2rem;" class="flex justify-center space-x-4">
         <!--TESTS: anwesenhet der buttons je nach der aktuellen page-->
 
-        <div>
+        <div >
         {% if page > 1 %}
         <form action="/dec" method="POST">
             <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">Previous</button>
@@ -90,17 +90,18 @@
         
         </div>
 
-        <!--title and form-->
+        <!--title, form, buttons-->
         </div>
         
 
 <hr>
-
-        <div class="flex items-center justify-center"> <!--horizontal und vertikal zentrieren-->
+        <!--dic mit dem gitter drin-->
+        <div class="bg-gradient-to-b  from-sky-100 to-sky-400 flex items-center justify-center"> <!--horizontal und vertikal zentrieren-->
+        <!--gitter-->
         <div class="grid grid-cols-5 gap-20">
-        <!--TESTS: wenn zu den gesetzen parametern keine resultate existieren dann eine nachricht, wenn dten existieren dann diese anzeigen-->
         {% if animes_data %}
             {% for anime in animes_data %}
+                <!--einzelner anime im gitter-->
                 <div>
                     {% if anime.get('images') and anime['images'].get('webp') %}
                         <img src="{{ anime['images']['webp']['image_url'] }}" alt="Anime Image" style="width:10vw;">
@@ -115,6 +116,8 @@
         </div>
         </div>
 
+
+        <!--gesameter background-->
         </div>
     </body>
 </html>
