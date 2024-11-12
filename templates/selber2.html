@@ -20,12 +20,11 @@
       </head>
     <body>
         <div class="bg-gradient-to-b  from-sky-100 to-sky-400"> <!--gradient hintergrundfarbe-->
-        <div >
-        <div>
-        <h1 class="font-bold text-3xl/7" >AniSearch</h1>
 
+        <div><h1 class="font-bold text-3xl/7" >AniSearch</h1></div>
 
         <!--Filters-->
+        <div>
         <form method="POST" action="/update_session">
 
             <label class="font-bold">Anime Title</label>
@@ -49,7 +48,6 @@
             </div>
             <br>
             <input class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400" type="submit" value="Apply Filter">
-    
         </form>
         </div>
         
@@ -70,7 +68,7 @@
         {% if pagination['has_next_page'] %}
         <form action="/inc" method="POST">
             <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">Next</button>
-        </form>
+        </form>  
         {% endif %}
         </div>
         
