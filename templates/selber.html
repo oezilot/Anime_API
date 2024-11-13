@@ -1,146 +1,146 @@
 <!DOCTYPE html>
-<body>
-    <h1>Anime Search</h1>
-    <hr>
-    <br>
-    <!--verschiedene parameters (=filters)-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Anime Search</title>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold text-center text-purple-600">Anime Search</h1>
+        <hr class="my-4 border-gray-300">
 
-    <!--einfache parameter mit enums (=direkt fetchbar ohne umwege!)-->
-    <form method="POST" action="/parameters" name="parameter">
+        <form method="POST" action="/parameters" name="parameter" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Anime Title</label>
+                <input type="text" name="parameter_title" value="{{ parameter_title }}" placeholder="Naruto, etc." class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
 
-        <label>Anime Title</label>
-        <input type="text" name="parameter_title" value="{{ parameter_title }}" placeholder="Naruto, etc.">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Type</label>
+                <select name="parameter1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="" {% if parameter1 == '' %}selected{% endif %}>All</option>
+                    <option value="tv" {% if parameter1 == 'tv' %}selected{% endif %}>TV</option>
+                    <option value="movie" {% if parameter1 == 'movie' %}selected{% endif %}>Movie</option>
+                    <option value="ova" {% if parameter1 == 'ova' %}selected{% endif %}>OVA</option>
+                    <option value="special" {% if parameter1 == 'special' %}selected{% endif %}>Special</option>
+                    <option value="music" {% if parameter1 == 'music' %}selected{% endif %}>Music</option>
+                    <option value="ona" {% if parameter1 == 'ona' %}selected{% endif %}>ONA</option>
+                    <option value="cm" {% if parameter1 == 'cm' %}selected{% endif %}>CM</option>
+                    <option value="pv" {% if parameter1 == 'pv' %}selected{% endif %}>PV</option>
+                    <option value="tv_special" {% if parameter1 == 'tv_special' %}selected{% endif %}>TV Special</option>
+                </select>
+            </div>
 
-        <br><br>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Status</label>
+                <select name="parameter2" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="" {% if parameter2 == '' %}selected{% endif %}>All</option>
+                    <option value="airing" {% if parameter2 == 'airing' %}selected{% endif %}>Airing</option>
+                    <option value="complete" {% if parameter2 == 'complete' %}selected{% endif %}>Complete</option>
+                    <option value="upcoming" {% if parameter2 == 'upcoming' %}selected{% endif %}>Upcoming</option>
+                </select>
+            </div>
 
-        <label>Type</label>
-        <select name="parameter1">
-            <option value="" {% if parameter1 == '' %}selected{% endif %}>All</option>
-            <option value="tv" {% if parameter1 == 'tv' %}selected{% endif %}>TV</option>
-            <option value="movie" {% if parameter1 == 'movie' %}selected{% endif %}>Movie</option>
-            <option value="ova" {% if parameter1 == 'ova' %}selected{% endif %}>OVA</option>
-            <option value="special" {% if parameter1 == 'special' %}selected{% endif %}>Special</option>
-            <option value="music" {% if parameter1 == 'music' %}selected{% endif %}>Music</option>
-            <option value="ona" {% if parameter1 == 'ona' %}selected{% endif %}>ONA</option>
-            <option value="cm" {% if parameter1 == 'cm' %}selected{% endif %}>CM</option>
-            <option value="pv" {% if parameter1 == 'pv' %}selected{% endif %}>PV</option>
-            <option value="tv_special" {% if parameter1 == 'tv_special' %}selected{% endif %}>TV Special</option>
-        </select>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Rating</label>
+                <select name="parameter3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="" {% if parameter3 == '' %}selected{% endif %}>For Everyone</option>
+                    <option value="g" {% if parameter3 == 'g' %}selected{% endif %}>G - All Ages</option>
+                    <option value="pg" {% if parameter3 == 'pg' %}selected{% endif %}>PG - Children</option>
+                    <option value="pg13" {% if parameter3 == 'pg13' %}selected{% endif %}>PG13 - Teens 13+</option>
+                    <option value="r17" {% if parameter3 == 'r17' %}selected{% endif %}>R17 - 17+ (Violence & Profanity)</option>
+                    <option value="r" {% if parameter3 == 'r' %}selected{% endif %}>R+ - Mild Nudity</option>
+                    <option value="rx" {% if parameter3 == 'rx' %}selected{% endif %}>Rx - Hentai</option>
+                </select>
+            </div>
 
-        <br><br>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Genre</label>
+                <select name="parameter_genre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="" {% if parameter_genre == '' %}selected{% endif %}>All</option>
+                    <option value="1" {% if parameter_genre == '1' %}selected{% endif %}>Action</option>
+                    <option value="8" {% if parameter_genre == '8' %}selected{% endif %}>Drama</option>
+                    <option value="4" {% if parameter_genre == '4' %}selected{% endif %}>Comedy</option>
+                    <option value="28" {% if parameter_genre == '28' %}selected{% endif %}>Boys Love</option>
+                    <option value="26" {% if parameter_genre == '26' %}selected{% endif %}>Girls Love</option>
+                    <option value="10" {% if parameter_genre == '10' %}selected{% endif %}>Fantasy</option>
+                    <option value="14" {% if parameter_genre == '14' %}selected{% endif %}>Horror</option>
+                    <option value="24" {% if parameter_genre == '24' %}selected{% endif %}>Sci-Fi</option>
+                    <option value="22" {% if parameter_genre == '22' %}selected{% endif %}>Romance</option>
+                    <option value="56" {% if parameter_genre == '56' %}selected{% endif %}>Educational</option>
+                </select>
+            </div>
 
-        <label>Status</label>
-        <select name="parameter2">
-            <option value="" {% if parameter2 == '' %}selected{% endif %}>All</option>
-            <option value="airing" {% if parameter2 == 'airing' %}selected{% endif %}>Airing</option>
-            <option value="complete" {% if parameter2 == 'complete' %}selected{% endif %}>Complete</option>
-            <option value="upcoming" {% if parameter2 == 'upcoming' %}selected{% endif %}>Upcoming</option>
-        </select>
-    
-
-        <br><br>
-
-        <label>Rating</label>
-        <select name="parameter3">
-            <option value="" {% if parameter3 == '' %}selected{% endif %}>For Everyone</option>
-            <option value="g" {% if parameter3 == 'g' %}selected{% endif %}>G - All Ages</option>
-            <option value="pg" {% if parameter3 == 'pg' %}selected{% endif %}>PG - Children</option>
-            <option value="pg13" {% if parameter3 == 'pg13' %}selected{% endif %}>PG13 - Teens 13+</option>
-            <option value="r17" {% if parameter3 == 'r17' %}selected{% endif %}>R17 - 17+ (Violence & Profanity)</option>
-            <option value="r" {% if parameter3 == 'r' %}selected{% endif %}>R+ - Mild Nudity</option>
-            <option value="rx" {% if parameter3 == 'rx' %}selected{% endif %}>Rx - Hentai</option>
-        </select>
-
-        <br><br>
-
-        <label>Genre</label>
-        <select name="parameter_genre">
-            <option value="" {% if parameter_genre == '' %}selected{% endif %}>All</option>
-            <option value="1" {% if parameter_genre == '1' %}selected{% endif %}>Action</option>
-            <option value="8" {% if parameter_genre == '8' %}selected{% endif %}>Drama</option>
-            <option value="4" {% if parameter_genre == '4' %}selected{% endif %}>Comedy</option>
-            <option value="28" {% if parameter_genre == '28' %}selected{% endif %}>Boys Love</option>
-            <option value="26" {% if parameter_genre == '26' %}selected{% endif %}>Girls Love</option>
-            <option value="10" {% if parameter_genre == '10' %}selected{% endif %}>Fantasy</option>
-            <option value="14" {% if parameter_genre == '14' %}selected{% endif %}>Horror</option>
-            <option value="24" {% if parameter_genre == '24' %}selected{% endif %}>Sci-Fi</option>
-            <option value="22" {% if parameter_genre == '22' %}selected{% endif %}>Romance</option>
-            <option value="56" {% if parameter_genre == '56' %}selected{% endif %}>Educational</option>
-        </select>
-        <br><br>
-
-        <input type="submit" value="Apply Filter">
-
-    </form>
-
-    <br>
-    <hr>
-    <br>
-
-    <!--navigation buttons (page-pagination)-->
-    <div style="display:flex;">
-        {% if page > 1 %}
-        <form method="POST" action="/dec">
-            <button>previous</button>
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Apply Filter</button>
+            </div>
         </form>
-        {% endif %}
 
-        {% if not pagination == {} %}
-            Page {{ page }} of {{ pagination['last_visible_page'] }}
-        {% else %}
-            Zero Pages
-        {% endif %}
+        <br>
+        <hr class="my-4 border-gray-300">
+        <br>
 
-        {% if pagination['has_next_page'] %}
-        <form method="POST" action="/inc">
-            <button>next</button>
-        </form>
-        {% endif %}
-    </div>
+        <div class="flex justify-between items-center">
+            {% if page > 1 %}
+            <form method="POST" action="/dec">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Previous</button>
+            </form>
+            {% endif %}
 
-
-    <br>
-
-    <!--display anime data; title, type, status...-->
-    {% if message %}
-    <p>{{ message }}</p>
-    {% else %}
-    {% for i in data %}
-    <div style="border:black solid 3px; margin: 5px">
-        <p>
-            Title: {{ i['title'] }}
-            <br>
-            Type: {{ i['type'] }}
-            <br>
-            Status: {{ i['status'] }}
-            <br>
-            Rating: {{ i['rating'] }}
-            <br>
-            Genre: 
-            {% for g in i['genres'] %}
-                {{ g['name'] }}{% if not loop.last %}, {% endif %}
-            {% endfor %}            
-            <br>
-            {% if i.get('images') and i['images'].get('jpg') %}
-                <img src="{{ i['images']['jpg']['image_url'] }}" alt="{{ i['title'] }}">
+            {% if not pagination == {} %}
+                <span class="text-gray-700">Page {{ page }} of {{ pagination['last_visible_page'] }}</span>
             {% else %}
-                <p>No image available.</p>
-            {% endif %}        
-        </p>
-        
-        <!-- Character button -->
-        <form method="POST" action="/characters">
-            <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
-            <input type="hidden" name="anime_title" value="{{ i['title'] }}">
-            <button type="submit">View Characterlist</button>
-        </form>
+                <span class="text-gray-700">Zero Pages</span>
+            {% endif %}
 
-        <!-- Anime button -->
-        <form method="POST" action="/anime">
-            <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
-            <button>More Info</button>
-        </form>
+            {% if pagination['has_next_page'] %}
+            <form method="POST" action="/inc">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Next</button>
+            </form>
+            {% endif %}
+        </div>
+
+        <br>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% if message %}
+            <p class="text-red-500">{{ message }}</p>
+            {% else %}
+            {% for i in data %}
+            <div class="bg-white shadow-md rounded-lg p-4 border border-gray-300">
+                <p class="text-gray-800 font-bold">{{ i['title'] }}</p>
+                <p>Status: {{ i['status'] }}</p>
+                <p>Type: {{ i['type'] }}</p>
+                <p>Rating: {{ i['rating'] }}</p>
+                <p>Genre: 
+                    {% for g in i['genres'] %}
+                        {{ g['name'] }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                {% if i.get('images') and i['images'].get('jpg') %}
+                    <img src="{{ i['images']['jpg']['image_url'] }}" alt="{{ i['title'] }}" class="w-full h-auto rounded-md mt-2">
+                {% else %}
+                    <p>No image available.</p>
+                {% endif %}
+
+                <div class="mt-4">
+                    <form method="POST" action="/characters" class="inline">
+                        <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
+                        <input type="hidden" name="anime_title" value="{{ i['title'] }}">
+                        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">View Characterlist</button>
+                    </form>
+
+                    <form method="POST" action="/anime" class="inline">
+                        <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
+                        <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">More Info</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
     </div>
-    {% endfor %}
-    {% endif %}
 </body>
+</html>
