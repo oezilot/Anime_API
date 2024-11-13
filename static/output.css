@@ -680,6 +680,22 @@ video {
   --tw-gradient-from-position: 60%;
 }
 
+.from-30\% {
+  --tw-gradient-from-position: 30%;
+}
+
+.from-25\% {
+  --tw-gradient-from-position: 25%;
+}
+
+.from-35\% {
+  --tw-gradient-from-position: 35%;
+}
+
+.from-20\% {
+  --tw-gradient-from-position: 20%;
+}
+
 .to-sky-400 {
   --tw-gradient-to: #38bdf8 var(--tw-gradient-to-position);
 }
