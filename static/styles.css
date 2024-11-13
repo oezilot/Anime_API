@@ -1,0 +1,53 @@
+.div-oben-container {
+
+    background-color: white; 
+    position:fixed; 
+    width:100%; 
+    height:40vh;
+}
+
+
+.div-btn {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    position: absolute;
+    bottom: 0px;
+    margin: 5px;
+
+}
+
+.image-animes {
+    border-radius: 5%;
+    box-shadow: 5px 5px 5px rgb(39, 39, 255);
+    height: 150px;
+}
+
+.card-container {
+    margin-top: 10px;
+}
+
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Initially 5 columns */
+    gap: 20px;
+  }
+  
+  @media (max-width: 1200px) {
+    .card-container {
+      grid-template-columns: repeat(3, 1fr); /* 3 columns for screens smaller than 1200px */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .card-container {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns for screens smaller than 768px */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .card-container {
+      grid-template-columns: 1fr; /* 1 column for screens smaller than 480px */
+    }
+  }
