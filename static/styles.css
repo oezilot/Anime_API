@@ -14,17 +14,18 @@
     position: absolute;
     bottom: 0px;
     margin: 5px;
+    margin-bottom: 2rem;
 
 }
 
 .image-animes {
     border-radius: 5%;
     box-shadow: 5px 5px 5px rgb(39, 39, 255);
-    height: 150px;
+    height: 280px;
 }
 
 .card-container {
-    margin-top: 10px;
+    margin-top: 1rem;
 }
 
 
