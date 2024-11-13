@@ -54,3 +54,8 @@
       grid-template-columns: 1fr; /* 1 column for screens smaller than 480px */
     }
   }
+
+.genre {
+    display: flex;
+    justify-content: space-between;
+}
