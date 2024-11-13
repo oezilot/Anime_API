@@ -58,11 +58,11 @@
         </div>
         
 <hr>
-        
-        <div style="margin:2rem;" class="flex justify-center space-x-4">
+        <!--beide navigation buttons-->
+        <div style="margin:1rem;" class="flex justify-center space-x-4">
         <!--TESTS: anwesenhet der buttons je nach der aktuellen page-->
 
-        <div >
+        <div>
         {% if page > 1 %}
         <form action="/dec" method="POST">
             <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">Previous</button>
@@ -78,13 +78,15 @@
         {% endif %}
         </div>
         
+        <!--beide navigation buttons-->
         </div>
+
+<hr>
 
         <!--title, form, buttons (statischer teil)-->
         </div>
         
 
-<hr>
         <!--dic mit dem gitter drin, dynamischer teil-->
         <div style="padding-top:40vh;" class="bg-gradient-to-b  from-sky-100 to-sky-400 flex items-center justify-center"> <!--horizontal und vertikal zentrieren-->
         <!--gitter-->
@@ -105,6 +107,7 @@
         {% endif %}
         </div>
         </div>
+
 
 
         <!--gesameter background-->
