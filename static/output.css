@@ -648,8 +648,44 @@ video {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-sky-50 {
+  --tw-gradient-from: #f0f9ff var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(240 249 255 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-white {
+  --tw-gradient-from: #fff var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(255 255 255 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-40\% {
+  --tw-gradient-from-position: 40%;
+}
+
+.from-50\% {
+  --tw-gradient-from-position: 50%;
+}
+
+.from-70\% {
+  --tw-gradient-from-position: 70%;
+}
+
+.from-60\% {
+  --tw-gradient-from-position: 60%;
+}
+
 .to-sky-400 {
   --tw-gradient-to: #38bdf8 var(--tw-gradient-to-position);
+}
+
+.to-80\% {
+  --tw-gradient-to-position: 80%;
+}
+
+.to-90\% {
+  --tw-gradient-to-position: 90%;
 }
 
 .px-4 {
