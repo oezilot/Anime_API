@@ -14,18 +14,22 @@
 
     <!--oben-->
     <div class="div-oben-container">
-        <h1 class="text-3xl font-bold text-center text-purple-600">Anime Search</h1>
-        <hr class="my-4 border-gray-300">
+        <br>
+        <h1 style="margin-top:0rem; margin-bottom:0rem;" class="text-8xl font-bold text-3xl/7" >AniSearch</h1>
+        <br>
 
-        <form method="POST" action="/parameters" name="parameter" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2">Anime Title</label>
-                <input type="text" name="parameter_title" value="{{ parameter_title }}" placeholder="Naruto, etc." class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <form class="form" method="POST" action="/parameters" name="parameter">
+
+            <div class="input">
+            <label class="font-bold">Anime Title</label>
+            <input type="text" name="parameter_title" value="{{ parameter_title }}" placeholder="Naruto, etc." class="input block max-w-lg pr-4 pl-4 py-2 text-sm font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed">
             </div>
 
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2">Type</label>
-                <select name="parameter1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <div class="parameters1">
+
+                <div class="p">
+                <label class="font-bold">Type</label>
+                <select name="parameter1">
                     <option value="" {% if parameter1 == '' %}selected{% endif %}>All</option>
                     <option value="tv" {% if parameter1 == 'tv' %}selected{% endif %}>TV</option>
                     <option value="movie" {% if parameter1 == 'movie' %}selected{% endif %}>Movie</option>
@@ -37,21 +41,21 @@
                     <option value="pv" {% if parameter1 == 'pv' %}selected{% endif %}>PV</option>
                     <option value="tv_special" {% if parameter1 == 'tv_special' %}selected{% endif %}>TV Special</option>
                 </select>
-            </div>
+                </div>
 
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2">Status</label>
-                <select name="parameter2" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <div class="p">
+                <label class="font-bold">Status</label>
+                <select name="parameter2">
                     <option value="" {% if parameter2 == '' %}selected{% endif %}>All</option>
                     <option value="airing" {% if parameter2 == 'airing' %}selected{% endif %}>Airing</option>
                     <option value="complete" {% if parameter2 == 'complete' %}selected{% endif %}>Complete</option>
                     <option value="upcoming" {% if parameter2 == 'upcoming' %}selected{% endif %}>Upcoming</option>
                 </select>
-            </div>
+                </div>
 
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2">Rating</label>
-                <select name="parameter3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <div class="p">
+                <label class="font-bold">Rating</label>
+                <select name="parameter3" >
                     <option value="" {% if parameter3 == '' %}selected{% endif %}>For Everyone</option>
                     <option value="g" {% if parameter3 == 'g' %}selected{% endif %}>G - All Ages</option>
                     <option value="pg" {% if parameter3 == 'pg' %}selected{% endif %}>PG - Children</option>
@@ -60,11 +64,11 @@
                     <option value="r" {% if parameter3 == 'r' %}selected{% endif %}>R+ - Mild Nudity</option>
                     <option value="rx" {% if parameter3 == 'rx' %}selected{% endif %}>Rx - Hentai</option>
                 </select>
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2">Genre</label>
-                <select name="parameter_genre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+            
+                <div class="p">
+                <label class="font-bold">Genre</label>
+                <select name="parameter_genre">
                     <option value="" {% if parameter_genre == '' %}selected{% endif %}>All</option>
                     <option value="1" {% if parameter_genre == '1' %}selected{% endif %}>Action</option>
                     <option value="8" {% if parameter_genre == '8' %}selected{% endif %}>Drama</option>
@@ -77,18 +81,13 @@
                     <option value="22" {% if parameter_genre == '22' %}selected{% endif %}>Romance</option>
                     <option value="56" {% if parameter_genre == '56' %}selected{% endif %}>Educational</option>
                 </select>
-            </div>
+                </div>
 
-            <div class="flex items-center justify-between">
                 <button type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Apply Filter</button>
             </div>
         </form>
 
-        <br>
-        <hr class="my-4 border-gray-300">
-        <br>
-
-        <div class="btn-container">
+        <div class="div-btn">
             {% if page > 1 %}
             <form method="POST" action="/dec">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Previous</button>
@@ -112,7 +111,6 @@
         </div>
 
 
-        <br>
 
 
         <!--unten-->

@@ -12,22 +12,24 @@
     padding-top: 10vh;
 }
 
+.form {
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  width: 60vw;
 
-.div-btn {
-    background-color:blueviolet;
-
-    display: flex;
-    justify-content: space-between;    
-    align-items:center;
-    
-    width: 60%;                /* Full width of the parent container */
-
-    position: absolute;
-    bottom: 0;
-    
-    margin: 5px;
-    margin-bottom: 1.5rem;
-    padding: 0 10px; /* Optional, für etwas Abstand vom Rand */
+}
+.parameters1 {
+  background-color: blueviolet;
+  display:flex;
+  flex-direction:row;
+}
+.p {
+  display:flex;
+  flex-direction: column;
+}
+.input {
+  width:100%;
 }
 
 .h1 {
@@ -38,6 +40,8 @@
   background-color:blueviolet;
     display: flex;
     justify-content: space-between;
+
+    width: 100%;
 }
 
 .input {
@@ -46,6 +50,23 @@
     min-width: 235px; 
 }
 
+
+.div-btn {
+  background-color:blueviolet;
+
+  display: flex;
+  justify-content: space-between;    
+  align-items:center;
+  
+  width: 60%;                /* Full width of the parent container */
+
+  position: absolute;
+  bottom: 0;
+  
+  margin: 5px;
+  margin-bottom: 1.5rem;
+  padding: 0 10px; /* Optional, für etwas Abstand vom Rand */
+}
 
 html {
   padding:0;
