@@ -45,16 +45,6 @@
         <button type="submit">Filter</button>
     </form>
 
-    <!-- Anime results -->
-    <div class="anime-grid">
-        {% for anime in anime_list %}
-        <div class="anime-item">
-            <img src="{{ anime.images.jpg.image_url }}" alt="{{ anime.title }}">
-            <h3>{{ anime.title }}</h3>
-        </div>
-        {% endfor %}
-    </div>
-
     <!-- Pagination buttons -->
     <div class="pagination">
         {% if pagination.current_page > 1 %}
@@ -70,6 +60,16 @@
                 <button>Next</button>
             </a>
         {% endif %}
+    </div>
+
+    <!-- Anime results -->
+    <div class="anime-grid">
+        {% for anime in anime_list %}
+        <div class="anime-item">
+            <img src="{{ anime.images.jpg.image_url }}" alt="{{ anime.title }}">
+            <h3>{{ anime.title }}</h3>
+        </div>
+        {% endfor %}
     </div>
 </body>
 </html>

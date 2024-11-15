@@ -10,22 +10,21 @@
         <title>Anime Search</title>
       </head>
     <body>
-        <!--title and form-->
-        <div class="div-oben-container flex flex-col justify-center items-center">
+        <!--title and form and pagination-->
+        <div class="div-oben-container">
 
         <!--titel-->
         <br>
-        <div><h1 style="margin-top:0rem; margin-bottom:0rem;" class="text-8xl font-bold text-3xl/7" >AniSearch</h1></div>
+        <h1 style="margin-top:0rem; margin-bottom:0rem;" class="text-8xl font-bold text-3xl/7" >AniSearch</h1>
         <br>
         
         <!--Filters-->
-        <div class="form">
         <form method="POST" action="/update_session">
 
             <label class="font-bold">Anime Title</label>
-            <input class="breit block max-w-lg pr-4 pl-4 py-2 text-sm font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed" type="text" name="param_title" value="{{ selected_param_title }}" placeholder="Naruto, etc.">
+            <input class="input block max-w-lg pr-4 pl-4 py-2 text-sm font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed" type="text" name="param_title" value="{{ selected_param_title }}" placeholder="Naruto, etc.">
             <label class="font-bold" >Genre</label>
-            <div class="genre">
+            <div class="parameters">
                 <select class="max-w-28 border border-gray-300 text-gray-600 text-base rounded-lg block w-full py-2.5 px-4 focus:outline-none" name="param_genre">
                     <option value="" {% if selected_param_genre == '' %}selected{% endif %}>All</option>
                     <option value="1" {% if selected_param_genre == '1' %}selected{% endif %}>Action</option>
@@ -41,10 +40,7 @@
                 </select>
                 <input class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400" type="submit" value="Apply Filter">
             </div>
-
         </form>
-        <!--form-->
-        </div>
 
         <div class="div-btn">
             {% if page > 1 %}
