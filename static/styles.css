@@ -34,21 +34,38 @@
   background-color: blueviolet;
 }
 
+.parameters {
+  background-color:blueviolet;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input {
+    background-color:blueviolet;
+    width: 25vw;
+    min-width: 235px; 
+}
+
+
+
+
+.div-unten-container {
+  display:flex;
+  justify-content:center;
+}
 
 
 .image-animes {
     border-radius: 5%;
     box-shadow: 5px 5px 5px rgb(0, 0, 0);
-    height: 280px;
+    width: 200px;
 }
 
+
 .card-container {
+  
     margin-top: 1rem;
     margin-bottom: 4rem;
-}
-
-
-.card-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* Initially 5 columns */
     gap: 20px;
@@ -72,14 +89,3 @@
     }
   }
 
-.parameters {
-  background-color:blueviolet;
-    display: flex;
-    justify-content: space-between;
-}
-
-.input {
-    background-color:blueviolet;
-    width: 25vw;
-    min-width: 235px; 
-}
