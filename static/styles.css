@@ -81,16 +81,13 @@
   padding: 0 10px; /* Optional, für etwas Abstand vom Rand */
 }
 
-html {
-  padding:0;
-  margin: 0;
-}
 
 
 .div-unten-container {
   display:flex;
   justify-content:center;
   min-height:100vw;
+  padding-top:50vh;
 }
 
 
@@ -105,6 +102,8 @@ html {
   
     margin-top: 1rem;
     margin-bottom: 4rem;
+    margin-left:2rem;
+    margin-right:2rem;
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* Initially 5 columns */
     gap: 20px;
