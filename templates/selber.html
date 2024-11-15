@@ -122,7 +122,7 @@
             {% else %}
             {% for i in data %}
             <!--1 karte-->
-            <div class="image-animes">
+            <div class="anime-card">
                 {% if i.get('images') and i['images'].get('jpg') %}
                     <img src="{{ i['images']['jpg']['image_url'] }}" alt="{{ i['title'] }}" class="w-full h-auto rounded-md mt-2">
                 {% else %}
@@ -139,21 +139,23 @@
                 </p>
                 -->
 
+                <div class="hover-content">
+
                 <p class="text-gray-800 font-bold">{{ i['title'] }}</p>
 
-                
-
-                <div class="mt-4">
+                <div class="action-btn">
                     <form method="POST" action="/characters" class="inline">
                         <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
                         <input type="hidden" name="anime_title" value="{{ i['title'] }}">
-                        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">View Characterlist</button>
+                        <button type="submit">View Characterlist</button>
                     </form>
-
+                </div>
+                <div class="action-btn">
                     <form method="POST" action="/anime" class="inline">
                         <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
-                        <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">More Info</button>
+                        <button>More Info</button>
                     </form>
+                </div>
                 </div>
             </div>
             {% endfor %}
