@@ -47,11 +47,16 @@
 }
 
 
+html {
+  padding:0;
+  margin: 0;
+}
 
 
 .div-unten-container {
   display:flex;
   justify-content:center;
+  min-height:100vw;
 }
 
 
