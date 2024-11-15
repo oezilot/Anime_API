@@ -83,14 +83,14 @@
                 </select>
                 </div>
 
-                <button type="submit" >Apply Filter</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" type="submit" >Apply Filter</button>
             </div>
         </form>
 
         <div class="div-btn">
             {% if page > 1 %}
             <form method="POST" action="/dec">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Previous</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><</button>
             </form>
             {% endif %}
 
@@ -102,7 +102,7 @@
 
             {% if pagination['has_next_page'] %}
             <form method="POST" action="/inc">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Next</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">></button>
             </form>
             {% endif %}
         </div>
@@ -147,13 +147,13 @@
                     <form method="POST" action="/characters" class="inline">
                         <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
                         <input type="hidden" name="anime_title" value="{{ i['title'] }}">
-                        <button type="submit">View Characterlist</button>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" type="submit">Characters</button>
                     </form>
                 </div>
                 <div class="action-btn">
                     <form method="POST" action="/anime" class="inline">
                         <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
-                        <button>More Info</button>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">More Info</button>
                     </form>
                 </div>
                 </div>
