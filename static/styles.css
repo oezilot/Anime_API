@@ -105,12 +105,23 @@
     margin:1rem;
     border: 0.3rem solid black;
 }
+
+/*HOVER-EFFEKT*/
 .hover-content {
+  display:none; /*versteckter inhalt standardmässig*/
+  
+}
+.anime-card:hover .hover-content {
+  display: block; /* Zeigt den Inhalt bei Hover */
   text-align:center;
   display:flex;
   flex-direction:column;
   align-items:center;
 }
+.anime-card:hover img {
+  opacity: 0.3; /* Dimmt das Bild bei Hover */
+}
+/**/
 
 
 .card-container {
