@@ -17,15 +17,16 @@
   flex-direction: column;
   align-items:center;
   width: 60vw;
+  flex-wrap: wrap;
 
 }
 .parameters1 {
-  background-color: blueviolet;
   display:flex;
   flex-direction:row;
+  justify-content: space-between;
   width: 55vw;
   max-width: 650px;
-  flex-wrap: wrap;:hidden;
+  flex-wrap: wrap;
 }
 .p {
   display:flex;
