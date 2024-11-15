@@ -24,8 +24,7 @@
 
     position: absolute;
     bottom: 0;
-    left: 18vw;
-    right: 18vw;
+    
     margin: 5px;
     margin-bottom: 1.5rem;
     padding: 0 10px; /* Optional, für etwas Abstand vom Rand */
