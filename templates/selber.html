@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./static/output.css" rel="stylesheet">
+    <link href="../static/styles.css" rel="stylesheet">
+    <title>Anime Search</title>
+</head>
+
+
+
+<body >
+
+    <!--oben-->
+    <div class="div-oben-container">
+        <br>
+        <h1 style="margin-top:0rem; margin-bottom:0rem;" class="text-8xl font-bold" >AniSearch</h1>
+        <br>
+
+        <form class="form" method="POST" action="/parameters" name="parameter">
+
+            <div class="input1">
+            <label class="font-bold">Anime Title</label>
+            <input class="input-feld" type="text" name="parameter_title" value="{{ parameter_title }}" placeholder="Naruto, etc." class="input">
+            </div>
+
+            <div class="parameters1">
+
+                <div class="p">
+                <label class="font-bold">Type</label>
+                <select name="parameter1">
+                    <option value="" {% if parameter1 == '' %}selected{% endif %}>All</option>
+                    <option value="tv" {% if parameter1 == 'tv' %}selected{% endif %}>TV</option>
+                    <option value="movie" {% if parameter1 == 'movie' %}selected{% endif %}>Movie</option>
+                    <option value="ova" {% if parameter1 == 'ova' %}selected{% endif %}>OVA</option>
+                    <option value="special" {% if parameter1 == 'special' %}selected{% endif %}>Special</option>
+                    <option value="music" {% if parameter1 == 'music' %}selected{% endif %}>Music</option>
+                    <option value="ona" {% if parameter1 == 'ona' %}selected{% endif %}>ONA</option>
+                    <option value="cm" {% if parameter1 == 'cm' %}selected{% endif %}>CM</option>
+                    <option value="pv" {% if parameter1 == 'pv' %}selected{% endif %}>PV</option>
+                    <option value="tv_special" {% if parameter1 == 'tv_special' %}selected{% endif %}>TV Special</option>
+                </select>
+                </div>
+
+                <div class="p">
+                <label class="font-bold">Status</label>
+                <select name="parameter2">
+                    <option value="" {% if parameter2 == '' %}selected{% endif %}>All</option>
+                    <option value="airing" {% if parameter2 == 'airing' %}selected{% endif %}>Airing</option>
+                    <option value="complete" {% if parameter2 == 'complete' %}selected{% endif %}>Complete</option>
+                    <option value="upcoming" {% if parameter2 == 'upcoming' %}selected{% endif %}>Upcoming</option>
+                </select>
+                </div>
+
+                <div class="p">
+                <label class="font-bold">Rating</label>
+                <select name="parameter3" >
+                    <option value="" {% if parameter3 == '' %}selected{% endif %}>For Everyone</option>
+                    <option value="g" {% if parameter3 == 'g' %}selected{% endif %}>G - All Ages</option>
+                    <option value="pg" {% if parameter3 == 'pg' %}selected{% endif %}>PG - Children</option>
+                    <option value="pg13" {% if parameter3 == 'pg13' %}selected{% endif %}>PG13 - Teens 13+</option>
+                    <option value="r17" {% if parameter3 == 'r17' %}selected{% endif %}>R17 - 17+ (Violence & Profanity)</option>
+                    <option value="r" {% if parameter3 == 'r' %}selected{% endif %}>R+ - Mild Nudity</option>
+                    <option value="rx" {% if parameter3 == 'rx' %}selected{% endif %}>Rx - Hentai</option>
+                </select>
+                </div>
+            
+                <div class="p">
+                <label class="font-bold">Genre</label>
+                <select name="parameter_genre">
+                    <option value="" {% if parameter_genre == '' %}selected{% endif %}>All</option>
+                    <option value="1" {% if parameter_genre == '1' %}selected{% endif %}>Action</option>
+                    <option value="8" {% if parameter_genre == '8' %}selected{% endif %}>Drama</option>
+                    <option value="4" {% if parameter_genre == '4' %}selected{% endif %}>Comedy</option>
+                    <option value="28" {% if parameter_genre == '28' %}selected{% endif %}>Boys Love</option>
+                    <option value="26" {% if parameter_genre == '26' %}selected{% endif %}>Girls Love</option>
+                    <option value="10" {% if parameter_genre == '10' %}selected{% endif %}>Fantasy</option>
+                    <option value="14" {% if parameter_genre == '14' %}selected{% endif %}>Horror</option>
+                    <option value="24" {% if parameter_genre == '24' %}selected{% endif %}>Sci-Fi</option>
+                    <option value="22" {% if parameter_genre == '22' %}selected{% endif %}>Romance</option>
+                    <option value="56" {% if parameter_genre == '56' %}selected{% endif %}>Educational</option>
+                </select>
+                </div>
+
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" type="submit" >Apply Filter</button>
+            </div>
+        </form>
+
+        <div class="div-btn">
+            {% if page > 1 %}
+            <form method="POST" action="/dec">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><</button>
+            </form>
+            {% endif %}
+
+            {% if not pagination == {} %}
+                <span class="text-gray-700">Page {{ page }} of {{ pagination['last_visible_page'] }}</span>
+            {% else %}
+                <span class="text-gray-700">Zero Pages</span>
+            {% endif %}
+
+            {% if pagination['has_next_page'] %}
+            <form method="POST" action="/inc">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">></button>
+            </form>
+            {% endif %}
+        </div>
+
+        <!--oben-->
+        </div>
+
+
+
+
+        <!--unten-->
+        <div class="div-unten-container bg-gradient-to-b from-white from-25% to-sky-400">
+        <!--mehrere karten=grid-->
+        <div class="card-container">
+            {% if message %}
+            <p class="text-red-500">{{ message }}</p>
+            {% else %}
+            {% for i in data %}
+            <!--1 karte-->
+            <div class="anime-card">
+                {% if i.get('images') and i['images'].get('jpg') %}
+                    <img src="{{ i['images']['jpg']['image_url'] }}" alt="{{ i['title'] }}" class="w-full h-auto rounded-md mt-2">
+                {% else %}
+                    <p>No image available.</p>
+                {% endif %}
+                <!--
+                <p>Status: {{ i['status'] }}</p>
+                <p>Type: {{ i['type'] }}</p>
+                <p>Rating: {{ i['rating'] }}</p>
+                <p>Genre: 
+                    {% for g in i['genres'] %}
+                        {{ g['name'] }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                -->
+
+                <div class="hover-content">
+
+                <p class="text-gray-800 font-bold">{{ i['title'] }}</p>
+
+                <div class="action-btn">
+                    <form method="POST" action="/characters" class="inline">
+                        <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
+                        <input type="hidden" name="anime_title" value="{{ i['title'] }}">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" type="submit">Characters</button>
+                    </form>
+                </div>
+                <div class="action-btn">
+                    <form method="POST" action="/anime" class="inline">
+                        <input type="hidden" name="anime_id" value="{{ i['mal_id'] }}">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">More Info</button>
+                    </form>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        <!--mehrere karten=grid-->
+        </div>
+        <!--unten-->
+        </div>
+
+</body>
+</html>

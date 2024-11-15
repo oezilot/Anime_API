@@ -1,0 +1,22 @@
+unit-test:
+- api mocking nur im unititesting?
+- für jede function einen unittest oder muss man nicht alle funktionen mit allen arten von tests testen?
+- wie kann man statt nur jedes szenario einen wert gleich mehrere random werte simulieren und mit denen die tests durchführen?
+- ich habe bei den urlbuilder function immer page und so vorgegeben aber wäre es nicht sinnvoller diese aus der session zu entnehmen?
+
+integration testing:
+- eine funktione in der mehrere enthalten sind (verschmelzende funktion)?
+
+functional testing:
+- eine function (quasi wie unit tests) welche allgemein testet und nicht mit spezifischen werten?
+
+allg.:
+- kann der selbe client nicht für alle verschiednen arten von tests geteilt werden?
+- seperates file für jeden test oder testart?
+- modules and classes???
+- muss ich für jede funktion alle arten von tests machen oder für jede funktion eines von diesen arten oder ein gemisch?
+- auch szenarien testen die gar nicht möglich sind?
+- wie muss die file struktur etc sein?
+- für die selbe applikation unit/integration und functional test alle zusammen machen oder sich für einen ansatz entscheiden?
+
+- wäre ein anderer ansatz nicht am besten gewesen: zu beginn eine session definieren die verknüpft die im zentrum steht un mit allen anderen funktionen verknüpft ist! der request mock benützt dann auch diese session und die updates aus den forms werden genutzt um diese simulierte session zu updaten!!!

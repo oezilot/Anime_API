@@ -1,0 +1,175 @@
+.div-oben-container {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    background-color:violet;
+
+    position:sticky; 
+    top:0;
+    width:100%; 
+    height:50vh;
+    z-index:10;
+
+    padding-top: 10vh;
+}
+
+.form {
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  width: 60vw;
+  flex-wrap: wrap;
+
+}
+.parameters1 {
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  width: 55vw;
+  max-width: 650px;
+  flex-wrap: wrap;
+}
+.p {
+  display:flex;
+  flex-direction: column;
+}
+.input1 {
+  background-color:blueviolet;
+  display:flex;
+  flex-direction: column;
+  width: 55vw;
+  max-width: 650px;
+
+  margin:1rem;
+}
+.input-feld {
+  width:100%
+}
+
+.h1 {
+  background-color: blueviolet;
+}
+
+.action-btn {
+  margin: 0.2rem;
+
+}
+
+.parameters {
+  background-color:blueviolet;
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+}
+
+.input {
+    background-color:blueviolet;
+    width: 25vw;
+    min-width: 235px; 
+}
+
+
+.div-btn {
+  background-color:blueviolet;
+
+  display: flex;
+  justify-content: space-between;    
+  align-items:center;
+  
+  width: 60%;                /* Full width of the parent container */
+
+  position: absolute;
+  bottom: 0;
+  
+  margin: 5px;
+  margin-bottom: 1.5rem;
+  padding: 0 10px; /* Optional, für etwas Abstand vom Rand */
+}
+
+
+
+.div-unten-container {
+  display:flex;
+  justify-content:center;
+}
+
+
+
+/*HOVER-EFFEKT*/
+
+
+.hover-content {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Translate to center */
+  background-color: rgba(255, 255, 255, 0.8); /* Optional: background with opacity */
+  text-align: center;
+  padding: 10px; /* Optional padding */
+  width: 80%; /* Adjust as needed */
+  border-radius: 8px; /* Rounded corners for a better look */
+}
+
+.anime-card:hover .hover-content {
+  display: flex; /* Display the content on hover */
+  flex-direction: column;
+  align-items: center;
+}
+
+.anime-card:hover img {
+  opacity: 0.3; /* Dims the image on hover */
+}
+/**/
+
+
+.anime-card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 5px 5px 5px rgb(0, 0, 0);
+  width: 100%; /* Make the card width responsive */
+  max-width: 210px; /* Set a maximum width */
+  margin: 1rem;
+  border: 0.3rem solid black;
+  position: relative;
+  overflow: hidden;
+
+  display: flex; /* Use flex to control the content layout */
+  flex-direction: column; /* Stack content vertically */
+  height: auto; /* Allow the height to adjust based on content */
+  min-height: 250px; /* Optional: set a minimum height to ensure consistency */
+}
+
+.card-container {
+  margin-top: 1rem;
+  margin-bottom: 4rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Initially 5 columns */
+  gap: 20px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1320px) {
+  .card-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for screens smaller than 1200px */
+  }
+}
+
+@media (max-width: 800px) {
+  .card-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for screens smaller than 768px */
+  }
+}
+
+@media (max-width: 550px) {
+  .card-container {
+    grid-template-columns: 1fr; /* 1 column for screens smaller than 480px */
+  }
+}
+
+
+

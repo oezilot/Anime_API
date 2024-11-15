@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./static/output.css" rel="stylesheet">
+        <link href="../static/styles.css" rel="stylesheet">
+        <!--<script src="https://cdn.tailwindcss.com"></script>-->
+
+        <title>Anime Search</title>
+      </head>
+    <body>
+        <!--title and form and pagination-->
+        <div class="div-oben-container">
+
+        <!--titel-->
+        <br>
+        <h1 style="margin-top:0rem; margin-bottom:0rem;" class="text-8xl font-bold text-3xl/7" >AniSearch</h1>
+        <br>
+        
+        <!--form-->
+        <form method="POST" action="/update_session">
+
+            <label class="font-bold">Anime Title</label>
+            <input class="input block max-w-lg pr-4 pl-4 py-2 text-sm font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed" type="text" name="param_title" value="{{ selected_param_title }}" placeholder="Naruto, etc.">
+            
+            <label class="font-bold" >Genre</label>
+            <div class="parameters">
+                <select class="max-w-28 border border-gray-300 text-gray-600 text-base rounded-lg block w-full py-2.5 px-4 focus:outline-none" name="param_genre">
+                    <option value="" {% if selected_param_genre == '' %}selected{% endif %}>All</option>
+                    <option value="1" {% if selected_param_genre == '1' %}selected{% endif %}>Action</option>
+                    <option value="8" {% if selected_param_genre == '8' %}selected{% endif %}>Drama</option>
+                    <option value="4" {% if selected_param_genre == '4' %}selected{% endif %}>Comedy</option>
+                    <option value="28" {% if selected_param_genre == '28' %}selected{% endif %}>Boys Love</option>
+                    <option value="26" {% if selected_param_genre == '26' %}selected{% endif %}>Girls Love</option>
+                    <option value="10" {% if selected_param_genre == '10' %}selected{% endif %}>Fantasy</option>
+                    <option value="14" {% if selected_param_genre == '14' %}selected{% endif %}>Horror</option>
+                    <option value="24" {% if selected_param_genre == '24' %}selected{% endif %}>Sci-Fi</option>
+                    <option value="22" {% if selected_param_genre == '22' %}selected{% endif %}>Romance</option>
+                    <option value="56" {% if selected_param_genre == '56' %}selected{% endif %}>Educational</option>
+                </select>
+                <input class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400" type="submit" value="Apply Filter">
+            </div>
+        </form>
+
+        <!--pagination-->
+        <div class="div-btn">
+            {% if page > 1 %}
+            <form action="/dec" method="POST">
+                <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"><</button>
+            </form>
+            {% endif %}
+            
+            <h3>Page ... of ...</h3>
+         
+            {% if pagination['has_next_page'] %}
+            <form action="/inc" method="POST">
+                <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">></button>
+            </form>  
+            {% endif %}
+        </div>
+
+        <!--oben-container-->
+        </div>
+
+
+        <!--dic mit dem gitter drin, dynamischer teil-->
+        <div class="div-unten-container bg-gradient-to-b from-white from-25% to-sky-400"> <!--horizontal und vertikal zentrieren-->
+        <!--gitter-->
+        <div class="card-container">
+        {% if animes_data %}
+            {% for anime in animes_data %}
+                <!--einzelner anime im gitter-->
+                <div>
+                    {% if anime.get('images') and anime['images'].get('webp') %}
+                        <img class="image-animes" src="{{ anime['images']['webp']['image_url'] }}" alt="Anime Image">
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No data available.</p>
+        {% endif %}
+        </div>
+        </div>
+
+
+
+        
+    </body>
+</html>
