@@ -5,9 +5,11 @@
 
     background-color:violet;
 
-    position:fixed; 
+    position:sticky; 
+    top:0;
     width:100%; 
     height:50vh;
+    z-index:10;
 
     padding-top: 10vh;
 }
@@ -93,33 +95,41 @@
   display:flex;
   justify-content:center;
   min-height:100vw;
-  padding-top:50vh;
-}
-
-
-.anime-card {
-    background-color:white;
-    border-radius: 1rem;
-    box-shadow: 5px 5px 5px rgb(0, 0, 0);
-    width: 200px;
-    margin:1rem;
-    border: 0.3rem solid black;
 }
 
 /*HOVER-EFFEKT*/
+.anime-card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 5px 5px 5px rgb(0, 0, 0);
+  width: 200px;
+  margin: 1rem;
+  border: 0.3rem solid black;
+  position: relative;
+  overflow: hidden;
+}
+
 .hover-content {
-  display:none; /*versteckter inhalt standardmässig*/
-  
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Translate to center */
+  background-color: rgba(255, 255, 255, 0.8); /* Optional: background with opacity */
+  text-align: center;
+  padding: 10px; /* Optional padding */
+  width: 80%; /* Adjust as needed */
+  border-radius: 8px; /* Rounded corners for a better look */
 }
+
 .anime-card:hover .hover-content {
-  display: block; /* Zeigt den Inhalt bei Hover */
-  text-align:center;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+  display: flex; /* Display the content on hover */
+  flex-direction: column;
+  align-items: center;
 }
+
 .anime-card:hover img {
-  opacity: 0.3; /* Dimmt das Bild bei Hover */
+  opacity: 0.3; /* Dims the image on hover */
 }
 /**/
 
