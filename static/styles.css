@@ -102,8 +102,8 @@
   
     margin-top: 1rem;
     margin-bottom: 4rem;
-    margin-left:2rem;
-    margin-right:2rem;
+    margin-left:3rem;
+    margin-right:3rem;
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* Initially 5 columns */
     gap: 20px;
