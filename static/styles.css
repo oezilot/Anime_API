@@ -9,7 +9,9 @@
 
 .div-btn {
     display: flex;
-    justify-content: space-between; /* Sorgt dafür, dass die Buttons am linken und rechten Rand sind */
+    justify-content: space-between;    /* Center the elements in the container */
+    width: 60%;                /* Full width of the parent container */
+
     position: absolute;
     bottom: 0;
     left: 18vw;
@@ -18,6 +20,8 @@
     margin-bottom: 1.5rem;
     padding: 0 10px; /* Optional, für etwas Abstand vom Rand */
 }
+
+
 
 
 .image-animes {
